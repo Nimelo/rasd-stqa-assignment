@@ -1,0 +1,51 @@
+\chapter{Hardware requirements} \label{sec:hardware_requirements}
+	Mentioned in this chapter requirements are for job controller which should be able to handle with hardware in the most optimal way.
+	
+	\section{Demands of customer}
+	\label{sec:hardware_requirements_demands}
+		The system is heterogeneous system containing:
+		\begin{itemize}
+			\item A set of "traditional" computing nodes, i.e. shared-memory multi-core CPUs;
+			\item A set of "accelerated" computing node, same as above  but with 1 or 2 attached GPUs dedicated to computations;
+			\item A set of specialized nodes, with GPUs dedicated to rendering and visualization of complex data;
+			\item A set of storage devices.
+		\end{itemize}
+		The system should manage at least $128$ nodes with at least $16$ processor cores per node.
+	
+	\section{Glossary} 
+	\label{sec:hardware_requirements_glossary}
+		The glossary for hardware requirements found this chapter is presented in Table \ref{tab:hardware_requirements_glossary}. Information stored in this table refers to section \ref{sec:hardware_requirements_demands}. Each key found in the mentioned section is described and will be used in other section in order to be consistent with terminology.
+		\begin{table}[!htbp]
+			\centering
+			\caption{Glossary for hardware requirements.}
+			\label{tab:hardware_requirements_glossary}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{Key} & \textbf{Description} \\ \hline \hline
+				Node & It's shared-memory multi-core CPU.\\ \hline
+				Computing node & It's a node used for computation. \\ \hline
+				\multirow{2}{*}{Accelerated node} &  It's a computing node with attached 1 or 2 \\ & GPUs dedicated to computations.\\ \hline
+				\multirow{2}{*}{Specialized node} & It's a traditional computing node with GPU \\& dedicated to rendering and visualization of complex data. \\ \hline \hline
+				Storage device & It's device that can store information, generally hard-drives. \\ \hline
+			\end{tabular}
+		\end{table}
+	
+	\section{List of requirements}
+		Based on the demands of customer in section \ref{sec:hardware_requirements_demands} and glossary in section \ref{sec:hardware_requirements_glossary} list of requirements was created. It is presented in Table \ref{tab:hardware_requirements_list}. 
+	
+		\begin{table}[!htbp]
+			\centering
+			\caption{Hardware requirements list.}
+			\label{tab:hardware_requirements_list}
+			\begin{tabular}[width=\textwidth]{|c|c|l|}
+				\hline
+				\textbf{Ref no.} & \textbf{Name} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline \hline
+				HRD\_1 & \textit{\textbf{Managing different types of nodes.}} & \begin{tabular}[c]{@{}l@{}}The system should manage different types of nodes:\\ traditional, accelerated and specialized.\end{tabular} \\ \hline
+				HRD\_2 & \textit{\textbf{Managing traditional nodes.}} & The system should manage traditional nodes. \\ \hline
+				HRD\_3 & \textit{\textbf{Managing of accelerated nodes.}} & The system should manage accelerated nodes. \\ \hline
+				HRD\_4 & \textit{\textbf{Managing specialized nodes.}} & The system should manage specialied nodes. \\ \hline
+				HRD\_5 & \textit{\textbf{Managing storage devices.}} & The system should manage multiple storage devices. \\ \hline
+				HRD\_6 & \textit{\textbf{Managing at least 128 nodes.}} & \begin{tabular}[c]{@{}l@{}}The system should manage at least\\ 128 different nodes.\end{tabular} \\ \hline
+				HRD\_7 & \textit{\textbf{\begin{tabular}[c]{@{}c@{}}Managing nodes with at least \\ 16 processors cores.\end{tabular}}} & \begin{tabular}[c]{@{}l@{}}The system should manage nodes with \\ at least 16 processor cores.\end{tabular} \\ \hline
+			\end{tabular}
+		\end{table}
