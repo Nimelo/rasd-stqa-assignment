@@ -1,0 +1,54 @@
+\chapter{User requirements} \label{sec:user_requirements}
+	Mentioned in this chapter requirements are related to users in a system. User can have many users, which should be able to work simultaneously. Users are in groups and have different sizes.
+	
+	\section{Demands of customer}
+	\label{sec:user_requirements_demands}
+		The users of the system can be classified as:
+		\begin{itemize}
+			\item IT support;
+			\item Researchers;
+			\item Students;
+		\end{itemize}
+		Researchers are divided into groups, according to the department structure, where each group has an allocation of resources, but individual researchers may have grants entitling them to additional resource usage.
+		
+		Students are grouped by the curriculum they are enrolled in, and all students have a cap on the maximum usable resources, both cumulative and instantaneous, which may depend on their group.
+	
+	\section{Glossary} 
+	\label{sec:user_requirements_glossary}
+		The glossary for user requirements in this chapter is presented in Table \ref{tab:user_requirements_glossary}. Information stored in this table refers to section \ref{sec:user_requirements_demands}. Each key found in the mentioned section is described and will be used in other section in order to be consistent with terminology.
+		\begin{table}[!htbp]
+			\centering
+			\caption{Glossary for user requirements.}
+			\label{tab:user_requirements_glossary}
+			\begin{tabular}{|l|l|}
+				\hline
+				\textbf{Key} & \textbf{Description} \\ \hline \hline
+				It support member & Actor in the system. \\ \hline
+				Researcher & Actor in the system. \\ \hline
+				Student & Actor in the system. \\ \hline
+				Resources & Resources to be understood as an access to:\\& nodes; cores; storage and machine time.\\ \hline
+				Grant & Entitles actor of a system to additional resource usage. \\ \hline
+			\end{tabular}
+		\end{table}
+	
+	\section{List of requirements}
+		Based on the demands of customer in section \ref{sec:user_requirements_demands} and glossary in section \ref{sec:user_requirements_glossary} list of requirements was created. It is presented in Table \ref{tab:user_requirements_list}. 
+	
+		\begin{table}[!htbp]
+			\centering
+			\caption{User requirements list.}
+			\label{tab:user_requirements_list}
+			\begin{tabular}[width=\textwidth]{|c|c|l|}
+				\hline
+				\textbf{Ref no.} & \textbf{Name} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline \hline
+				USR\_1 & \textit{\textbf{Researchers are divided into groups.}} & \begin{tabular}[c]{@{}l@{}}Each researcher is grouped according to \\department structure. Should be in a group.\end{tabular} \\ \hline
+				USR\_2 & \textit{\textbf{Researcher group has a limit of resources.}} & \begin{tabular}[c]{@{}l@{}}Each group has different permissions connected \\ with available resources in a system.\end{tabular} \\ \hline
+				USR\_3 & \textit{\textbf{Researcher can have additional permissions.}} & \begin{tabular}[c]{@{}l@{}}Particular researcher can have grant, which\\ gives more resources to usage.\end{tabular} \\ \hline \hline
+				USR\_4 & \textit{\textbf{Students are grouped by enrolled programs.}} & \begin{tabular}[c]{@{}l@{}}Each student has to be in a group, corresponded \\ to the program.\end{tabular} \\ \hline
+				USR\_5 & \textit{\textbf{Student have a cap on resources.}} & \begin{tabular}[c]{@{}l@{}}Each student have a cap on maximum usable \\ resources. Both cumulative and instantaneous, \\ which may depend on their group.\end{tabular} \\ \hline
+				USR\_6 & \textit{\textbf{Student groups have limits for single use.}} & \begin{tabular}[c]{@{}l@{}}Instantaneous cap are correlated with student \\ groups.\end{tabular} \\ \hline
+				USR\_7 & \textit{\textbf{Student groups have limits per usages.}} & \begin{tabular}[c]{@{}l@{}}Cumulative cap are correlated with student \\ groups.\end{tabular} \\ \hline
+			\end{tabular}
+		\end{table}
+	
+		Allocation of resources for research groups should be understood as continuous access to some amount of processors and storage in the system. Resources are shared between group, which means that if one of the researchers uses all research, no one of the rest can use it in the same time. A difference between student and research group is that for first one has allocation of resources and the second one has restrictions, caps and limits. The common parts are instantaneous limits, i.e. limit of processors per usage.
