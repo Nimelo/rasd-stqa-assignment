@@ -1,0 +1,69 @@
+\chapter{Scheduler requirements} \label{sec:scheduler_requirements}
+	Mentioned in this chapter requirements are related to scheduling in a system. Users can submit many jobs in a different queues. The role of a scheduling system is to optimally use resources, which can be understood as minimizing waiting time or maximize utilization. 
+	
+	\section{Demands of customer}
+	\label{sec:scheduler_requirements_demands}
+		The system shall match job requests to resources; there will be different classes of jobs for different uses, e.g. short, medium, long running, interactive, etc. The job requests should be serviced in an order established by an auxiliary algorithm called a scheduler; for the purposes of this exercise, a first-come first-served approach is acceptable, even though in a real computing center more sophisticated algorithms would need to be employed. In particular, the system should be used "optimally" in a sense to be clarified, bearing in mind that different stakeholders may have different optimality criteria; for instance, users want to minimize waiting time, whereas system administrator have to maximize utilization. The university IT department needs a simulation tool to model the behavior of the computing platform and to establish good accounting practices. The policy constraints are:
+		\begin{itemize}
+			\item
+			{
+				 There are at least four different job queues:
+				 \begin{enumerate}
+				 	\item Short, interactive jobs that can take up to $2$ nodes for no more than 1 hour; a certain subset (say $10\%$) of the machine must be reserved for this queue;
+				 	\item Medium-sized jobs that can take up to $10\%$ of the total number of cores, and can last up to $8$ hours; another subset (say $30\%$) of the machine must be reserved for this queue;
+				 	\item Large jobs, that can take up to $16$ hours and up to $50\%$ of the total core count;
+				 	\item Huge, active only from $0500pm$ Friday to $0900am$ Monday, where the jobs can potentially reserve the whole machine. During there times the other job queues do not serve requests.
+				 \end{enumerate}
+			}
+			\item Each job queue has associated a cost for number of machine-hours requested.
+			\item Each job will request a certain number of processor cores for a certain amount of time. For the sake of simplicity you can assume that, at any given time, the queuing software will grant access under a first-come first-served basis, up to available capacity of the machine.
+			\item At the end of the week, there will be a cutoff time such that no new jobs will start if their estimated completion time will go beyond the end of the work week (thereby leaving the machine free for the weekend queue).
+		\end{itemize}
+		
+		
+	\section{Glossary} 
+	\label{sec:scheduler_requirements_glossary}
+		The glossary for user requirements in this chapter is presented in Table \ref{tab:scheduler_requirements_glossary}. Information stored in this table refers to section \ref{sec:scheduler_requirements_demands}. Each key found in the mentioned section is described and will be used in other section in order to be consistent with terminology.
+		\begin{table}[!htbp]
+			\centering
+			\caption{Glossary for scheduler requirements.}
+			\label{tab:scheduler_requirements_glossary}
+			\begin{tabular}{|l|l|}
+				\hline
+				\textbf{Key} & \textbf{Description} \\ \hline \hline
+				Job & A task submitted by a user to a system. \\ \hline
+				Reserved resources & Resources reserved for a specific queuing in the system.\\ \hline
+				Cutoff time & \begin{tabular}[c]{@{}l@{}}Time which doesn't allow a new jobs to execute if their \\ execution time would exceed start of a weekend.\end{tabular}\\ \hline
+			\end{tabular}
+		\end{table}
+	
+	\section{List of requirements}
+		Based on the demands of customer in section \ref{sec:scheduler_requirements_demands} and glossary in section \ref{sec:scheduler_requirements_glossary} list of requirements was created. It is presented in Table \ref{tab:scheduler_requirements_list}. Requirements from this chapter are partially formed for simulator needs. There are many assumptions in demands of customer -- University. Some of the demands are super precise, which makes the system less flexible for changes.
+	
+		\begin{table}[!htbp]
+			\centering
+			\caption{Scheduler requirements list.}
+			\label{tab:scheduler_requirements_list}
+			\begin{tabular}[width=\textwidth]{|c|c|l|}
+				\hline
+				\textbf{Ref no.} & \textbf{Name} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline \hline
+				SCR\_1 & \textit{\textbf{Scheduler serving approach.}} & \begin{tabular}[c]{@{}l@{}}Scheduler can use firs-come first-served approach.\end{tabular} \\ \hline
+				SCR\_2 & \textit{\textbf{The system should be used optimally.}} & \begin{tabular}[c]{@{}l@{}}System should minimize or maximize some criteria \\ in order to be optimal.\end{tabular} \\ \hline
+				SCR\_3 & \textit{\textbf{Four job queues.}} & \begin{tabular}[c]{@{}l@{}}There are four different job queues.\end{tabular} \\ \hline \hline
+				SCR\_4 & \textit{\textbf{Short job queue.}} & \begin{tabular}[c]{@{}l@{}}There is an interactive short job queue.\end{tabular} \\ \hline
+				SCR\_4\_A & \textit{\textbf{Short job queue restrictions.}} & \begin{tabular}[c]{@{}l@{}}Job can take up to 2 nodes for no more than 1 hour.\end{tabular} \\ \hline
+				SCR\_4\_B & \textit{\textbf{Short job queue reservations.}} & \begin{tabular}[c]{@{}l@{}}Subset of $10\%$ should be reserved for this queue. \end{tabular} \\ \hline \hline
+				SCR\_5 & \textit{\textbf{Medium-sized (MS) job queue.}} & \begin{tabular}[c]{@{}l@{}}There is a medium-sized job queue.\end{tabular} \\ \hline
+				SCR\_6\_A & \textit{\textbf{MS job queue restrictions.}} & \begin{tabular}[c]{@{}l@{}} Job can take up to $10\%$ of the total number of cores \\ for no more than 8 hours.\end{tabular} \\ \hline
+				SCR\_6\_B & \textit{\textbf{MS job queue reservations.}} & \begin{tabular}[c]{@{}l@{}}Subset of $30\%$ of the machine should be reserved \\ for this queue.\end{tabular} \\ \hline \hline
+				SCR\_7 & \textit{\textbf{Large job queue.}} & \begin{tabular}[c]{@{}l@{}}There is a large job queue in a system.\end{tabular} \\ \hline
+				SCR\_7\_A & \textit{\textbf{Large job queue restrictions.}} & \begin{tabular}[c]{@{}l@{}}Job can take up to 6 hours and consume $50\%$ of \\ total core count.\end{tabular} \\ \hline \hline
+				SCR\_8 & \textit{\textbf{Huge job queue.}} & \begin{tabular}[c]{@{}l@{}}There is a huge job queue in the system.\end{tabular} \\ \hline
+				SCR\_8\_A & \textit{\textbf{Huge job queue restrictions.}} & \begin{tabular}[c]{@{}l@{}}This queue works from $0500pm$ Friday to $0900am$ \\ Monday, where the jobs can potentially reserve \\ the whole machine.\end{tabular} \\ \hline
+				SCR\_8\_B & \textit{\textbf{Huge job queue uniqueness.}} & \begin{tabular}[c]{@{}l@{}}During working time of this queue other queues \\ don't work.\end{tabular} \\ \hline \hline
+				SCR\_9 & \textit{\textbf{Associated cost.}} & \begin{tabular}[c]{@{}l@{}}Each of queue in the system has associated cost \\ based on requested machine-hours.\end{tabular} \\ \hline
+				SCR\_10 & \textit{\textbf{Requesting number of processors core.}} & \begin{tabular}[c]{@{}l@{}}At any given time, the queuing software will grant \\ access under a FCFS basis, up to available capacity \\ of the machine.\end{tabular} \\ \hline
+				SCR\_11 & \textit{\textbf{Cutoff time.}} & \begin{tabular}[c]{@{}l@{}}No new jobs will start if their estimated completion \\ time will go beyond the end of the work week \\ (SCR\_8\_A).\end{tabular} \\ \hline
+			\end{tabular}
+		\end{table}
+	
