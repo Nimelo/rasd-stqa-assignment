@@ -20,6 +20,7 @@
 \input{settings/commands.tex}
 \usepackage{listings}
 \usepackage{underscore}
+\setcounter{secnumdepth}{5}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -223,36 +224,197 @@ product by system features, the major services provided by the product. You may
 prefer to organize this section by use case, mode of operation, user class, 
 object class, functional hierarchy, or combinations of these, whatever makes the 
 most logical sense for your product.$>$
+
+
+% HARDWARE FEATURES
 \section{Hardware features}
-Mentioned in this chapter features are related to the lowest layer of supercomputer, which in short describes of what components should be managed by system.
 
 \subsection{Description and Priority}
-$<$Provide a short description of the feature and indicate whether it is of 
-High, Medium, or Low priority. You could also include specific priority 
-component ratings, such as benefit, penalty, cost, and risk (each rated on a 
-relative scale from a low of 1 to a high of 9).$>$
+%{Provide a short description of the feature and indicate whether it is of 
+%High, Medium, or Low priority. You could also include specific priority 
+%component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+%relative scale from a low of 1 to a high of 9).
 
-\subsection{Stimulus/Response Sequences}
-$<$List the sequences of user actions and system responses that stimulate the 
-behavior defined for this feature. These will correspond to the dialog elements 
-associated with use cases.$>$
+Mentioned in this chapter features are related to the lowest layer of supercomputer, which in short describes of what components should be managed by a system. Features of this type have a really high priority, because they determine the supercomputer as a whole. Mentioned requirements stands for a hearth of a supercomputer and system. Glossary for this feature is in appendix \ref{app:glossary:hardware}.
+
+%\subsection{Stimulus/Response Sequences}
+%$<$List the sequences of user actions and system responses that stimulate the 
+%behavior defined for this feature. These will correspond to the dialog elements 
+%associated with use cases.$>$
 
 \subsection{Functional Requirements}
-$<$Itemize the detailed functional requirements associated with this feature.  
-These are the software capabilities that must be present in order for the user 
-to carry out the services provided by the feature, or to execute the use case.  
-Include how the product should respond to anticipated error conditions or 
-invalid inputs. Requirements should be concise, complete, unambiguous, 
-verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
-information is not yet available.$>$
+%$<$Itemize the detailed functional requirements associated with this feature.  
+%These are the software capabilities that must be present in order for the user 
+%to carry out the services provided by the feature, or to execute the use case.  
+%Include how the product should respond to anticipated error conditions or 
+%invalid inputs. Requirements should be concise, complete, unambiguous, 
+%verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+%information is not yet available.$>$
 
-$<$Each requirement should be uniquely identified with a sequence number or a 
-meaningful tag of some kind.$>$
+%$<$Each requirement should be uniquely identified with a sequence number or a 
+%meaningful tag of some kind.$>$
+Subsections below are a list of a requirements related to the hardware feature.
+Requirements extracted from user demands:
+\begin{itemize}
+	\item
+	{
+		\textbf{HRD-1} -- The system should manage different types of nodes: traditional, accelerated and specialized.	
+	}
+	\item
+	{
+		\textbf{HRD-2} -- The system should manage traditional nodes.
+	}
+	\item
+	{
+		\textbf{HRD-3} -- The system should manage accelerated nodes.
+	}
+	\item
+	{
+		\textbf{HRD-4} -- The system should manage specialized nodes.
+	}
+	\item
+	{
+		\textbf{HRD-5} -- The system should manage multiple storage devices.
+	}
+	\item
+	{
+		\textbf{HRD-6} -- The system should manage at least $128$ different nodes.
+	}
+	\item
+	{
+		\textbf{HRD-7} -- The system should manage nodes with at least $16$ processor cores.
+	}
+\end{itemize}
 
-REQ-1:	REQ-2:
+% END OF HARDWARE FEATURES
 
-\section{System Feature 2 (and so on)}
+% USER FEATURES
+\section{User features}
 
+\subsection{Description and Priority}
+%{Provide a short description of the feature and indicate whether it is of 
+%High, Medium, or Low priority. You could also include specific priority 
+%component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+%relative scale from a low of 1 to a high of 9).
+Mentioned in this chapter requirements are related to the users in a supercomputer system. System distinguish some type of users, which are differently accounted. Each of users can have different permissions. Users can be connected and gathered in a groups, which can have a permissions. 
+Glossary for this feature is in appendix \ref{app:glossary:user}.
+
+\subsection{Stimulus/Response Sequences}
+%$<$List the sequences of user actions and system responses that stimulate the 
+%behavior defined for this feature. These will correspond to the dialog elements 
+%associated with use cases.$>$
+Requirements in this chapter are related to the structure of users using supercomputer. Some of requirements were extracted from the customer demands, but the other part had to be found during requirement analysis.
+\subsection{Functional Requirements}
+%$<$Itemize the detailed functional requirements associated with this feature.  
+%These are the software capabilities that must be present in order for the user 
+%to carry out the services provided by the feature, or to execute the use case.  
+%Include how the product should respond to anticipated error conditions or 
+%invalid inputs. Requirements should be concise, complete, unambiguous, 
+%verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+%information is not yet available.$>$
+
+%$<$Each requirement should be uniquely identified with a sequence number or a 
+%meaningful tag of some kind.$>$
+Subsections below are a list of a requirements related to the hardware feature.
+Requirements extracted from user demands:
+\begin{itemize}
+	\item
+	{
+		\textbf{USR-1} -- Each researcher is grouped according to department structure. Should be in a group.
+	}
+	\item
+	{
+		\textbf{USR-2} -- Each researcher group has different permissions connected with available resources in a system (Has a limit on resources).
+	}
+	\item
+	{
+		\textbf{USR-3} -- particular researcher can have a grant, which gives more resources to usage (Gives additional permissions).
+	}
+	\item
+	{
+		\textbf{USR-4} -- Students are grouped by enrolled programs. Student has to be in a group.
+	}
+	\item
+	{
+		\textbf{USR-5} -- Each student has a cp on maximum usable resources. Both cumulative and instantaneous, which may depend on their group. Look at requirements \textbf{USR-6} and \textbf{USR-7}.
+	}
+	\item
+	{
+		\textbf{USR-6} -- Instantaneous cap is correlated with student groups. It describes how many processors, nodes student can use at once (single use).
+	}
+	\item
+	{
+		\textbf{USR-7} -- Cumulative cap is correlated with a student group. It gives an information about cumulative usage of a supercomputer in range of dates, for example student can only use machine for $8h$ monthly.
+	}
+\end{itemize}
+
+	Allocation of resource for research groups should be understood as continuous access to some amount of processors and storage in the system. Resources are shared between group, which means that if one of the researchers uses all resources, no on of the rest can use it in the same time. A difference between student and research group is that: firstly allocation of resources and secondly restrictions, caps and limits. The common parts are instantaneous limits, i.e. limits of processors per usage.
+	
+Requirement extracted during analysis:
+\begin{itemize}
+	\item
+	{
+		\textbf{USR-A-1} -- Only IT supporter should be able to manage structure of users in a system.
+	}
+	\item
+	{
+		\textbf{USR-A-2} -- IT supporter should be able to create a research group.
+	}
+	\item
+	{
+		\textbf{USR-A-3} -- IT supporter should be able to modify a research group.
+	}
+	\item
+	{
+		\textbf{USR-A-4} -- IT supporter should be able to delete a research group.
+	}
+	\item
+	{
+		\textbf{USR-A-5} -- It supporter should be able to add permissions to a research group.
+	}
+	\item
+	{
+		\textbf{USR-A-6} -- IT supporter should be able to add allocation of resources to a research group.
+	}
+	\item
+	{
+		\textbf{USR-A-7} -- IT supporter should be able to add users to a research group.
+	}
+	\item
+	{
+		\textbf{USR-A-8} -- IT supporter should be able to add user to a system.
+	}
+	\item
+	{
+		\textbf{USR-A-9} -- IT supporter should be able to modify user permissions (grants).
+	}
+	\item
+	{
+		\textbf{USR-A-10} -- IT supporter should be able to create student group.
+	}
+	\item
+	{
+		\textbf{USR-A-11} -- IT supporter should be able to add permissions to a student group.
+	}
+	\item
+	{
+		\textbf{USR-A-12} -- IT supporter should be able to add restrictions (caps) to a student group.
+	}
+	\item
+	{
+		\textbf{USR-A-13} -- IT supporter should be able to add members to a student group.
+	}
+	\item
+	{
+		\textbf{USR-A-14} -- IT supporter should be able to remove members from a student group.
+	}
+	\item
+	{
+		\textbf{USR-A-15} -- IT supporter should be able to remove members from a research group.
+	}
+\end{itemize}
+	During the analysis found a incoherence about the amount of resources in the system connected to the single user. In consequences assumption were made as follows: if user is in a multiple groups (in terms of research of student groups) his account balance is added, in other words user would be able to use all permissions and all balances from all groups that he belongs into. Restrictions to the users are based on the student group only so, if user belongs to multiple groups the restriction is applied only in terms of a group that he use for submitting the job to the system.
+% END OF USER FEATURES
 
 \chapter{Other Nonfunctional Requirements}
 
@@ -309,6 +471,52 @@ acronyms and abbreviations. You may wish to build a separate glossary that spans
 multiple projects or the entire organization, and just include terms specific to 
 a single project in each SRS.$>$
 
+\subsection{Hardware Glossary} \label{app:glossary:hardware}
+	\begin{table}[!htbp]
+		\centering
+		\caption{Glossary for hardware requirements.}
+		\label{tab:hardware_requirements_glossary}
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Key} & \textbf{Description} \\ \hline \hline
+			Node & It's shared-memory multi-core CPU.\\ \hline
+			Computing node & It's a node used for computation. \\ \hline
+			\multirow{2}{*}{Accelerated node} &  It's a computing node with attached 1 or 2 \\ & GPUs dedicated to computations.\\ \hline
+			\multirow{2}{*}{Specialized node} & It's a traditional computing node with GPU \\& dedicated to rendering and visualization of complex data. \\ \hline \hline
+			Storage device & It's device that can store information, generally hard-drives. \\ \hline
+		\end{tabular}
+	\end{table}
+\clearpage
+\subsection{User Glossary} \label{app:glossary:user}
+	\begin{table}[!htbp]
+		\centering
+		\caption{Glossary for user requirements.}
+		\label{tab:user_requirements_glossary}
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{Key} & \textbf{Description} \\ \hline \hline
+			It support member & Actor in the system. \\ \hline
+			Researcher & Actor in the system. \\ \hline
+			Student & Actor in the system. \\ \hline
+			Resources & Resources to be understood as an access to:\\& nodes; cores; storage and machine time.\\ \hline
+			Grant & Entitles actor of a system to additional resource usage. \\ \hline
+		\end{tabular}
+	\end{table}
+\clearpage
+\subsection{Job Control Glossary} \label{app:glossary:job}
+	\begin{table}[!htbp]
+		\centering
+		\caption{Glossary for scheduler requirements.}
+		\label{tab:scheduler_requirements_glossary}
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{Key} & \textbf{Description} \\ \hline \hline
+			Job & A task submitted by a user to a system. \\ \hline
+			Reserved resources & Resources reserved for a specific queuing in the system.\\ \hline
+			Cutoff time & \begin{tabular}[c]{@{}l@{}}Time which doesn't allow a new jobs to execute if their \\ execution time would exceed start of a weekend.\end{tabular}\\ \hline
+		\end{tabular}
+	\end{table}
+\clearpage
 \section{Appendix B: Analysis Models}
 $<$Optionally, include any pertinent analysis models, such as data flow 
 diagrams, class diagrams, state-transition diagrams, or entity-relationship 
