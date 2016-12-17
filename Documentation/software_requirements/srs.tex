@@ -225,7 +225,7 @@ prefer to organize this section by use case, mode of operation, user class,
 object class, functional hierarchy, or combinations of these, whatever makes the 
 most logical sense for your product.$>$
 
-
+\chapter{Supercomputer features}
 % HARDWARE FEATURES
 \section{Hardware features}
 
@@ -289,7 +289,7 @@ Requirements extracted from user demands:
 % END OF HARDWARE FEATURES
 
 % USER FEATURES
-\section{User features}
+\section{User features} \label{sec:uf}
 
 \subsection{Description and Priority}
 %{Provide a short description of the feature and indicate whether it is of 
@@ -315,7 +315,7 @@ Requirements in this chapter are related to the structure of users using superco
 
 %$<$Each requirement should be uniquely identified with a sequence number or a 
 %meaningful tag of some kind.$>$
-Subsections below are a list of a requirements related to the hardware feature.
+Subsections below are a list of a requirements related to the user feature.
 Requirements extracted from user demands:
 \begin{itemize}
 	\item
@@ -345,6 +345,10 @@ Requirements extracted from user demands:
 	\item
 	{
 		\textbf{USR-7} -- Cumulative cap is correlated with a student group. It gives an information about cumulative usage of a supercomputer in range of dates, for example student can only use machine for $8h$ monthly.
+	}
+	\item
+	{
+		\textbf{USR-8} -- Students and researchers can submit tasks/jobs to the system according to their privileges and restrictions.
 	}
 \end{itemize}
 
@@ -416,6 +420,222 @@ Requirement extracted during analysis:
 	During the analysis found a incoherence about the amount of resources in the system connected to the single user. In consequences assumption were made as follows: if user is in a multiple groups (in terms of research of student groups) his account balance is added, in other words user would be able to use all permissions and all balances from all groups that he belongs into. Restrictions to the users are based on the student group only so, if user belongs to multiple groups the restriction is applied only in terms of a group that he use for submitting the job to the system.
 % END OF USER FEATURES
 
+% JOB CONTROLLER FEATURES
+
+\section{Job controller features} \label{sec:jcf}
+
+\subsection{Description and Priority}
+%{Provide a short description of the feature and indicate whether it is of 
+%High, Medium, or Low priority. You could also include specific priority 
+%component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+%relative scale from a low of 1 to a high of 9).
+Features described in this chapter relate to basic properties of a job controller. Only general requirements are mentioned here, more detailed properties and features are presented in next chapter, which discuss scheduling algorithm. Glossary for this feature is in appendix \ref{app:glossary:job}.
+
+\subsection{Stimulus/Response Sequences}
+%$<$List the sequences of user actions and system responses that stimulate the 
+%behavior defined for this feature. These will correspond to the dialog elements 
+%associated with use cases.$>$
+All the requirements for this chapter require a submission of a job to the system. After committing chain of action is performed in order to serve in the best and most optimal way.
+\subsection{Functional Requirements}
+%$<$Itemize the detailed functional requirements associated with this feature.  
+%These are the software capabilities that must be present in order for the user 
+%to carry out the services provided by the feature, or to execute the use case.  
+%Include how the product should respond to anticipated error conditions or 
+%invalid inputs. Requirements should be concise, complete, unambiguous, 
+%verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+%information is not yet available.$>$
+
+%$<$Each requirement should be uniquely identified with a sequence number or a 
+%meaningful tag of some kind.$>$
+Subsections below are a list of a requirements related to the job control feature.
+Requirements extracted from user demands:
+\begin{itemize}
+	\item
+	{
+		\textbf{JBC-1} -- The system should match job requests to resources. Automatic detection will be made which will classify a job to a proper and most suitable class of job.
+	}
+	\item
+	{
+		\textbf{JBC-2} -- The system should support different class of jobs for different uses, e.g. short, medium, long running, interactive, etc. Those classes relates to hardware and usage of time.
+	}
+	\item
+	{
+		\textbf{JBC-3} -- The job request should be serviced in an order established by an auxiliary algorithm called a scheduler. This algorithm should work in a first-come firs-served approach (FCFS).
+	}
+	\item
+	{
+		\textbf{JBC-4} -- The system should be used optimally by minimizing waiting time or maximization of utilization.
+	}
+\end{itemize}
+
+% END JOB CONTROLLER FEATURES
+
+\chapter{Simulator features}
+% SCHEDULER FEATURES
+
+\section{Scheduler features}
+
+\subsection{Description and Priority}
+%{Provide a short description of the feature and indicate whether it is of 
+%High, Medium, or Low priority. You could also include specific priority 
+%component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+%relative scale from a low of 1 to a high of 9).
+Requirements in this chapter are specification of a scheduler algorithm mentioned in requirement \textbf{JBC-3}. Glossary for this feature is in appendix \ref{app:glossary:job}.
+
+\subsection{Stimulus/Response Sequences}
+%$<$List the sequences of user actions and system responses that stimulate the 
+%behavior defined for this feature. These will correspond to the dialog elements 
+%associated with use cases.$>$
+All the actions which are mentioned in this chapter are stimulated by an internal set of action, related to the the interior of a system, which is purely closed from the outside as it should be in terms of the scheduler algorithm. 
+\subsection{Functional Requirements}
+%$<$Itemize the detailed functional requirements associated with this feature.  
+%These are the software capabilities that must be present in order for the user 
+%to carry out the services provided by the feature, or to execute the use case.  
+%Include how the product should respond to anticipated error conditions or 
+%invalid inputs. Requirements should be concise, complete, unambiguous, 
+%verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+%information is not yet available.$>$
+
+%$<$Each requirement should be uniquely identified with a sequence number or a 
+%meaningful tag of some kind.$>$
+Subsections below are a list of a requirements related to the scheduler algorithm feature.
+Requirements extracted from user demands:
+\begin{itemize}
+	\item
+	{
+		\textbf{SCH-1} -- There are four different job queues in system. Take a look at req. \textbf{SCH-S}, \textbf{SCH-MS}, \textbf{SCH-L} and \textbf{SCH-H}.
+	}
+	\item
+	{
+		\textbf{SCH-2} -- Each of queues in the system has associated cost based on requested machine-hours.
+	}
+	\item
+	{
+		\textbf{SCH-3} -- The jobs request for a certain number of processor cores for a certain amount of time.
+	}
+	\item
+	{
+		\textbf{SCH-4} -- Jobs should be served up to the available capacity of the machine under first-come first-served approach (\textbf{JBC-3}).
+	}
+	\item
+	{
+		\textbf{SCH-5} -- There is a cutoff time at the end of the week, which doesn't allow other job to start their execution if the estimated end time of the job will go beyond the end of a the work week (\textbf{JBC-H-1}).
+	}
+	\item
+	{
+		\textbf{JBC-S} -- There is an interactive short job queue.
+	}
+	\item
+	{
+		\textbf{JBC-S-1} -- Short job queue can take up to $2$ nodes for no more than $1$ hour.
+	}
+	\item
+	{
+		\textbf{JBC-S-2} -- Short job queue should reserve a subset of $10\%$ of a supercomputer resources.
+	}
+	\item
+	{
+		\textbf{JBC-MS} -- There is a medium-sized job queue.
+	}
+	\item
+	{
+		\textbf{JBC-MS-1} -- Medium-sized queue job can take up to $10\%$ of a total number of cores for no more than $8$ hours.
+	}
+	\item
+	{
+		\textbf{JBC-MS-2} -- Medium-sized queue job should reserve $30\%$ of a supercomputer resources.
+	}
+	\item
+	{
+		\textbf{JBC-L} -- There is a large job queue in a system.
+	}
+	\item
+	{
+		\textbf{JBC-L-1} -- Large job queue can take up to $6$ hours and consume $50\%$ of total core count.
+	}
+	\item
+	{
+		\textbf{JBC-H} -- There is a huge job queue in a system.
+	}
+	\item
+	{
+		\textbf{JBC-H-1} -- Huge job queue works from $0500pm$ Friday to $0900am$ Monday, where the jobs can potentially reserve the whole machine.
+	}
+	\item
+	{
+		\textbf{JBC-H-2} -- When huge job queue works other queues don't work.
+	}
+\end{itemize}
+	From \textbf{SCH-5}, \textbf{JBC-H-1} and \textbf{JBC-H-2} an additional requirements have been found. The new jobs submitted to the system during cutoff time or during weekend work time should be stored in a queue up to overflow of a buffer, which can be set by IT supporter arbitrarily for each queue. After overflowing the buffer new jobs won't be stored in a queue, they will be disbanded.
+% END SCHEDULER FEATURES
+
+% ACCOUNTING AND USERS MODEL FEATURES
+\section{Accounting and users features}
+
+\subsection{Description and Priority}
+%{Provide a short description of the feature and indicate whether it is of 
+%High, Medium, or Low priority. You could also include specific priority 
+%component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+%relative scale from a low of 1 to a high of 9).
+
+\subsection{Stimulus/Response Sequences}
+%$<$List the sequences of user actions and system responses that stimulate the 
+%behavior defined for this feature. These will correspond to the dialog elements 
+%associated with use cases.$>$
+Mentioned in this section requirements are specialization of a general requirements in from sections \ref{sec:uf} and \ref{sec:jcf}. 
+\subsection{Functional Requirements}
+%$<$Itemize the detailed functional requirements associated with this feature.  
+%These are the software capabilities that must be present in order for the user 
+%to carry out the services provided by the feature, or to execute the use case.  
+%Include how the product should respond to anticipated error conditions or 
+%invalid inputs. Requirements should be concise, complete, unambiguous, 
+%verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+%information is not yet available.$>$
+
+%$<$Each requirement should be uniquely identified with a sequence number or a 
+%meaningful tag of some kind.$>$
+Subsections below are a list of a requirements related to the accounting and user features for simulator.
+Requirements extracted from user demands:
+\begin{itemize}
+	\item
+	{
+		\textbf{AUSR-1} -- The machine can be assumed to have a constant operational cost per hour.
+	}
+	\item
+	{
+		\textbf{AUSR-2} -- Users are modeled as producers of request.
+	}
+	\item
+	{
+		\textbf{AUSR-3} -- Each user have a certain budget.
+	}
+	\item
+	{
+		\textbf{AUSR-4} -- The distribution of user requests should provide examples of jobs in all categories.
+	}
+	\item
+	{
+		\textbf{AUSR-5} -- The number of users can be varied from one simulation run to the next.
+	}
+	\item
+	{
+		\textbf{AUSR-6} -- The budget of the users can vary from one simulation run to the next.
+	}
+	\item
+	{
+		\textbf{AUSR-7} -- There can be mixes of class small, medium and big users. Which means that each of those class will be parametrized. 
+	}
+	\item
+	{
+		\textbf{AUSR-8} -- Each user will produce requests. 
+	}
+	\item
+	{
+		\textbf{AUSR-9} -- The time between any two successive job requests and the size of the request (withing the user class) shall be modeled by an exponential probability distribution, with parameters dependent on the class of user.
+	}
+\end{itemize}
+
+% END ACCOUNTING AND USERS MODEL FEATURES
 \chapter{Other Nonfunctional Requirements}
 
 \section{Performance Requirements}
