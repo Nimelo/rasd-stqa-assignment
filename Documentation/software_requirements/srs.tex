@@ -697,27 +697,34 @@ Requirements extracted from user demands should return following values and info
 \chapter{Other Nonfunctional Requirements}
 
 \section{Performance Requirements}
-$<$If there are performance requirements for the product under various 
-circumstances, state them here and explain their rationale, to help the 
-developers understand the intent and make suitable design choices. Specify the 
-timing relationships for real time systems. Make such requirements as specific 
-as possible. You may need to state performance requirements for individual 
-functional requirements or features.$>$
+%$<$If there are performance requirements for the product under various 
+%circumstances, state them here and explain their rationale, to help the 
+%developers understand the intent and make suitable design choices. Specify the 
+%timing relationships for real time systems. Make such requirements as specific 
+%as possible. You may need to state performance requirements for individual 
+%functional requirements or features.$>$
 
 \section{Safety Requirements}
-$<$Specify those requirements that are concerned with possible loss, damage, or 
-harm that could result from the use of the product. Define any safeguards or 
-actions that must be taken, as well as actions that must be prevented. Refer to 
-any external policies or regulations that state safety issues that affect the 
-product’s design or use. Define any safety certifications that must be 
-satisfied.$>$
+%$<$Specify those requirements that are concerned with possible loss, damage, or 
+%harm that could result from the use of the product. Define any safeguards or 
+%actions that must be taken, as well as actions that must be prevented. Refer to 
+%any external policies or regulations that state safety issues that affect the 
+%product’s design or use. Define any safety certifications that must be 
+%satisfied.$>$
+
+The crash of the supercomputer system can have a really big impact of the user spent-time, because let's say a job submitted to the system calculates for relatively long time, which in terms of stopped system means that all the performed calculations and actions will be invalid and time spent on it will be wasted. Theres should be introduced first of all system which will be able to dump actual memory sectors for each node to the external storage, which will be one of the way to prevent this kind of situation. The second action should be introduction of a uninterruptible power supply (UPS) to ensure enough time to save temporary results to hard drives and shut down system in a normal way. All the actions performed in a system should be preceded by credentials check or 2--step verification.
+	
+In terms of simulation tool there are no safety requirements so far, because it's just a simulation, which bases on fake, artificially prepared data without any connection to real users or data.
 
 \section{Security Requirements}
-$<$Specify any requirements regarding security or privacy issues surrounding use 
-of the product or protection of the data used or created by the product. Define 
-any user identity authentication requirements. Refer to any external policies or 
-regulations containing security issues that affect the product. Define any 
-security or privacy certifications that must be satisfied.$>$
+%$<$Specify any requirements regarding security or privacy issues surrounding use 
+%of the product or protection of the data used or created by the product. Define 
+%any user identity authentication requirements. Refer to any external policies or 
+%regulations containing security issues that affect the product. Define any 
+%security or privacy certifications that must be satisfied.$>$
+In supercomputer system a chunk of actions can be performed only be a certain users. A good example of this is managing of groups and users in the system, which can be performed only be IT supporters. Each of those kind of actions should check the permissions of the users, who performs this action. Users, who can submit job, should have a isolated in a sand-boxed fashion. In details each user should be able to see and manage only his data and  his/her tasks/jobs. The next crucial requirements is to correctly manage a account balance of the users.
+
+In terms of simulation tools only last requirements should be considered, because rest of them all unused in a process of simulation.
 
 \section{Software Quality Attributes}
 $<$Specify any additional quality characteristics for the product that will be 
