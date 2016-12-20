@@ -84,18 +84,23 @@
 \chapter{Introduction}
 
 \section{Purpose}
-$<$Identify the product whose software requirements are specified in this 
-document, including the revision or release number. Describe the scope of the 
-product that is covered by this SRS, particularly if this SRS describes only 
-part of the system or a single subsystem.$>$
+%$<$Identify the product whose software requirements are specified in this 
+%document, including the revision or release number. Describe the scope of the 
+%product that is covered by this SRS, particularly if this SRS describes only 
+%part of the system or a single subsystem.$>$
+For purposes of assignment University is in the process of acquiring a new supercomputer to support
+research activities. This task requires a proper hardware, safe accessibility of the user and smart scheduler
+for managing submitted jobs. In terms of this process university requires a simulation tool to model the behavior of the computing platform and to establish good accounting practices. 
+
+In chapter \ref{chp:sc} are requirements connected to supercomputer and computing platform itself, which may be useful to understand the idea and possibility of the system, although there would not be used in modeling of simulation tool. Next chapter \ref{chp:sim} contains all extracted requirements for simulation tool.
 
 \section{Document Conventions}
-$<$Describe any standards or typographical conventions that were followed when 
-writing this SRS, such as fonts or highlighting that have special significance.  
-For example, state whether priorities  for higher-level requirements are assumed 
-to be inherited by detailed requirements, or whether every requirement statement 
-is to have its own priority.$>$
-
+%$<$Describe any standards or typographical conventions that were followed when 
+%writing this SRS, such as fonts or highlighting that have special significance.  
+%For example, state whether priorities  for higher-level requirements are assumed 
+%to be inherited by detailed requirements, or whether every requirement statement 
+%is to have its own priority.$>$
+Every requirement has a unique name/code which for identification. The prefix of single feature's identification code remains the same, only the suffix changes by an auto-increment integer value. In some cases also additional mid-term can occur between prefix and suffix to precisely describe requirement. Additionally for each feature there can be constructed a glossary, which is mentioned in the correct section and placed in an appendix. 
 \section{Intended Audience and Reading Suggestions}
 $<$Describe the different types of reader that the document is intended for, 
 such as developers, project managers, marketing staff, users, testers, and 
@@ -225,7 +230,7 @@ prefer to organize this section by use case, mode of operation, user class,
 object class, functional hierarchy, or combinations of these, whatever makes the 
 most logical sense for your product.$>$
 
-\chapter{Supercomputer features}
+\chapter{Supercomputer features} \label{chp:sc}
 % HARDWARE FEATURES
 \section{Hardware features}
 
@@ -470,7 +475,7 @@ Requirements extracted from user demands:
 
 % END JOB CONTROLLER FEATURES
 
-\chapter{Simulator features}
+\chapter{Simulator features} \label{chp:sim}
 % SCHEDULER FEATURES
 
 \section{Scheduler features}
