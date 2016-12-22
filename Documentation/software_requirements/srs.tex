@@ -257,7 +257,7 @@ most logical sense for your product.$>$
 %component ratings, such as benefit, penalty, cost, and risk (each rated on a 
 %relative scale from a low of 1 to a high of 9).
 
-Mentioned in this chapter features are related to the lowest layer of supercomputer, which in short describes of what components should be managed by a system. Features of this type have a really high priority, because they determine the supercomputer as a whole. Mentioned requirements stands for a hearth of a supercomputer and system. Glossary for this feature is in appendix \ref{app:glossary:hardware}.
+Mentioned in this chapter features are related to the lowest layer of supercomputer, which in short describes of what components should be managed by a system. Features of this type have a really high priority, because they determine the supercomputer as a whole. Mentioned requirements stands for a hearth of a supercomputer and system. Glossary for this feature is in Table \ref{tab:hardware_requirements_glossary}.
 
 %\subsection{Stimulus/Response Sequences}
 %$<$List the sequences of user actions and system responses that stimulate the 
@@ -319,7 +319,7 @@ Requirements extracted from user demands:
 %component ratings, such as benefit, penalty, cost, and risk (each rated on a 
 %relative scale from a low of 1 to a high of 9).
 Mentioned in this chapter requirements are related to the users in a supercomputer system. System distinguish some type of users, which are differently accounted. Each of users can have different permissions. Users can be connected and gathered in a groups, which can have a permissions. 
-Glossary for this feature is in appendix \ref{app:glossary:user}.
+Glossary for this feature is in Table \ref{tab:user_requirements_glossary}.
 
 \subsection{Stimulus/Response Sequences}
 %$<$List the sequences of user actions and system responses that stimulate the 
@@ -451,7 +451,7 @@ Requirement extracted during analysis:
 %High, Medium, or Low priority. You could also include specific priority 
 %component ratings, such as benefit, penalty, cost, and risk (each rated on a 
 %relative scale from a low of 1 to a high of 9).
-Features described in this chapter relate to basic properties of a job controller. Only general requirements are mentioned here, more detailed properties and features are presented in next chapter, which discuss scheduling algorithm. Glossary for this feature is in appendix \ref{app:glossary:job}.
+Features described in this chapter relate to basic properties of a job controller. Only general requirements are mentioned here, more detailed properties and features are presented in next chapter, which discuss scheduling algorithm. Glossary for this feature is in Table \ref{tab:scheduler_requirements_glossary}.
 
 \subsection{Stimulus/Response Sequences}
 %$<$List the sequences of user actions and system responses that stimulate the 
@@ -502,7 +502,7 @@ Requirements extracted from user demands:
 %High, Medium, or Low priority. You could also include specific priority 
 %component ratings, such as benefit, penalty, cost, and risk (each rated on a 
 %relative scale from a low of 1 to a high of 9).
-Requirements in this chapter are specification of a scheduler algorithm mentioned in requirement \textbf{JBC-3}. Glossary for this feature is in appendix \ref{app:glossary:job}.
+Requirements in this chapter are specification of a scheduler algorithm mentioned in requirement \textbf{JBC-3}. Glossary for this feature is in Table \ref{tab:scheduler_requirements_glossary}.
 
 \subsection{Stimulus/Response Sequences}
 %$<$List the sequences of user actions and system responses that stimulate the 
@@ -801,9 +801,10 @@ In terms of simulation tools only last requirements should be considered, becaus
 %that are pertinent to the project.$>$
 
 \chapter{Detailing models and diagrams}
-The idea of a simulation tool can be presented 
+Requirements from chapters \ref{chp:sc} and \ref{chp:sim} are base of diagrams and models from appendix. From the scenario of a project there were extracted three different actors for computation platform visible on Figure \ref{app:cp:actors}. For each of those generalized actors (User and IT supporter) distinguished use cases are shown respectively on Figure \ref{app:cp:ucs} and \ref{app:cp:itucs}. There is a relatively big amount of use cases for actors, although the requirements do not specify anything more about them. One of the most important part of the system is a job control system which were described by requirements in section \ref{sec:jcf}, from which a simplified algorithm were designed which also takes care about accounting of a job -- Figure \ref{app:cp:jobcontroller}.
 
-
+There is only one actor of a simulation tool shown in Figure \ref{app:st:actors}. Idea of a simulation tool is to do a simulation of computation platform, which should provide information about accounting practices. In the simplest way this kind of behavior is shown in Figure \ref{app:st:idea}. Action starts with a configuration of a simulation, next the chain of event inside simulation tool is performed giving the output of a simulation described in chapter \ref{chp:sim}. The use cases of a simulation tool user are divided into two boundary: simulation tool and configuration file -- \ref{app:st:ucs}. User can either run a simulation with given parameters or change parameters of a configuration file, which is a quite big. The most important part of a simulation tool is understanding of a scheduler algorithm which is presented in Figure \ref{app:st:scheduer} and detailed described in chapter \ref{chp:sim}.  
+ 
 \chapter{Appendix}
 \section{Appendix A: Glossary}
 %see https://en.wikibooks.org/wiki/LaTeX/Glossary
@@ -812,7 +813,6 @@ acronyms and abbreviations. You may wish to build a separate glossary that spans
 multiple projects or the entire organization, and just include terms specific to 
 a single project in each SRS.$>$
 
-\subsection{Hardware Glossary} \label{app:glossary:hardware}
 	\begin{table}[!htbp]
 		\centering
 		\caption{Glossary for hardware requirements.}
@@ -827,8 +827,7 @@ a single project in each SRS.$>$
 			Storage device & It's device that can store information, generally hard-drives. \\ \hline
 		\end{tabular}
 	\end{table}
-\clearpage
-\subsection{User Glossary} \label{app:glossary:user}
+
 	\begin{table}[!htbp]
 		\centering
 		\caption{Glossary for user requirements.}
@@ -843,8 +842,7 @@ a single project in each SRS.$>$
 			Grant & Entitles actor of a system to additional resource usage. \\ \hline
 		\end{tabular}
 	\end{table}
-\clearpage
-\subsection{Job Control Glossary} \label{app:glossary:job}
+
 	\begin{table}[!htbp]
 		\centering
 		\caption{Glossary for scheduler requirements.}
@@ -877,7 +875,7 @@ diagrams.$>$
 	\end{figure}
 	\begin{figure}[!hbtp]
 		\centering
-		\includegraphics[width=\textwidth, angle=0]{../ea_files/generatedImages/Computational_platform/ITSupporterUCs.png}
+		\includegraphics[width=\textwidth, angle=90, scale=1.2]{../ea_files/generatedImages/Computational_platform/ITSupporterUCs.png}
 		\caption{It Supporter use cases in computational platform.}
 		\label{app:cp:itucs}
 	\end{figure}
@@ -913,6 +911,7 @@ diagrams.$>$
 		\caption{Idea of scheduling algorithm in simulation tool.}
 		\label{app:st:scheduer}
 	\end{figure}
+\clearpage
 \section{Appendix C: To Be Determined List}
 $<$Collect a numbered list of the TBD (to be determined) references that remain 
 in the SRS so they can be tracked to closure.$>$
