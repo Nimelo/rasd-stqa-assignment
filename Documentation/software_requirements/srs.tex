@@ -20,6 +20,7 @@
 \input{settings/commands.tex}
 \usepackage{listings}
 \usepackage{underscore}
+\usepackage{grffile}
 \setcounter{secnumdepth}{5}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage[utf8]{inputenc}
@@ -793,12 +794,17 @@ In terms of simulation tools only last requirements should be considered, becaus
 
 
 %%
-\chapter{Other Requirements}
-$<$Define any other requirements not covered elsewhere in the SRS. This might 
-include database requirements, internationalization requirements, legal 
-requirements, reuse objectives for the project, and so on. Add any new sections 
-that are pertinent to the project.$>$
+%\chapter{Other Requirements}
+%$<$Define any other requirements not covered elsewhere in the SRS. This might 
+%include database requirements, internationalization requirements, legal 
+%requirements, reuse objectives for the project, and so on. Add any new sections 
+%that are pertinent to the project.$>$
 
+\chapter{Detailing models and diagrams}
+The idea of a simulation tool can be presented 
+
+
+\chapter{Appendix}
 \section{Appendix A: Glossary}
 %see https://en.wikibooks.org/wiki/LaTeX/Glossary
 $<$Define all the terms necessary to properly interpret the SRS, including 
@@ -856,7 +862,57 @@ a single project in each SRS.$>$
 $<$Optionally, include any pertinent analysis models, such as data flow 
 diagrams, class diagrams, state-transition diagrams, or entity-relationship 
 diagrams.$>$
-
+\subsection{Computation Platform Diagrams}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics{../ea_files/generatedImages/Computational_platform/Actors.png}
+		\caption{Actors of computational platform.}
+		\label{app:cp:actors}
+	\end{figure}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics[width=\textwidth]{../ea_files/generatedImages/Computational_platform/UserUCs.png}
+		\caption{User use cases in computational platform.}
+		\label{app:cp:ucs}
+	\end{figure}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics[width=\textwidth, angle=0]{../ea_files/generatedImages/Computational_platform/ITSupporterUCs.png}
+		\caption{It Supporter use cases in computational platform.}
+		\label{app:cp:itucs}
+	\end{figure}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics[width=\textwidth]{../ea_files/generatedImages/Computational_platform/ComputationPlatformJobController.png}
+		\caption{Simplified computational platform job controller algorithm.}
+		\label{app:cp:jobcontroller}
+	\end{figure}
+\clearpage
+\subsection{Simulation Tool Diagrams}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics{../ea_files/generatedImages/Simulator/Actors.png}
+		\caption{Actors of simulation tool.}
+		\label{app:st:actors}
+	\end{figure}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics[width=\textwidth]{../ea_files/generatedImages/Simulator/Idea.png}
+		\caption{Idea of simulation tool.}
+		\label{app:st:idea}
+	\end{figure}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics[width=\textwidth, angle=90, scale=1.4]{../ea_files/generatedImages/Simulator/UseCases.png}
+		\caption{Use cases of simulation tool.}
+		\label{app:st:ucs}
+	\end{figure}
+	\begin{figure}[!hbtp]
+		\centering
+		\includegraphics[width=\textwidth, angle=0, scale=1.0]{../ea_files/generatedImages/Simulator/Scheduler.png}
+		\caption{Idea of scheduling algorithm in simulation tool.}
+		\label{app:st:scheduer}
+	\end{figure}
 \section{Appendix C: To Be Determined List}
 $<$Collect a numbered list of the TBD (to be determined) references that remain 
 in the SRS so they can be tracked to closure.$>$
