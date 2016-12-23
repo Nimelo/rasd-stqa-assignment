@@ -1,6 +1,6 @@
 package assignment.readers.io.interfaces;
 
-import assignment.simulation.Configuration;
+import assignment.configurations.simulation.Configuration;
 import assignment.readers.io.exceptions.ConfigurationReadException;
 
 /**

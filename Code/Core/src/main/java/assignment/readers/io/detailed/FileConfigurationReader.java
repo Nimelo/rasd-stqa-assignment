@@ -2,7 +2,7 @@ package assignment.readers.io.detailed;
 
 import assignment.readers.io.exceptions.ConfigurationReadException;
 import assignment.readers.io.interfaces.IConfigurationReader;
-import assignment.simulation.Configuration;
+import assignment.configurations.simulation.Configuration;
 
 import java.io.FileInputStream;
 

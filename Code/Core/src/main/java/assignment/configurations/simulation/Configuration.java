@@ -1,7 +1,7 @@
-package assignment.simulation;
+package assignment.configurations.simulation;
 
-import assignment.simulation.objects.JobClass;
-import assignment.simulation.objects.User;
+import assignment.configurations.simulation.objects.JobClass;
+import assignment.configurations.simulation.objects.User;
 
 import java.math.BigDecimal;
 
