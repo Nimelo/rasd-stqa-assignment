@@ -1,5 +1,6 @@
 package assignment.queues.interfaces;
 
+import assignment.events.timing.arguments.MetronomeEventArgs;
 import assignment.tasks.Job;
 
 /**
@@ -7,4 +8,5 @@ import assignment.tasks.Job;
  */
 public interface IFCFSZone {
     void submitJob(Job job);
+    void doIteration(MetronomeEventArgs arg);
 }

@@ -1,8 +1,7 @@
-package assignment.queues;
+package assignment.queues.zones;
 
 import assignment.events.timing.arguments.MetronomeEventArgs;
 import assignment.events.timing.arguments.TickType;
-import assignment.queues.zones.FCFSZone;
 import assignment.resources.hardware.HardwareResources;
 import assignment.resources.monitors.ResourcesMonitor;
 import assignment.resources.objects.RequestedHardware;
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Created by mrnim on 25-Dec-16.
  */
-class FCFSZoneTest {
+class CutoffTimeZoneTest {
     private FCFSZone fcfsZone;
     private Collection<Job> waitingQueue;
     private Collection<Job> executionArea;
@@ -34,21 +33,11 @@ class FCFSZoneTest {
         executionArea = new ArrayList<>();
         HardwareResources hardwareResources = new HardwareResources(4L, 100L, 16L);
         resourcesMonitor = new ResourcesMonitor(hardwareResources, 0L);
-        fcfsZone = new FCFSZone("Short queue", waitingQueue, executionArea, resourcesMonitor);
+        fcfsZone = new CutoffTimeZone(waitingQueue, executionArea, resourcesMonitor, null);
     }
 
     @Test
-    void submitJob() {
-        Job job = new Job(new Identification(0L, 0L),
-                new Requests(new RequestedTime(100L), new RequestedHardware(10L, 0L, true)),
-                new Timestamps());
-        fcfsZone.submitJob(job);
-
-        assertEquals(1, waitingQueue.size());
-    }
-
-    @Test
-    void doIteration() {
+    void moveWaitingJobsToExecutionArea() {
         Job job = new Job(new Identification(0L, 0L),
                 new Requests(new RequestedTime(100L), new RequestedHardware(10L, 0L, true)),
                 new Timestamps());
@@ -58,30 +47,8 @@ class FCFSZoneTest {
         fcfsZone.doIteration(new MetronomeEventArgs(0L, TickType.WEEK));
         fcfsZone.doIteration(new MetronomeEventArgs(101L, TickType.WEEK));
 
-        assertEquals(0, waitingQueue.size());
-        assertEquals(0, executionArea.size());
-        assertEquals(new Long(0L), job.getTimestamps().getQuitQueueTimestamp().getValue());
-        assertEquals(new Long(100L), job.getTimestamps().getEndOfExecutionTimestamp().getValue());
-    }
-
-    @Test
-    void moveWaitingJobsToExecutionArea() {
-        Job job = new Job(new Identification(0L, 0L),
-                new Requests(new RequestedTime(100L), new RequestedHardware(10L, 0L, true)),
-                new Timestamps());
-        job.getTimestamps().setEnterQueueTimestamp(new Timestamp(0L));
-
-        Job job2 = new Job(new Identification(0L, 0L),
-                new Requests(new RequestedTime(100L), new RequestedHardware(1000L, 0L, true)),
-                new Timestamps());
-        job2.getTimestamps().setEnterQueueTimestamp(new Timestamp(0L));
-
-        fcfsZone.submitJob(job);
-        fcfsZone.submitJob(job2);
-        fcfsZone.moveWaitingJobsToExecutionArea(new MetronomeEventArgs(0L, TickType.WEEK));
-
         assertEquals(1, waitingQueue.size());
-        assertEquals(1, executionArea.size());
+        assertEquals(0, executionArea.size());
     }
 
     @Test
@@ -89,13 +56,19 @@ class FCFSZoneTest {
         Job job = new Job(new Identification(0L, 0L),
                 new Requests(new RequestedTime(100L), new RequestedHardware(10L, 0L, true)),
                 new Timestamps());
+        Job job2 = new Job(new Identification(0L, 0L),
+                new Requests(new RequestedTime(100L), new RequestedHardware(10L, 0L, true)),
+                new Timestamps());
         job.getTimestamps().setEnterQueueTimestamp(new Timestamp(0L));
-        job.getTimestamps().setEndOfExecutionTimestamp(new Timestamp(100L));
+        job2.getTimestamps().setEnterQueueTimestamp(new Timestamp(0L));
 
-        executionArea.add(job);
+        fcfsZone.submitJob(job);
+        fcfsZone.submitJob(job2);
 
-        fcfsZone.removeJobsFromExecutionArea(new MetronomeEventArgs(1000L, TickType.WEEK));
+        fcfsZone.doIteration(new MetronomeEventArgs(0L, TickType.WEEK));
+        fcfsZone.doIteration(new MetronomeEventArgs(101L, TickType.WEEK));
 
+        assertEquals(0, waitingQueue.size());
         assertEquals(0, executionArea.size());
     }
 

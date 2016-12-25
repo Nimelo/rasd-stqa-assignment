@@ -1,4 +1,4 @@
-package assignment.tools;;
+package assignment.tools;;import java.util.Calendar;
 
 /**
  * Created by mrnim on 23-Dec-16.
@@ -6,5 +6,10 @@ package assignment.tools;;
 public class Calculator {
     public static Integer divide(Integer a, Integer b){
         return a / b;
+    }
+
+    public static void test(){
+        Calendar instance = Calendar.getInstance();
+        instance.setTimeInMillis(0L);
     }
 }

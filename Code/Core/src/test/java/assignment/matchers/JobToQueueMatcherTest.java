@@ -23,6 +23,7 @@ class JobToQueueMatcherTest {
     private JobToQueueMatcher matcher;
     private ResourcesMonitor resourcesMonitor;
     private QueueRestrictions queueRestrictions;
+
     @BeforeEach
     void setUp() {
         resourcesMonitor = new ResourcesMonitor(new HardwareResources(0L, 100L, 10L), 0L);

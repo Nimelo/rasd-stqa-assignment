@@ -11,6 +11,7 @@ public class Job {
     private Identification identification;
     private Requests requests;
     private Timestamps timestamps;
+    private Boolean interrupted;
 
     public Job(Identification identification, Requests requests, Timestamps timestamps) {
         this.identification = identification;
@@ -28,5 +29,13 @@ public class Job {
 
     public Timestamps getTimestamps() {
         return timestamps;
+    }
+
+    public void markAsInterrupted(Long currentTick) {
+        this.interrupted = true;
+    }
+
+    public Boolean getInterrupted() {
+        return interrupted;
     }
 }

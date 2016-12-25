@@ -4,12 +4,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by mrnim on 23-Dec-16.
  */
 class CalculatorTest {
+    @Test
+    void test1() {
+        Calculator.test();
+    }
+
     @BeforeEach
     void setUp() {
 

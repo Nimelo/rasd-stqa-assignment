@@ -1,4 +1,4 @@
-package assignment.queues;
+package assignment.queues.zones;
 
 import assignment.events.timing.arguments.MetronomeEventArgs;
 import assignment.queues.interfaces.IFCFSZone;
