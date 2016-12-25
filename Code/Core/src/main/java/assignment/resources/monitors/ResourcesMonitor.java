@@ -1,42 +1,44 @@
 package assignment.resources.monitors;
 
+import assignment.resources.hardware.HardwareResources;
 import assignment.resources.monitors.exceptions.NotSufficientAmountOfCPUs;
 
 /**
  * Created by mrnim on 25-Dec-16.
  */
 public class ResourcesMonitor {
-    private Long totalCPUs;
-    private Long usedCPUs;
+    private HardwareResources hardwareResources;
+    private Long usedCores;
 
-    public ResourcesMonitor(Long totalCPUs, Long usedCPUs) {
-        this.totalCPUs = totalCPUs;
-        this.usedCPUs = usedCPUs;
+    public ResourcesMonitor(HardwareResources hardwareResources, Long usedCores) {
+        this.hardwareResources = hardwareResources;
+        this.usedCores = usedCores;
     }
 
-    public Long getFreeCPUs(){
-        return this.getTotalCPUs() - this.getUsedCPUs();
+    public Long getFreeCores(){
+        return this.getTotalCores() - this.getUsedCores();
     }
 
-    public Long getTotalCPUs() {
-        return totalCPUs;
+    public Long getTotalCores() {
+        return this.hardwareResources.getAmountOfCPUs();
     }
 
-    public Long getUsedCPUs() {
-        return usedCPUs;
+    public Long getUsedCores() {
+        return this.usedCores;
     }
 
-    public void reserveCPUs(Long toReserve) throws NotSufficientAmountOfCPUs {
-        if(this.canReserveCPUs(toReserve))
-            this.usedCPUs = toReserve;
+    public void reserveCores(Long toReserve) throws NotSufficientAmountOfCPUs {
+        if(this.canReserveCores(toReserve))
+            this.usedCores += toReserve;
         else
             throw new NotSufficientAmountOfCPUs();
     }
 
-    public void releaseCPUs(Long toRelease){
-        this.usedCPUs -= toRelease;
+    public void releaseCores(Long toRelease){
+        this.usedCores -= toRelease;
     }
-    public boolean canReserveCPUs(Long toReserve) {
-        return this.getFreeCPUs() >= toReserve;
+
+    public boolean canReserveCores(Long toReserve) {
+        return this.getFreeCores() >= toReserve;
     }
 }

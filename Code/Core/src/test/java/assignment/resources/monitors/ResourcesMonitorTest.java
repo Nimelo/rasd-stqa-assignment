@@ -1,5 +1,6 @@
 package assignment.resources.monitors;
 
+import assignment.resources.hardware.HardwareResources;
 import assignment.resources.monitors.exceptions.NotSufficientAmountOfCPUs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,33 +15,33 @@ class ResourcesMonitorTest {
 
     @BeforeEach
     void setUp() {
-        this.resourcesMonitor = new ResourcesMonitor(100L, 0L);
+        this.resourcesMonitor = new ResourcesMonitor(new HardwareResources(0L,100L, 16L), 0L);
     }
 
     @Test
     void getFreeCPUs() {
-        assertEquals(new Long(100L), resourcesMonitor.getFreeCPUs());
+        assertEquals(new Long(100L), resourcesMonitor.getFreeCores());
     }
 
     @Test
     void getTotalCPUs() {
-        assertEquals(new Long(100L), resourcesMonitor.getTotalCPUs());
+        assertEquals(new Long(100L), resourcesMonitor.getTotalCores());
     }
 
     @Test
     void getUsedCPUs() {
-        assertEquals(new Long(0L), resourcesMonitor.getUsedCPUs());
+        assertEquals(new Long(0L), resourcesMonitor.getUsedCores());
     }
 
     @Test
     void canReserveFalse() {
-        boolean value = resourcesMonitor.canReserveCPUs(1000L);
+        boolean value = resourcesMonitor.canReserveCores(1000L);
         assertEquals(false, value);
     }
 
     @Test
     void canReserveTrue() {
-        boolean value = resourcesMonitor.canReserveCPUs(10L);
+        boolean value = resourcesMonitor.canReserveCores(10L);
         assertEquals(true, value);
     }
 
@@ -48,15 +49,15 @@ class ResourcesMonitorTest {
     void reserve() {
         assertThrows(NotSufficientAmountOfCPUs.class, () ->
         {
-            resourcesMonitor.reserveCPUs(1000L);
+            resourcesMonitor.reserveCores(1000L);
         });
     }
 
     @Test
     void releaseCPUs() throws NotSufficientAmountOfCPUs {
-        resourcesMonitor.reserveCPUs(20L);
-        resourcesMonitor.releaseCPUs(10L);
-        assertEquals(new Long(90L), resourcesMonitor.getFreeCPUs());
+        resourcesMonitor.reserveCores(20L);
+        resourcesMonitor.releaseCores(10L);
+        assertEquals(new Long(90L), resourcesMonitor.getFreeCores());
     }
 
 }

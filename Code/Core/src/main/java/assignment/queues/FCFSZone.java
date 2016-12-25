@@ -5,10 +5,10 @@ import assignment.queues.interfaces.IFCFSZone;
 import assignment.resources.monitors.ResourcesMonitor;
 import assignment.resources.monitors.exceptions.NotSufficientAmountOfCPUs;
 import assignment.tasks.Job;
+import assignment.tasks.objects.Timestamp;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.stream.Collector;
 
 /**
  * Created by mrnim on 25-Dec-16.
@@ -53,12 +53,13 @@ public class FCFSZone implements IFCFSZone, Runnable{
         Iterator<Job> iterator = waitingQueue.iterator();
         while(iterator.hasNext()) {
             Job job = iterator.next();
-            if(resourcesMonitor.canReserveCPUs(job.getAmountOfCPUs())){
+            Long requestedCores = job.getRequests().getRequestedHardware().getRequestedCores();
+            if(resourcesMonitor.canReserveCores(requestedCores)){
                 try {
-                    resourcesMonitor.reserveCPUs(job.getAmountOfCPUs());
+                    resourcesMonitor.reserveCores(requestedCores);
                     this.executingArea.add(job);
-                    job.setJobQueueQuitTimestamp(arg.getCurrentTick());
-                    job.setEndOfExecutionTime(arg.getCurrentTick() + job.getExecutionTime());
+                    job.getTimestamps().setQuitQueueTimestamp(new Timestamp(arg.getCurrentTick()));
+                    job.getTimestamps().setEndOfExecutionTimestamp(new Timestamp(arg.getCurrentTick() + job.getRequests().getRequestedTime().getRequestedTime()));
                     iterator.remove();
                 } catch (NotSufficientAmountOfCPUs notSufficientAmountOfCPUs) {
 
@@ -71,8 +72,8 @@ public class FCFSZone implements IFCFSZone, Runnable{
         Iterator<Job> iterator = executingArea.iterator();
         while(iterator.hasNext()) {
             Job job = iterator.next();
-            if(job.getEndOfExecutionTime() <= arg.getCurrentTick()){
-                this.resourcesMonitor.releaseCPUs(job.getAmountOfCPUs());
+            if(job.getTimestamps().getEndOfExecutionTimestamp().getValue() <= arg.getCurrentTick()){
+                this.resourcesMonitor.releaseCores(job.getRequests().getRequestedHardware().getRequestedCores());
                 iterator.remove();
             }
         }
