@@ -15,12 +15,16 @@ public class ResourcesMonitor {
         this.usedCores = usedCores;
     }
 
+    public HardwareResources getHardwareResources() {
+        return hardwareResources;
+    }
+
     public Long getFreeCores(){
         return this.getTotalCores() - this.getUsedCores();
     }
 
     public Long getTotalCores() {
-        return this.hardwareResources.getAmountOfCPUs();
+        return this.hardwareResources.getAmountOfCores();
     }
 
     public Long getUsedCores() {

@@ -16,6 +16,7 @@ public class RequestedHardware {
         this.checkCores = checkCores;
     }
 
+
     public Long getRequestedCores() {
         return requestedCores;
     }

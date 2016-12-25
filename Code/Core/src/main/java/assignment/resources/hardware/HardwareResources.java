@@ -14,7 +14,7 @@ public class HardwareResources {
         this.cpusPerNode = cpusPerNode;
     }
 
-    public Long getCpusPerNode() {
+    public Long getCoresPerNode() {
         return cpusPerNode;
     }
 
@@ -22,7 +22,7 @@ public class HardwareResources {
         return amountOfNodes;
     }
 
-    public Long getAmountOfCPUs() {
+    public Long getAmountOfCores() {
         return amountOfCPUs;
     }
 }
