@@ -41,11 +41,15 @@ class RangedMetronomeTest {
     @Test
     void run() throws InterruptedException {
         limit = 1000L;
-        metronome.start();
-        Thread.sleep(1000L);
-        metronome.stop();
 
-        assertEquals(50, collection.size());
+        metronome.addListener(x -> {
+            if(x.getCurrentTick() == 49L) {
+                metronome.stop();
+                assertEquals(50, collection.size());
+            }
+        });
+        metronome.start();
+
     }
 
 }

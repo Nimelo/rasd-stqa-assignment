@@ -53,7 +53,7 @@ public class Metronome extends GenericCustomerEvent<MetronomeEventArgs> implemen
         Long currentTimeInMilliSeconds = currentTimeSupplier.get();
         if(currentTimeInMilliSeconds - this.lastTimeMillis >= this.interval){
             this.lastTimeMillis = currentTimeInMilliSeconds;
-            //this.broadcast(new MetronomeEventArgs(++this.currentTick, false));
+            this.broadcast(new MetronomeEventArgs(++this.currentTick, null, null));
         }
     }
 }

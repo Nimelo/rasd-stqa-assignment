@@ -45,10 +45,9 @@ class CutoffTimeZoneTest {
         fcfsZone.submitJob(job);
 
         fcfsZone.doIteration(new MetronomeEventArgs(0L, TickType.WEEK));
-        fcfsZone.doIteration(new MetronomeEventArgs(101L, TickType.WEEK));
 
-        assertEquals(1, waitingQueue.size());
-        assertEquals(0, executionArea.size());
+        assertEquals(0, waitingQueue.size());
+        assertEquals(1, executionArea.size());
     }
 
     @Test
@@ -66,7 +65,7 @@ class CutoffTimeZoneTest {
         fcfsZone.submitJob(job2);
 
         fcfsZone.doIteration(new MetronomeEventArgs(0L, TickType.WEEK));
-        fcfsZone.doIteration(new MetronomeEventArgs(101L, TickType.WEEK));
+        fcfsZone.doIteration(new MetronomeEventArgs(50L, TickType.WEEKEND));
 
         assertEquals(0, waitingQueue.size());
         assertEquals(0, executionArea.size());

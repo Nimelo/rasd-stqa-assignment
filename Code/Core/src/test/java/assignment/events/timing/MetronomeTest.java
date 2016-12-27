@@ -42,11 +42,13 @@ class MetronomeTest {
     void start() throws InterruptedException {
         limit = 10L;
 
+        metronome.addListener(x -> {
+            if(x.getCurrentTick() == limit){
+                metronome.stop();
+                assertEquals((int)(long)limit, collection.size());
+            }
+        });
         metronome.start();
-        while(counter < limit) ;
-        metronome.stop();
-
-        assertEquals((int)(long)limit, collection.size());
     }
 
     @Test
@@ -54,10 +56,12 @@ class MetronomeTest {
         limit = 5L;
 
         metronome.start();
-        while(counter < limit) ;
-        metronome.stop();
-        limit = 100L;
-
-        assertEquals(5, collection.size());
+        metronome.addListener(x -> {
+            if(x.getCurrentTick() == limit){
+                metronome.stop();
+                limit = 100L;
+                assertEquals(5, collection.size());
+            }
+        });
     }
 }
