@@ -33,7 +33,35 @@
 		related requirements and how they relate, such as a top level data flow diagram 
 		or object class diagram, is often effective.$>$
 	\end{comment}
-
+	The main function of a software is to perform simulation for different conditions of accounting practice. In order to simulate behavior of \gls{computing-platform} user should determine following configuration properties: 
+	\begin{itemize}
+		\item Number of computational nodes, amount of cores, their type and pricing;
+		\item Machine operational cost per unit time;
+		\item
+		{
+			Queues properties:
+			\begin{itemize}
+				\item Cost of core usage per time unit;
+				\item Maximum execution time;
+				\item Working time range;
+				\item Restrictions of allocation of resources.
+			\end{itemize}
+		}
+		\item
+		{
+			Amount of users and their budget;
+		}
+		\item Simulation time and/or stop condition.
+	\end{itemize}
+	
+	The outcome of simulation will be presented in a simple report in form of text file. Main flow of the data is shown in Figure \ref{fig:main-flow-of-data}.
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{../visio-files/main-flow-of-data}
+		\caption{Main flow of data in simulator.}
+		\label{fig:main-flow-of-data}
+	\end{figure}
 \section{User Classes and Characteristics}
 	\begin{comment}
 		$<$Identify the various user classes that you anticipate will use this product.  
