@@ -37,7 +37,7 @@
 		between the software and the hardware, and communication protocols to be 
 		used.$>$
 	\end{comment}
-
+	Application doesn't rely on any hardware in a direct way. It runs on a virtual environment, which only uses hardware as a base of any operation. The whole application is separated from the hardware.
 \section{Software Interfaces}
 	\begin{comment}
 		$<$Describe the connections between this product and other specific software 
@@ -51,7 +51,8 @@
 		global data area in a multitasking operating system), specify this as an 
 		implementation constraint.$>$
 	\end{comment}
-
+	%SOFTWARE INTERFACES
+	Application doesn't use any third-party software components.
 \section{Communications Interfaces}
 	\begin{comment}
 		$<$Describe the requirements associated with any communications functions 
@@ -61,3 +62,5 @@
 		as FTP or HTTP. Specify any communication security or encryption issues, data 
 		transfer rates, and synchronization mechanisms.$>$
 	\end{comment}
+	
+	Described application does not use any of the communication functions, protocols or other mechanism. Application as mentioned before is self-contained program, which for given input produces output without consuming or communicating anything from the boundary of simulation.
