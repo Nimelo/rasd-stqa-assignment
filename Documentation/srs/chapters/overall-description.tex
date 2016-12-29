@@ -79,20 +79,19 @@
 		hardware platform, operating system and versions, and any other software 
 		components or applications with which it must peacefully coexist.$>$
 	\end{comment}
-	\label{s:overall:environment}
 	\basicreq{OE}{System Specification}{Medium}
 	{
-		Application shall run on Windows 7 SP1, Windows 8, Windows 8.1 and Windows 10 (or newer), both edition 32-bit and 64-bit. This program requires Microsoft .NET Framework 4.6.2 to be installed to run.
-	}
-	\basicreq{OE}{Hardware Specification}{Medium}
+		Application will be compatible with all operating systems that support or have implementation of a \emph{Java Virtual Machine} with version $8$ or newer.
+	}\label{req:operating-enviornment:system-specification}
+	\basicreq{OE}{Hardware Specification}{Low}
 	{
 		Application should run on a computer fulfilling following minimum hardware requirements:
 		\begin{itemize}
 			\item Processor 1 GHz
-			\item RAM 1 GB (32-bit) or 2 GB (64-bit)
-			\item Disk space 4.5 GB (for 32-bit and 64-bit)
+			\item RAM 128 MB (32-bit) or 256 MB (64-bit)
+			\item Disk space 25 MB for 32-bit (50 MB for 64-bit)
 		\end{itemize}
-	} 
+	}\label{req:operating-enviornment:hardware-specification}
 \section{Design and Implementation Constraints}
 	\begin{comment}
 		$<$Describe any items or issues that will limit the options available to the 
@@ -104,14 +103,29 @@
 		customer’s organization will be responsible for maintaining the delivered 
 		software).$>$
 	\end{comment}
-
+	\basicreq{CNST}{Execution Time}{Medium}
+	{ 
+		Execution time of a single simulation should be finite and reasonable quick. In terms of hardware and implementation of \emph{JVM} those results can vary.
+	}
+	\basicreq{CNST}{Running Environment}{Medium}
+	{ 
+		Application should not depend on any operating system related features. Application should be easily ported from on to another system. 
+	}
 \section{User Documentation}
 	\begin{comment}
 		$<$List the user documentation components (such as user manuals, on-line help, 
 		and tutorials) that will be delivered along with the software. Identify any 
 		known user documentation delivery formats or standards.$>$
 	\end{comment}
-
+	\basicreq{USR-DOC}{Format of documentation}{Medium}
+	{
+		All the necessary information about usage of simulation tool and managing configuration file and description of all the fields in this file should be available from the program.   
+	}
+	
+	\basicreq{USR-DOC}{Template of configuration}{Low}
+	{
+		Program should generate a template for configuration file.   
+	}
 \section{Assumptions and Dependencies}
 	\begin{comment}
 		$<$List any assumed factors (as opposed to known facts) that could affect the 
@@ -123,4 +137,8 @@
 		reuse from another project, unless they are already documented elsewhere (for 
 		example, in the vision and scope document or the project plan).$>$
 	\end{comment}
-
+	
+	\basicreq{ASM-DEP}{Obligatory resources}{Low}
+	{
+		User is responsible for assurance of all obligatory resources for the application. If such requirement is not fulfilled the application may crash or work in unexpected way.
+	}
