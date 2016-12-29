@@ -1,0 +1,169 @@
+\section{Configuration Feature} \label{s:system-features:configuration-feature}
+	\begin{comment}
+		$<$Don’t really say “System Feature 1.” State the feature name in just a few 
+		words.$>$
+	\end{comment}
+
+\subsection*{Description and Priority}
+	\begin{comment}
+		$<$Provide a short description of the feature and indicate whether it is of 
+		High, Medium, or Low priority. You could also include specific priority 
+		component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+		relative scale from a low of 1 to a high of 9).$>$
+	\end{comment}
+	\textsc{Priority:}Very High \\
+	Requirements from this section relate to the configuration file used in simulation.
+\subsection*{Stimulus/Response Sequences}
+	\begin{comment}
+		$<$List the sequences of user actions and system responses that stimulate the 
+		behavior defined for this feature. These will correspond to the dialog elements 
+		associated with use cases.$>$
+	\end{comment}
+	
+	\stimresp
+	{User changes parameters/fields of configuration file.}
+	{System queries user for correct configuration file.}
+	
+\subsection*{Functional Requirements}
+	\begin{comment}
+		$<$Itemize the detailed functional requirements associated with this feature.  
+		These are the software capabilities that must be present in order for the user 
+		to carry out the services provided by the feature, or to execute the use case.  
+		Include how the product should respond to anticipated error conditions or 
+		invalid inputs. Requirements should be concise, complete, unambiguous, 
+		verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+		information is not yet available.$>$
+		
+		$<$Each requirement should be uniquely identified with a sequence number or a 
+		meaningful tag of some kind.$>$
+		
+		REQ-1:	REQ-2:
+	\end{comment}
+
+	\begin{functional}{System Resources}{Very High}{None}
+		\label{fn:configuration-feature:system-resources}
+		\term{DESC}
+		{
+			User should be able to specify the amount of a particular \gls{computing node} in a system with following parameters:
+			\begin{itemize}
+				\item Type of node;
+				\item Amount of cores;
+				\item Pricing of node in time units.
+			\end{itemize}
+		}
+		\term{RAT}{In order to configure nodes in a simulation.}
+	\end{functional}
+
+	\begin{functional}{Machine Operational Cost Per Unit Time}{High}{None}
+		\label{fn:configuration-feature:machine-opertional-cost-per-unit-time}
+		\term{DESC}
+		{
+			Application should provide functionality to specify the \gls{MOC}. 
+		}
+		\term{RAT}{In order to configure \gls{MOC} for simulation.}
+	\end{functional}
+
+	\begin{functional}{Queues}{Very High}{\ref{fn:configuration-feature:system-resources}}
+		\label{fn:configuration-feature:queues}
+		\term{DESC}
+		{
+			Application should provide functionality to manage properties of a queue in a system:
+			\begin{itemize}
+				\item type and description;
+				\item maximum job execution time;
+				\item working time (availability time);
+				\item price factor;
+				\item amount of reserved hardware resources (nodes of which type).
+			\end{itemize} 
+		}
+		\term{RAT}{In order to configure queues for simulation.}
+	\end{functional}
+
+	\begin{functional}{User groups}{Very High}{None}
+		\label{fn:configuration-feature:user-groups}
+		\term{DESC}
+		{
+			User should be able to manage properties of a user groups in a system:
+			\begin{itemize}
+				\item amount of members;
+				\item budget range;
+				\item maximum number of concurrent jobs per user;
+				\item maximum resources (in cores) per user;
+				\item maximum total number of cores simultaneously utilized by user.
+			\end{itemize} 
+		}
+		\term{RAT}{In order to configure user groups for simulation.}
+	\end{functional}
+
+	\begin{functional}{Job Distribution}{Medium}{None}
+		\label{fn:configuration-feature:job-distribution}
+		\term{DESC}
+		{
+			User should be able to parametrize a exponential probability distribution of a jobs. 
+		}
+		\term{RAT}{In order to configure job distribution.}
+	\end{functional}
+
+	% Validation
+		
+	\begin{functional}{Validate Nodes}{Very High}{\ref{fn:configuration-feature:system-resources}}
+		\label{fn:configuration-feature:valid-nodes}
+		\term{DESC}
+		{
+			Configuration file should contain a valid resource configuration with distinguished \gls{computing node}s. At least once node should be provided.
+		}
+		\term{RAT}{In order to valid system resources.}
+	\end{functional}
+
+	\begin{functional}{Validate \gls{MOC}}{Very High}{\ref{fn:configuration-feature:machine-opertional-cost-per-unit-time}}
+		\label{fn:configuration-feature:valid-moc}
+		\term{DESC}
+		{
+			Configuration file should contain a valid value of \gls{MOC} greater than $0$. This field is mandatory.
+		}
+		\term{RAT}{In order to valid \gls{MOC}.}
+	\end{functional}
+
+	\begin{functional}{Validate Queues}{Very High}{\ref{fn:configuration-feature:queues}}
+		\label{fn:configuration-feature:valid-queues}
+		\term{DESC}
+		{
+			Configuration file should contain a valid configuration of a queues. At least one queue should be configured.
+		}
+		\term{RAT}{In order to valid queues.}
+	\end{functional}
+
+	\begin{functional}{Validate User Groups}{Very High}{\ref{fn:configuration-feature:user-groups}}
+		\label{fn:configuration-feature:valid-user-groups}
+		\term{DESC}
+		{
+			Configuration file should contain a valid configuration of user groups. At least one user group should be configured.
+		}
+		\term{RAT}{In order to valid user groups.}
+	\end{functional}
+
+	\begin{functional}{Validate Job Distribution}{Very High}{\ref{fn:configuration-feature:job-distribution}}
+		\label{fn:configuration-feature:valid-job-distribution}
+		\term{DESC}
+		{
+			Configuration file should contain a valid parameters of exponential probability distribution.	
+		}
+		\term{RAT}{In order to valid exponential probability distribution.}
+	\end{functional}
+
+	\begin{functional}{Valid Configuration}{Very High}
+		{
+			\ref{fn:configuration-feature:valid-job-distribution},
+			\ref{fn:configuration-feature:valid-moc},
+			\ref{fn:configuration-feature:valid-nodes},
+			\ref{fn:configuration-feature:valid-queues},
+			\ref{fn:configuration-feature:valid-user-groups}
+		}
+		\label{fn:configuration-feature:valid-configuration}
+		\term{DESC}
+		{
+			Configuration file should contain correct values.
+		}
+		\term{RAT}{In order to configure job distribution.}
+	\end{functional}
+	

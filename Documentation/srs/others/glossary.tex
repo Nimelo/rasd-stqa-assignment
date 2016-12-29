@@ -1,10 +1,6 @@
 %Acronyms
-\newacronym{srs}{SRS}{Software Requirement Specification}
-\newacronym{projname}{Sc-JCSAS}{Supercomputer Job Control, Submission and Acquisition Simulation}
-\newacronym{hpc}{HPC}{High Performance Computing}
-\newacronym{mvvm}{MVVM}{Model-View-ViewModel}
-\newacronym{mvc}{MVC}{Model-View-Controller}
-\newacronym{mvp}{MVP}{Model-View-Presenter}
+\newacronym{MOC}{MOC}{Machine Operational Cost}
+
 
 %Dictionary
 \newglossaryentry{computing-platform}
@@ -12,23 +8,68 @@
 	name={computing platform},
 	description={supercomputer and a job submision system with a accounting module}
 }
-\newglossaryentry{computing-node}
+\newglossaryentry{hardware node}
 {
-	name=computer node,
-	description={computer used as a server; basic computational unit of the supercomputer cluster}
+	name={hardware node},
+	description={shared-memory multi-core CPU}
 }
-\newglossaryentry{turnaround-time-ratio}
+\newglossaryentry{computing node}
 {
-	name=turnaround time ratio,
-	description={the time from placing the job request in the queue to completion of the job, divided by the actual runtime of that job}
+	name={computing node},
+	description={node used for computation}
 }
-\newglossaryentry{throughput}
+\newglossaryentry{accelerated node}
 {
-	name=throughput,
-	description={the load in jobs per time unit passing through a system}
+	name={accelerated node},
+	description={computing node with attached $1$ or $2$ GPUs dedicated to computations}
 }
-\newglossaryentry{economic-balance}
+\newglossaryentry{specialized node}
 {
-	name=economic balance,
-	description={financial statement of a system that shows it’s revenues and expenses during a particular period}
+	name={specialized node},
+	description={traditional computing node with GPU dedicated to rendering and visualization of complex data.}
 }
+\newglossaryentry{storage device}
+{
+	name={storage device},
+	description={device that can store information, generally hard-drives}
+}
+\newglossaryentry{resources}
+{
+	name={resources},
+	description={to be understood as an access to: nodes; cores; storage and machine time}
+}
+\newglossaryentry{job}
+{
+	name={job/task},
+	description={task submitted by a user to a system}
+}
+\newglossaryentry{cutoff}
+{
+	name={cutoff time},
+	description={time, which does not allow a new jobs to execute if their execution time would exceed start of a restricted time}
+}
+\newglossaryentry{report}
+{
+	name={report},
+	description={generated output of the simulation}
+}
+%\newglossaryentry{computing-node}
+%{
+%	name=computer node,
+%	description={computer used as a server; basic computational unit of the supercomputer cluster}
+%}
+%\newglossaryentry{turnaround-time-ratio}
+%{
+%	name=turnaround time ratio,
+%	description={the time from placing the job request in the queue to completion of the job, divided by the actual runtime of that job}
+%}
+%\newglossaryentry{throughput}
+%{
+%	name=throughput,
+%	description={the load in jobs per time unit passing through a system}
+%}
+%\newglossaryentry{economic-balance}
+%{
+%	name=economic balance,
+%	description={financial statement of a system that shows it’s revenues and expenses during a particular period}
+%}
