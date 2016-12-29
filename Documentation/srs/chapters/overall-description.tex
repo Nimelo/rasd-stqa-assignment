@@ -13,7 +13,17 @@
 		interfaces can be helpful.$>$
 	\end{comment}
 
-	The idea of simulation tool started with the process of acquiring a new supercomputer in order to support research activities by university. The need of a new product was established by replacing the existing system to a newer one. Simulation tool is a new-born product which will be used in order to get the best accounting practices. Tool is a closed for changes in terms of scheduling and accounting algorithm, although the configurations can vary from one simulation to another. There is only one input interface of communication -- configuration file which is consumed by a program and one output interface -- output of the simulation.
+	The idea of simulation tool started with the process of acquiring a new supercomputer in order to support research activities by university. The need of a new product was established by replacing the existing system to a newer one. Simulation tool is a new-born, self-contained product which will be used in order to get the best accounting practices. 	
+	\begin{wrapfigure}{r}{0.5\textwidth} 
+		\centering
+		\includegraphics[scale=0.4]{../visio-files/components}
+		\caption{Block diagram of simulator.}
+		\label{fig:block-diagram-of-simulator}
+	\end{wrapfigure}
+
+	Simulator can be divided into two parts which are independent from each other. The first part is a load generator, which simulates a given job and overall requested directed to computation platform. The second part is a processing routine which takes care of incoming/already received and executing tasks. This fragmentation can be divided again in terms of second part which is shown in Figure \ref{fig:block-diagram-of-simulator}. After receiving tasks by \emph{Submission Manger} the task/job is conveyed to \emph{Job Submission Controller}, which search for a best-matching queue (executing area) for a given job. First place where a job is placed is \emph{Waiting Area}, which is managed by a \emph{Scheduler} which is a algorithm that determines an order of a tasks to be moved into \emph{Executing Area}. If task started its execution the \emph{Accouting} module takes care of billing in terms of time and used resources.
+		
+	Tool is a closed for changes in terms of scheduling and accounting algorithm, although the configurations can vary from one simulation to another. There is only one input interface of communication -- configuration file which is consumed by a program and one output interface -- output of the simulation.
 \section{Product Functions}
 	\begin{comment}
 		$<$Summarize the major functions the product must perform or must let the user 
