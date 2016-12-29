@@ -110,7 +110,7 @@
 		\label{fn:configuration-feature:valid-nodes}
 		\term{DESC}
 		{
-			Configuration file should contain a valid resource configuration with distinguished \gls{computing node}s. At least once node should be provided.
+			Configuration file should contain a valid resource configuration with distinguished \gls{computing node}s. At least once node should be provided. Type of node should be unique, amount of cores integer greater than zero and pricing ratio should greater than zero.  
 		}
 		\term{RAT}{In order to valid system resources.}
 	\end{functional}
@@ -129,6 +129,8 @@
 		\term{DESC}
 		{
 			Configuration file should contain a valid configuration of a queues. At least one queue should be configured.
+			Type of queue must be unique. Maximum job execution time, price factor and reservation ratio should a positive number.
+			Working time should be a two valued variable specifying time range.
 		}
 		\term{RAT}{In order to valid queues.}
 	\end{functional}
@@ -137,7 +139,7 @@
 		\label{fn:configuration-feature:valid-user-groups}
 		\term{DESC}
 		{
-			Configuration file should contain a valid configuration of user groups. At least one user group should be configured.
+			Configuration file should contain a valid configuration of user groups. At least one user group should be configured. Amount of members, values of budget range, maximum number of concurrent jobs, maximum resources and maximum total number of utilized cores should be positive value.
 		}
 		\term{RAT}{In order to valid user groups.}
 	\end{functional}
