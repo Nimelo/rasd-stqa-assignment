@@ -12,8 +12,23 @@
 		the user interface design should be documented in a separate user interface 
 		specification.$>$
 	\end{comment}
-
-
+	Software that is described in this document has a form of a command line executable. All the interaction between end-user and application should be performed by a command line queries. The first thing that should be used in program is parametrization of a simulation. Configuration files should by of XML or JSON type due to complication of storing such a quantitative amount of parameters. This approach also easily enables extension of configuration file in future. Simulator should inform user about the current state of a work and after execution about total simulation time. User should be also able to provide path to a folder, where report should be stored. Simulator should also be able to generate template configuration file.
+	\basicreq{UI-CONF}{File configuration}{Very High}
+	{
+		User should be able to pass a path to a configuration file by using \emph{-file} parameter.
+	}
+	\basicreq{UI-CONF}{Report path}{Medium}
+	{
+		User should be able to specify path to generated report by using \emph{-output} parameter.
+	}
+	\basicreq{UI-CONF}{Template}{Medium}
+	{
+		User should be able to generate template of configuration file by using \emph{-template} parameter.
+	}
+	\basicreq{UI-CONF}{Help}{Low}
+	{
+		User should be able to see a manual by using \emph{-help} parameter.
+	}
 \section{Hardware Interfaces}
 	\begin{comment}
 		$<$Describe the logical and physical characteristics of each interface between 
