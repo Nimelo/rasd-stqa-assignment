@@ -39,6 +39,15 @@
 		
 		REQ-1:	REQ-2:
 	\end{comment}
+	
+	\begin{functional}{Simulation Time}{High}{None}
+		\label{fn:configuration-feature:simulation-time}
+		\term{DESC}
+		{
+			Application should provide functionality to specify the simulation time (beginning and end). 
+		}
+		\term{RAT}{In order to configure simulation time for simulation.}
+	\end{functional}
 
 	\begin{functional}{System Resources}{Very High}{None}
 		\label{fn:configuration-feature:system-resources}
@@ -105,6 +114,15 @@
 
 	% Validation
 		
+	\begin{functional}{Validate Simulation Time}{High}{None}
+		\label{fn:configuration-feature:validate-simulation-time}
+		\term{DESC}
+		{
+			The simulation time (beginning and end) should be a positive value related to the dates. 
+		}
+		\term{RAT}{In order to validate simulation time for simulation.}
+	\end{functional}
+
 	\begin{functional}{Validate Nodes}{Very High}{\ref{fn:configuration-feature:system-resources}}
 		\label{fn:configuration-feature:valid-nodes}
 		\term{DESC}
@@ -158,7 +176,8 @@
 			\ref{fn:configuration-feature:valid-moc},
 			\ref{fn:configuration-feature:valid-nodes},
 			\ref{fn:configuration-feature:valid-queues},
-			\ref{fn:configuration-feature:valid-user-groups}
+			\ref{fn:configuration-feature:valid-user-groups},
+			\ref{fn:configuration-feature:validate-simulation-time}
 		}
 		\label{fn:configuration-feature:valid-configuration}
 		\term{DESC}
