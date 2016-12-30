@@ -40,6 +40,30 @@
 		REQ-1:	REQ-2:
 	\end{comment}
 	
+	\begin{functional}{\gls{RNG} Seed}{Low}{None}
+		\label{fn:configuration-feature:rng-seed}
+		\term{DESC}
+		{
+			Application should provide functionality to specify the \gls{RNG} seed.
+		}
+		\term{RAT}{In order to allow repeat simulation.}
+	\end{functional}
+
+	\begin{functional}{Job Types}{Very High}{\ref{fn:configuration-feature:system-resources}}
+		\label{fn:configuration-feature:job-types}
+		\term{DESC}
+		{
+			User should be able to configure job types in a system, which are related to the resources. Each job type should contain list of tuples with following parameters:
+			\begin{itemize}
+				\item Type of \gls{computing node} (related to type of \ref{fn:configuration-feature:system-resources});
+				\item Probability of occurrence;
+				\item Maximum amount of nodes of this type.
+			\end{itemize}
+			Additionally each of mentioned before tuples should contain a field \emph{Probability}, which for all the job types sum of their probability should exceed $1$.
+		}
+		\term{RAT}{In order to allow repeat simulation.}
+	\end{functional}
+
 	\begin{functional}{Simulation Time}{High}{None}
 		\label{fn:configuration-feature:simulation-time}
 		\term{DESC}
@@ -114,6 +138,24 @@
 
 	% Validation
 		
+	\begin{functional}{Valid \gls{RNG} Seed}{Medium}{None}
+		\label{fn:configuration-feature:valid-rng-seed}
+		\term{DESC}
+		{
+			Configuration file should contain valid \gls{RNG} seed.
+		}
+		\term{RAT}{In order to valid \gls{RNG} seed.}
+	\end{functional}
+	
+	\begin{functional}{Valid Job Types}{Very High}{\ref{fn:configuration-feature:valid-nodes}}
+		\label{fn:configuration-feature:valid-job-types}
+		\term{DESC}
+		{
+			Sum of probability for job types should be equal $1$. Type of \gls{computing node} should match existing types of nodes in a system. Probability of occurrence should positive. Maximum amount of nodes of this type should be positive. At least one type of job should be specified in a system.
+		}
+		\term{RAT}{In order to allow repeat simulation.}
+	\end{functional}
+
 	\begin{functional}{Validate Simulation Time}{High}{None}
 		\label{fn:configuration-feature:validate-simulation-time}
 		\term{DESC}
@@ -177,7 +219,9 @@
 			\ref{fn:configuration-feature:valid-nodes},
 			\ref{fn:configuration-feature:valid-queues},
 			\ref{fn:configuration-feature:valid-user-groups},
-			\ref{fn:configuration-feature:validate-simulation-time}
+			\ref{fn:configuration-feature:validate-simulation-time},
+			\ref{fn:configuration-feature:valid-job-types},
+			\ref{fn:configuration-feature:valid-rng-seed}
 		}
 		\label{fn:configuration-feature:valid-configuration}
 		\term{DESC}
