@@ -2,14 +2,25 @@
 	\begin{comment}
 		$<$Introduce the following subordinate sections. This section describes the test processes, test documentation requirements, and test reporting requirements for the entire test effort. $>$
 	\end{comment}
-
+	
 \section{Test processes including definition of test levels} \label{s:details-of-the-master-test-plan:test-processes-including-definition-of-test-levels}
 	\begin{comment}
 		$<$ Identify test activities and tasks to be performed for each of the test processes described in Clause 5 of this standard (or the alternative test processes defined by the user of this standard), and document those test activities and tasks. Provide an overview of the test activities and tasks for all development life cycle processes. Identify the number and sequence of levels of test. There may be a different number of levels than the example used in this standard (component, component integration, system, and acceptance). Integration is often accomplished through a series of test levels, for both component integration and systems integration. Examples of possible additional test levels include security, usability, performance, stress, recovery, and regression. Small systems may have fewer levels of test, e.g., combining system and acceptance. If the test processes are already defined by an organization’s standards, a reference to those standards could be substituted for the contents of this subclause.$>$
 	\end{comment}
-
+	Master test plan distinguish two test levels:
+	\begin{itemize}
+		\item
+		{
+			\emph{component (unit-test) level} -- contains all the test-code;	
+		}
+		\item
+		{
+			\emph{system level} -- contains all test for the system, including some acceptance tests fro the end-user.
+		}
+	\end{itemize}
+	For each of those levels two additional documents were made -- design document of level and case document, which specifies actual methods used in case of checking particular requirements.
 	\subsection{Process: Management} \label{s:details-of-the-master-test-plan:process-management}
-		\begin{comment}
+		%\begin{comment}
 			$<$ Describe how all requirements of the standard are satisfied (e.g., by cross referencing to this standard) if the life cycle used in the MTP differs from the life cycle model in this standard. Testing requires advance planning that spans several development activities. Include sections 2.1.1 through 2.1.6 (or sections for each life cycle, if different from the example used in this standard) for test activities and tasks as shown in the MTP Outline (Clause 8). 
 			Address the following eight topics for each test activity (as in the example in Table \ref{tab:example-task-description}).
 			
@@ -69,9 +80,32 @@
 			\end{tabular}
 			\end{table}
 			$>$
-		\end{comment}
+	%	\end{comment}
 
+	\taskdescription
+	{
+		TASK
+	}
+	{
+		Generating output files
+	}
+	{
+		\taskdescfield{Method}{Risk: adequacy and timeliness of the test plans
+			Assumption: Timeliness is a primary concern because the team writing the test
+			cases is dependent on the receipt of this the test plans}
+		\taskdescfield{Inputs}{arg2}
+		\taskdescfield{Outputs}{arg2}
+		\taskdescfield{Schedule}{arg2}
+		\taskdescfield{Resources}{arg2}
+		\taskdescfield{Risk(s) and assumptions}{arg2}
+		\taskdescfield{Roles and responsibilities}{arg2}
+		
+	}
 	
+	\begin{testcase}{xd}{213123}{None}{YES}
+		content...
+	\end{testcase}
+
 	\subsubsection{Activity: Management of test effort} \label{s:details-of-the-master-test-plan:activity-management-of-test-effort}
 	%$<$ $>$
 	
