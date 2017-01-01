@@ -15,6 +15,11 @@
 		of the document. This information may also be kept in a place other than in the text of the document
 		(e.g., in the configuration management system or in the header or footer of the document).
 	\end{comment}
+	\textsc{Document version: } 1.0 \\
+	\textsc{Date of issue:} \today \\
+	\textsc{Issuing organization:} Cranfield University \\
+	\textsc{Authors: } Mateusz Gasior \\
+	\textsc{Status: } Final \\
 \section{Scope} \label{s:introduction:scope}
 	\begin{comment}
 		Identify the test items (software or system) that are the object of testing, e.g., specific attributes of the
@@ -31,21 +36,27 @@
 		Reference any Anomaly Reports relating to the test items.
 		Identify any items that are to be specifically excluded from testing.
 	\end{comment}
+	Scope of this document contains scope of the system \gls{TLD} document, mentioned in section \ref{s:introduction:references}. Additionally this document contains set of test cases (scenarios) and test suits.
 \section{References} \label{s:introduction:references}
 	\begin{comment}
 		List all of the applicable reference documents. The references are separated into “external” references
 		that are imposed external to the project and “internal” references that are imposed from within to the
 		project. This may also be at the end of the document.
 	\end{comment}
-	
+	\begin{enumerate}
+		\item \emph{Software Requirements Specification, Supercomputer Simulation Tool}. Cranfield University, 2016.
+		\item \emph{Test Level Design -- System, Supercomputer Simulation Tool}. Cranfield University, 2016.
+	\end{enumerate}
 \section{Context} \label{s:introduction:context}
 	\begin{comment}
 		Provide any required context that is not already covered by other sections of this document (e.g., thirdparty
 		testing via the Internet).
 	\end{comment}
-	
+	Context of the test scenarios and suits is mainly stored in \gls{SRS} document in chapter 4 (External Interface Requirements) and 4.1 (Communication Feature). 
 \section{Notation for description} \label{s:introduction:notation-for-description}
 	\begin{comment}
 		Define any numbering schemes, e.g., for scenarios and test cases. The intent of this section is to
 		explain any such schema.
 	\end{comment}
+	As mentioned in \gls{MTP} document, section 2.1.1 (Process: Management) distinguished are at least two notations. First for description of tasks (test suits) and notation for test cases. Each of test suits can have different prefix followed by an incremented index, similarly to test cases (scenarios). In case of test scenarios additionally a priority level, dependencies and related requirements should be listed.
+	
