@@ -4,7 +4,7 @@
 		details of issuance. It includes required approvals and status (DRAFT/FINAL) of the document. It is
 		here that the scope is described and references identified.
 	\end{comment}
-
+	
 \section{Document identifier} \label{s:introduction:document-identifier}
 	\begin{comment}
 		Uniquely identify a version of the document by including information such as the date of issue, the
@@ -15,6 +15,11 @@
 		of the document. This information may also be kept in a place other than in the text of the document
 		(e.g., in the configuration management system or in the header or footer of the document).
 	\end{comment}
+	\textsc{Document version:} 1.0 \\
+	\textsc{Date of issue:} \today \\
+	\textsc{Issuing organization:} Cranfield University \\
+	\textsc{Authors:} Mateusz Gasior \\
+	\textsc{Status:} Final
 \section{Scope} \label{s:introduction:scope}
 	\begin{comment}
 		Identify the test items (software or system) that are the object of testing, e.g., specific attributes of the
@@ -31,9 +36,19 @@
 		Reference any Anomaly Reports relating to the test items.
 		Identify any items that are to be specifically excluded from testing.
 	\end{comment}
+	System tests are considered as end-to-end test, which starts with the communication of user with the application. All of the actions (use cases) that can be performed by user are considered as system tests. Those types of tests requires following prerequisites:
+	\begin{itemize}
+		\item \emph{Java Virtual Machine} with version 8 or newer;
+		\item operating system that supports mentioned runtime environment;
+		\item with minimum hardware requirements complied with  \emph{JVM}.
+	\end{itemize}
+	Additionally for this type of test a manual or user's guide is helpful due to description of all the actions in the simulation tool. 
 \section{References} \label{s:introduction:references}
 	\begin{comment}
 		List all of the applicable reference documents. The references are separated into “external” references
 		that are imposed external to the project and “internal” references that are imposed from within to the
 		project. This may also be at the end of the document.
 	\end{comment}
+	\begin{enumerate}
+		\item \emph{Software Requirements Specification, Supercomputer Simulation Tool}. Cranfield University, 2016. 
+	\end{enumerate}
