@@ -8,7 +8,7 @@ import java.time.DayOfWeek;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class ShiftTime implements IValidate{
+public class ShiftTime{
     private DayOfWeek dayOfWeek;
     private Long hours;
     private Long minutes;
@@ -37,11 +37,4 @@ public class ShiftTime implements IValidate{
         this.minutes = minutes;
     }
 
-    @Override
-    public void validate() throws ValidationException {
-        if (hours < 0L || hours > 24)
-            new ValidationException("Incorrect hour.", AvailabilityTime.class);
-        if (minutes < 0L || minutes > 60L)
-            new ValidationException("Incorrect minutes.", AvailabilityTime.class);
-    }
 }

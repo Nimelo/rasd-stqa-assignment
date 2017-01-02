@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class QueuesConfiguration implements IValidate{
+public class QueuesConfiguration {
     private List<QueueProperties> queues;
 
     public List<QueueProperties> getQueues() {
@@ -18,12 +18,5 @@ public class QueuesConfiguration implements IValidate{
 
     public void setQueues(List<QueueProperties> queues) {
         this.queues = queues;
-    }
-
-    @Override
-    public void validate() throws ValidationException {
-        for (QueueProperties queue : queues) {
-            queue.validate();
-        }
     }
 }

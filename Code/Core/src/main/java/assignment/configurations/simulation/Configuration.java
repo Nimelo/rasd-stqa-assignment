@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class Configuration implements IValidate{
+public class Configuration{
     private Long rngSeed;
     private JobTypesConfiguration jobTypesConfiguration;
     private SimulationTime simulationTime;
@@ -54,46 +54,4 @@ public class Configuration implements IValidate{
         return jobDistribution;
     }
 
-    @Override
-    public void validate() throws ValidationException {
-        jobTypesConfiguration.validate();
-        simulationTime.validate();
-        systemResources.validate();
-        queuesConfiguration.validate();
-        userGroupsConfiguration.validate();
-        if (machineOperationalCost.doubleValue() < 0L)
-            throw new ValidationException("Operational cost of machine is negative.", BigDecimal.class);
-
-        this.validateNodesInJobTypes();
-        this.validateNodesInQueues();
-
-    }
-
-    private void validateNodesInQueues() throws ValidationException {
-        for (QueueProperties queueProperties : queuesConfiguration.getQueues()) {
-            List<String> types = queueProperties.getReservedResources().stream()
-                    .map(ReservedResources::getNodeType).collect(Collectors.toList());
-            checkIfNodesExist(types);
-        }
-
-        //TODO: What if there is not sufficient amount of nodes?
-    }
-
-    private void validateNodesInJobTypes() throws ValidationException {
-        for (JobType jobType : jobTypesConfiguration.getJobTypes()) {
-            List<String> types = jobType.getTuples().stream().map(JobTypeTuple::getType).collect(Collectors.toList());
-            checkIfNodesExist(types);
-        }
-    }
-
-    private void checkIfNodesExist(List<String> types) throws ValidationException {
-        for (String type : types) {
-            boolean anyMatch = this.systemResources.getNodes().stream()
-                    .map(Node::getName)
-                    .anyMatch(x -> x.equals(type));
-            if (!anyMatch)
-                throw new ValidationException("Not matching node type.", String.class);
-        }
-
-    }
 }

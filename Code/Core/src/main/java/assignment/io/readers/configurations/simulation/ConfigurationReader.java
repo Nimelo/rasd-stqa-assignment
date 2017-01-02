@@ -14,6 +14,7 @@ public class ConfigurationReader {
     public Configuration read(String path) throws FileNotFoundException {
         BufferedReader br = new BufferedReader(new FileReader(path));
         Gson gson = new Gson();
+        gson.fromJson("dsfsd", Configuration.class);
         return gson.fromJson(br, Configuration.class);
     }
 }

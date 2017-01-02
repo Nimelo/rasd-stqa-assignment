@@ -8,29 +8,12 @@ import java.math.BigDecimal;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class UserGroup implements IValidate{
+public class UserGroup{
     private Long amountOfMembers;
     private BigDecimal minBudget;
     private BigDecimal maxBudget;
     private Long maxNumberOfConcurrentJobsPerUser;
     private Long maxUtilizedCoresPerUser;
-
-    @Override
-    public void validate() throws ValidationException {
-        if (amountOfMembers < 0L)
-            throw new ValidationException("Negative amount of members.", UserGroup.class);
-        if (minBudget.doubleValue() < 0L)
-            throw new ValidationException("Negative min budget.", UserGroup.class);
-        if (maxBudget.doubleValue() < 0L)
-            throw new ValidationException("Negative max budget.", UserGroup.class);
-        //TODO: Shall I implement this?
-        /*
-        if (maxNumberOfConcurrentJobsPerUser < 0L)
-            throw new ValidationException("Negative amount of members.", UserGroup.class);
-        if (amountOfMembers < 0L)
-            throw new ValidationException("Negative amount of members.", UserGroup.class);
-         */
-    }
 
     public Long getAmountOfMembers() {
         return amountOfMembers;

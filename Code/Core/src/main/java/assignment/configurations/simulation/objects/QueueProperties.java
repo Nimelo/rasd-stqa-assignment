@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class QueueProperties implements IValidate{
+public class QueueProperties{
     private String name;
     private String description;
     private Long maximumExecutionTime;
@@ -65,17 +65,4 @@ public class QueueProperties implements IValidate{
         this.availabilityTime = availabilityTime;
     }
 
-    @Override
-    public void validate() throws ValidationException {
-        if (maximumExecutionTime < 0L)
-            throw new ValidationException("Maximum execution time is less then zero.", QueueProperties.class);
-        if (price.doubleValue() < 0L)
-            throw new ValidationException("Price cannot be less than zero.", QueueProperties.class);
-        availabilityTime.validate();
-
-        for (ReservedResources reservedResource : reservedResources) {
-            if (reservedResource.getAmount() < 0)
-                throw new ValidationException("Cannot reserve negative amount of nodes.", ReservedResources.class);
-        }
-    }
 }

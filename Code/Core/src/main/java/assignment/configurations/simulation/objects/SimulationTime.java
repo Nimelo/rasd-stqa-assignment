@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class SimulationTime implements IValidate{
+public class SimulationTime{
     private Date begin;
     private Date end;
 
@@ -28,9 +28,4 @@ public class SimulationTime implements IValidate{
         this.end = end;
     }
 
-    @Override
-    public void validate() throws ValidationException {
-        if (!end.after(begin))
-            throw new ValidationException("End of simulation is before start", SimulationTime.class);
-    }
 }

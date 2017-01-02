@@ -8,15 +8,9 @@ import java.time.DayOfWeek;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class AvailabilityTime implements IValidate{
+public class AvailabilityTime{
     private ShiftTime begin;
     private ShiftTime end;
-
-    @Override
-    public void validate() throws ValidationException {
-        begin.validate();
-        end.validate();
-    }
 
     public ShiftTime getBegin() {
         return begin;
