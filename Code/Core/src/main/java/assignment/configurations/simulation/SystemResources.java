@@ -1,7 +1,5 @@
 package assignment.configurations.simulation;
 
-import assignment.configurations.simulation.exceptions.ValidationException;
-import assignment.configurations.simulation.interfaces.IValidate;
 import assignment.configurations.simulation.objects.Node;
 
 import java.util.List;

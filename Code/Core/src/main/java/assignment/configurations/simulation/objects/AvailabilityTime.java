@@ -1,10 +1,5 @@
 package assignment.configurations.simulation.objects;
 
-import assignment.configurations.simulation.exceptions.ValidationException;
-import assignment.configurations.simulation.interfaces.IValidate;
-
-import java.time.DayOfWeek;
-
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
