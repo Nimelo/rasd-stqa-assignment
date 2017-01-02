@@ -7,9 +7,18 @@ import java.math.BigDecimal;
  */
 public class Node {
     private String name;
+    private Long amount;
     private Long amountOfCores;
     //TODO: Connect price with time. (Assumption has been made - seconds.)
     private BigDecimal price;
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
 
     public String getName() {
         return name;

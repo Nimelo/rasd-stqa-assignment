@@ -11,10 +11,14 @@ import java.io.FileReader;
  * Created by Mateusz Gasior on 02-Jan-17.
  */
 public class ConfigurationReader {
-    public Configuration read(String path) throws FileNotFoundException {
+    public Configuration readFromJson(String json)  {
+        Gson gson = new Gson();
+        return gson.fromJson(json, Configuration.class);
+    }
+
+    public Configuration readFromPath(String path) throws FileNotFoundException {
         BufferedReader br = new BufferedReader(new FileReader(path));
         Gson gson = new Gson();
-        gson.fromJson("dsfsd", Configuration.class);
         return gson.fromJson(br, Configuration.class);
     }
 }

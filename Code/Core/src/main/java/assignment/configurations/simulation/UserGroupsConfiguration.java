@@ -8,13 +8,13 @@ import java.util.List;
  * Created by Mateusz Gasior on 02-Jan-17.
  */
 public class UserGroupsConfiguration{
-    private List<UserGroup> userGroup;
+    private List<UserGroup> userGroups;
 
-    public List<UserGroup> getUserGroup() {
-        return userGroup;
+    public List<UserGroup> getUserGroups() {
+        return userGroups;
     }
 
-    public void setUserGroup(List<UserGroup> userGroup) {
-        this.userGroup = userGroup;
+    public void setUserGroups(List<UserGroup> userGroups) {
+        this.userGroups = userGroups;
     }
 }

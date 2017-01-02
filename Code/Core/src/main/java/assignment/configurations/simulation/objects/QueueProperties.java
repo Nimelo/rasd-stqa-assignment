@@ -10,7 +10,7 @@ public class QueueProperties{
     private String name;
     private String description;
     private Long maximumExecutionTime;
-    private BigDecimal price;
+    private Double priceFactor;
     private List<ReservedResources> reservedResources;
     private AvailabilityTime availabilityTime;
 
@@ -38,12 +38,12 @@ public class QueueProperties{
         this.maximumExecutionTime = maximumExecutionTime;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Double getPriceFactor() {
+        return priceFactor;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPriceFactor(Double priceFactor) {
+        this.priceFactor = priceFactor;
     }
 
     public List<ReservedResources> getReservedResources() {

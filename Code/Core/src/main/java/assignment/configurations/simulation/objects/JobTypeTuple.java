@@ -4,16 +4,16 @@ package assignment.configurations.simulation.objects;
  * Created by Mateusz Gasior on 02-Jan-17.
  */
 public class JobTypeTuple {
-    private String type;
+    private String nodeType;
     private Double probabilityOfOccurrence;
     private Long maximumAmountOfNodes;
 
-    public String getType() {
-        return type;
+    public String getNodeType() {
+        return nodeType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
     }
 
     public Double getProbabilityOfOccurrence() {

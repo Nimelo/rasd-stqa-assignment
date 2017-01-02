@@ -1,0 +1,73 @@
+{
+  "rngSeed" : 1,
+  "jobDistribution" : 0.5,
+  "machineOperationalCost" : 400.01,
+  "simulationTime" : {
+    "begin" : "2016-11-17",
+    "end" : "2016-11-30"
+  },
+  "systemResources" : {
+    "nodes" : [
+      {
+        "name" : "NODE_S",
+        "amount" : 8,
+        "amountOfCores" : 32,
+        "price" : 12.4
+      }
+    ]
+  },
+  "jobTypesConfiguration" : {
+    "jobTypes" : [
+      {
+        "name" : "SmallJob",
+        "probabilityOfJob" : 0.5,
+        "tuples" : [
+          {
+            "nodeType" : "NODE_S",
+            "probabilityOfOccurrence" : 0.7,
+            "maximumAmountOfNodes" : 3
+          }
+        ]
+      }
+    ]
+  },
+  "queuesConfiguration" : {
+    "queues" : [
+      {
+        "name" : "FastQueue",
+        "description" : "Queue for very fast jobs.",
+        "maximumExecutionTime" : 60,
+        "priceFactor" : 1.0,
+        "reservedResources" : [
+          {
+            "nodeType" : "NODE_S",
+            "amount" : 4
+          }
+        ],
+        "availabilityTime" : {
+          "begin" : {
+            "dayOfWeek" : "MONDAY",
+            "hours" : 7,
+            "minutes" : 0
+          },
+          "end" : {
+            "dayOfWeek" : "FRIDAY",
+            "hours" : 7,
+            "minutes" : 0
+          }
+        }
+      }
+    ]
+  },
+  "userGroupsConfiguration" : {
+    "userGroups" : [
+      {
+        "amountOfMembers" : 10,
+        "minBudget" : 3.14,
+        "maxBudget" : 754.43,
+        "maxNumberOfConcurrentJobsPerUser" : 2,
+        "maxUtilizedCoresPerUser" : 10
+      }
+    ]
+  }
+}
