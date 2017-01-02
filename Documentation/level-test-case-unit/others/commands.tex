@@ -117,12 +117,21 @@
 	\end{eqmpage}
 }
 
+\newcounter{TestDescriptionCounter}
+\renewcommand{\theTestDescriptionCounter}{\number\numexpr\value{TestDescriptionCounter}+1\relax}
+
+\newcommand{\reqidd}[1]
+{
+	\textbf{#1--\theTestDescriptionCounter:}
+	\stepcounter{TestDescriptionCounter}
+}
+
 \newcommand{\taskdescription}[3]
 {
 	\begin{center}
 		\begin{minipage}[t]{0.35\linewidth}
 			\flushleft 
-			\reqid{#1}
+		%	\reqidd{#1}
 		\end{minipage}
 		\begin{minipage}[t]{0.64\linewidth}
 			\flushleft
@@ -141,7 +150,7 @@
 	\begin{center}
 		\begin{minipage}[t]{0.65\linewidth}
 			\flushleft 
-			\textbf{TEST--CASE--\theTestCaseCounter:} #1
+			\textbf{TEST--CASE--\number\numexpr\value{TestCaseCounter}:} #1
 		\end{minipage}
 		\begin{minipage}[t]{0.25\linewidth}
 			\flushright 
@@ -149,8 +158,8 @@
 		\end{minipage}\\[2pt]
 		\hrule
 	\end{center}
-	DEP: #3	
-	\term{REQS}{#4 \\} 
+	\term{Dep}{#3}
+	\term{Reqs}{#4 \\} 
 }
 
 

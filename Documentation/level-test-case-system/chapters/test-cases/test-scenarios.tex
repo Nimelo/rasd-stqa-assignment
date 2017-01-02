@@ -1,0 +1,65 @@
+\chapter{Test scenarios} \label{chp:test-scenarios}
+	\begin{testcase}{Passing Configuration Path Test}{Very High}{None}
+		{
+			\textbf{FN-1.1}
+		}
+		\term{Objective}{To check if configuration file will load using given path.}
+		\term{Inputs}{Configuration file.}
+		\term{Steps}
+		{
+			\begin{enumerate}
+				\item Create configuration file
+				\item Load configuration file using \emph{-configuration} parameter with the path
+				\item Run simulation tool.
+			\end{enumerate}
+		}
+		\term{Output}{Program should notice configuration within given path.}
+	\end{testcase}
+	
+	\begin{testcase}{Passing Report Path Test}{Medium}{None}
+		{
+			\textbf{FN-1.2}
+		}
+		\term{Objective}{To check if produced report will be generated in specified location.}
+		\term{Inputs}{None}
+		\term{Steps}
+		{
+			\begin{enumerate}
+				\item Create configuration file
+				\item Load configuration file using \emph{-configuration} parameter.
+				\item Load path to report file using \emph{-report} parameter.
+				\item Run simulation tool.
+			\end{enumerate}
+		}
+		\term{Output}{Program should produce report within given path.}
+	\end{testcase}
+	
+	\begin{testcase}{Generating Template Test}{Low}{None}
+		{
+			\textbf{FN-1.3}
+		}
+		\term{Objective}{To generate template files.}
+		\term{Inputs}{None}
+		\term{Steps}
+		{
+			\begin{enumerate}
+				\item Run program with \emph{-template} parameter with path to the location for new file.
+			\end{enumerate}
+		}
+		\term{Output}{Program should generate template configuration file within given path.}
+	\end{testcase}
+
+	\begin{testcase}{Viewing Manual Test}{High}{None}
+		{
+			\textbf{FN-1.4}
+		}
+		\term{Objective}{To view manual of the program.}
+		\term{Inputs}{None}
+		\term{Steps}
+		{
+			\begin{enumerate}
+				\item Run program with \emph{-help} parameter.
+			\end{enumerate}
+		}
+		\term{Output}{Program should print well described and formated manual of itself.}
+	\end{testcase}
