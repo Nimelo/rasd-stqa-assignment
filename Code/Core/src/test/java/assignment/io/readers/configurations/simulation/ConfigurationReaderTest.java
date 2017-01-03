@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +50,6 @@ class ConfigurationReaderTest {
 
     private void validateConfiguration(Configuration configuration){
         assertEquals(new Long(1L), configuration.getRngSeed());
-        assertEquals(new Double(0.5), configuration.getJobDistribution());
         assertEquals(new BigDecimal(400.01).doubleValue(), configuration.getMachineOperationalCost().doubleValue(), 0.01);
         assertDate(2016, 11, 17, configuration.getSimulationTime().getBegin());
         assertDate(2016, 11, 30, configuration.getSimulationTime().getEnd());
@@ -67,6 +67,8 @@ class ConfigurationReaderTest {
         assertEquals(new BigDecimal(754.43).doubleValue(), userGroup.getMaxBudget().doubleValue(), 0.01);
         assertEquals(new Long(2), userGroup.getMaxNumberOfConcurrentJobsPerUser());
         assertEquals(new Long(10), userGroup.getMaxUtilizedCoresPerUser());
+        assertEquals(new Double(0.5), userGroup.getJobDistributionLambda());
+        assertEquals(new Double(0.5), userGroup.getRequestSizeDistributionLambda());
     }
 
     private void assertQueuesConfiguration(QueuesConfiguration queuesConfiguration) {
@@ -81,6 +83,12 @@ class ConfigurationReaderTest {
         assertEquals(new Long(4), reservedResource.getAmount());
         assertDayOfWeekTime(DayOfWeek.MONDAY, 7L, 0L, queueProperties.getAvailabilityTime().getBegin());
         assertDayOfWeekTime(DayOfWeek.FRIDAY, 7L, 0L, queueProperties.getAvailabilityTime().getEnd());
+
+        ConstraintResource constraintResources = queueProperties.getConstraintResources().get(0);
+
+        assertEquals("NODE_S", constraintResources.getNodeType());
+        assertEquals(new Long(1L), constraintResources.getAmount());
+        assertEquals(new Long(4L), constraintResources.getAmountOfCores());
     }
 
     private void assertDayOfWeekTime(DayOfWeek dayOfWeek, Long hours, Long minutes, ShiftTime time) {

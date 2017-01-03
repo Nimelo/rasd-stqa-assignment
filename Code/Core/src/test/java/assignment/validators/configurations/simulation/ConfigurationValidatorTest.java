@@ -62,6 +62,13 @@ class ConfigurationValidatorTest {
                             setAmount(1L);
                         }});
                     }});
+                    setConstraintResources(new ArrayList<ConstraintResource>() {{
+                        add(new ConstraintResource() {{
+                            setNodeType("NODE_S");
+                            setAmount(1L);
+                            setAmountOfCores(1L);
+                        }});
+                    }});
                     setAvailabilityTime(new AvailabilityTime() {{
                         setBegin(new ShiftTime() {{
                             setDayOfWeek(DayOfWeek.MONDAY);
@@ -94,6 +101,11 @@ class ConfigurationValidatorTest {
                     setName("QUEUE");
                     setReservedResources(new ArrayList<ReservedResource>() {{
                         add(new ReservedResource() {{
+                            setNodeType("NODE_S");
+                        }});
+                    }});
+                    setConstraintResources(new ArrayList<ConstraintResource>() {{
+                        add(new ConstraintResource() {{
                             setNodeType("NODE_S");
                         }});
                     }});
@@ -176,6 +188,13 @@ class ConfigurationValidatorTest {
                             setAmount(1L);
                         }});
                     }});
+                    setConstraintResources(new ArrayList<ConstraintResource>() {{
+                        add(new ConstraintResource() {{
+                            setNodeType("NODE_S");
+                            setAmount(0L);
+                            setAmountOfCores(0L);
+                        }});
+                    }});
                     setAvailabilityTime(new AvailabilityTime() {{
                         setBegin(new ShiftTime() {{
                             setDayOfWeek(DayOfWeek.MONDAY);
@@ -245,9 +264,9 @@ class ConfigurationValidatorTest {
         JobTypesConfiguration jobTypesConfiguration = new JobTypesConfiguration() {{
             setJobTypes(new ArrayList<JobType>() {{
                 add(new JobType() {{
+                    setProbabilityOfJob(1.0D);
                     setMinExecutionTime(10L);
                     setMaxExecutionTime(10L);
-                    setProbabilityOfJob(1.0D);
                     setTuples(new ArrayList<JobTypeTuple>() {{
                         add(new JobTypeTuple() {{
                             setNodeType("NODE_S");

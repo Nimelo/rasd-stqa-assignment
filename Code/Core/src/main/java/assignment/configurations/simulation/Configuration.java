@@ -15,7 +15,6 @@ public class Configuration{
     private BigDecimal machineOperationalCost;
     private QueuesConfiguration queuesConfiguration;
     private UserGroupsConfiguration userGroupsConfiguration;
-    private Double jobDistribution;
 
     public Long getRngSeed() {
         return rngSeed;
@@ -43,10 +42,6 @@ public class Configuration{
 
     public UserGroupsConfiguration getUserGroupsConfiguration() {
         return userGroupsConfiguration;
-    }
-
-    public Double getJobDistribution() {
-        return jobDistribution;
     }
 
 }

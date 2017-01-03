@@ -23,7 +23,6 @@ public class ConfigurationValidator {
         this.validateMachineOperationalCost(configuration.getMachineOperationalCost());
         this.validateQueuesConfiguration(configuration.getQueuesConfiguration());
         this.validateUserGroupsConfiguration(configuration.getUserGroupsConfiguration());
-        this.validateJobDistribution(configuration.getJobDistribution());
 
         this.validateNodesInJobTypes(configuration.getJobTypesConfiguration(), configuration.getSystemResources());
         this.validateNodesInQueues(configuration.getQueuesConfiguration(), configuration.getSystemResources());
@@ -43,7 +42,6 @@ public class ConfigurationValidator {
             List<ReservedResource> value = next.getValue();
             this.validateSingleNode(key, value.stream().mapToLong(x -> x.getAmount()).sum(), systemResources.getNodes());
         }
-        ;
     }
 
     public void validateSingleNode(String name, Long amount, List<Node> nodes) throws ValidationException {
@@ -72,6 +70,15 @@ public class ConfigurationValidator {
                 ReservedResource reservedResource = reservedResources.get(j);
 
                 BasicValidator.shouldBeOneOf(names, reservedResource.getNodeType(), context);
+            }
+
+            List<ConstraintResource> constraintResources = queueProperties.getConstraintResources();
+
+            for (int j = 0; j < constraintResources.size(); j++) {
+                String currentContext = String.format("%s.[%d].constraintResources[%d].nodeType", context, i, j);
+                ConstraintResource constraintResource = constraintResources.get(j);
+
+                BasicValidator.shouldBeOneOf(names, constraintResource.getNodeType(), context);
             }
         }
     }
@@ -132,11 +139,24 @@ public class ConfigurationValidator {
             BasicValidator.shouldBeGreaterThan(0L, queueProperties.getMaximumExecutionTime(), currentContext + "maximumExecutionTime");
             BasicValidator.shouldBeGreaterThan(0D, queueProperties.getPriceFactor(), currentContext + "priceFactor");
             this.validateReservedResources(queueProperties.getReservedResources(), currentContext + "reservedResources");
+            this.validateConstraintResources(queueProperties.getConstraintResources(), currentContext + "constraintResources");
 
             BasicValidator.shouldBeInRange(1L, 24L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.begin.hours");
             BasicValidator.shouldBeInRange(0L, 60L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.begin.minutes");
             BasicValidator.shouldBeInRange(1L, 24L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.end.hours");
             BasicValidator.shouldBeInRange(0L, 60L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.end.minutes");
+        }
+    }
+
+    public void validateConstraintResources(List<ConstraintResource> constraintResources, String context) throws ValidationException {
+        BasicValidator.shouldNotBeNull(constraintResources, context);
+
+        for (int i = 0; i < constraintResources.size(); i++) {
+            String currentContext = String.format("%s.[%d]", context, i);
+            ConstraintResource constraintResource = constraintResources.get(i);
+            BasicValidator.shouldNotBeNull(constraintResource.getNodeType(), currentContext + ".nodeType");
+            BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, constraintResource.getAmount(), currentContext + ".amount");
+            BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, constraintResource.getAmountOfCores(), currentContext + ".amountOfCores");
         }
     }
 
@@ -185,7 +205,7 @@ public class ConfigurationValidator {
         BasicValidator.shouldContainElements(jobTypes, context);
 
         for (int i = 0; i < jobTypes.size(); i++) {
-            String currentContext = String.format("%s.[%d].", context, i);
+            String currentContext = String.format("%s[%d].", context, i);
             JobType jobType = jobTypes.get(i);
             BasicValidator.shouldBeGreaterThan(0L, jobType.getMinExecutionTime(), currentContext + "minExecutionTime");
             BasicValidator.shouldNotBeNull(jobType.getMaxExecutionTime(), currentContext + "maxExecutionTime");

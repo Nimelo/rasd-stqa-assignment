@@ -1,6 +1,5 @@
 {
   "rngSeed" : 1,
-  "jobDistribution" : 0.5,
   "machineOperationalCost" : 400.01,
   "simulationTime" : {
     "begin" : "2016-11-17",
@@ -20,7 +19,9 @@
     "jobTypes" : [
       {
         "name" : "SmallJob",
-        "probabilityOfJob" : 0.5,
+        "minExecutionTime" : 45,
+        "maxExecutionTime" : 120,
+        "probabilityOfJob" : 1.0,
         "tuples" : [
           {
             "nodeType" : "NODE_S",
@@ -42,6 +43,13 @@
           {
             "nodeType" : "NODE_S",
             "amount" : 4
+          }
+        ],
+        "constraintResources" : [
+          {
+            "nodeType" : "NODE_S",
+            "amount" : 1,
+            "amountOfCores" : 4
           }
         ],
         "availabilityTime" : {
@@ -66,7 +74,9 @@
         "minBudget" : 3.14,
         "maxBudget" : 754.43,
         "maxNumberOfConcurrentJobsPerUser" : 2,
-        "maxUtilizedCoresPerUser" : 10
+        "maxUtilizedCoresPerUser" : 10,
+        "jobDistributionLambda" : 0.5,
+        "requestSizeDistributionLambda" : 0.5
       }
     ]
   }

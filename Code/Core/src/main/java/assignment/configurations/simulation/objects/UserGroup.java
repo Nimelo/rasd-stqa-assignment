@@ -11,6 +11,24 @@ public class UserGroup{
     private BigDecimal maxBudget;
     private Long maxNumberOfConcurrentJobsPerUser;
     private Long maxUtilizedCoresPerUser;
+    private Double jobDistributionLambda;
+    private Double requestSizeDistributionLambda;
+
+    public Double getJobDistributionLambda() {
+        return jobDistributionLambda;
+    }
+
+    public void setJobDistributionLambda(Double jobDistributionLambda) {
+        this.jobDistributionLambda = jobDistributionLambda;
+    }
+
+    public Double getRequestSizeDistributionLambda() {
+        return requestSizeDistributionLambda;
+    }
+
+    public void setRequestSizeDistributionLambda(Double requestSizeDistributionLambda) {
+        this.requestSizeDistributionLambda = requestSizeDistributionLambda;
+    }
 
     public Long getAmountOfMembers() {
         return amountOfMembers;

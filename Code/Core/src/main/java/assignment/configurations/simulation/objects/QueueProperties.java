@@ -11,7 +11,16 @@ public class QueueProperties{
     private Long maximumExecutionTime;
     private Double priceFactor;
     private List<ReservedResource> reservedResources;
+    private List<ConstraintResource> constraintResources;
     private AvailabilityTime availabilityTime;
+
+    public List<ConstraintResource> getConstraintResources() {
+        return constraintResources;
+    }
+
+    public void setConstraintResources(List<ConstraintResource> constraintResources) {
+        this.constraintResources = constraintResources;
+    }
 
     public String getName() {
         return name;
