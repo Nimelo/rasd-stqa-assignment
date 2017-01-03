@@ -37,14 +37,16 @@ public class ConfigurationValidator {
         Map<String, List<ReservedResource>> reservationMap = reservationList.stream().collect(Collectors.groupingBy(x -> x.getNodeType()));
 
         Iterator<Map.Entry<String, List<ReservedResource>>> iterator = reservationMap.entrySet().iterator();
-        while(iterator.hasNext()) {
-            String key = iterator.next().getKey();
-            List<ReservedResource> value = iterator.next().getValue();
-            this.validateSingleNode(key, value.stream().mapToDouble(x -> x.getAmount()).sum(), systemResources.getNodes());
-        };
+        while (iterator.hasNext()) {
+            Map.Entry<String, List<ReservedResource>> next = iterator.next();
+            String key = next.getKey();
+            List<ReservedResource> value = next.getValue();
+            this.validateSingleNode(key, value.stream().mapToLong(x -> x.getAmount()).sum(), systemResources.getNodes());
+        }
+        ;
     }
 
-    public void validateSingleNode(String name, double amount, List<Node> nodes) throws ValidationException {
+    public void validateSingleNode(String name, Long amount, List<Node> nodes) throws ValidationException {
         for (Node node : nodes) {
             if (node.getName().equals(name)) {
                 if (node.getAmount() < amount) {
@@ -66,7 +68,7 @@ public class ConfigurationValidator {
             List<ReservedResource> reservedResources = queueProperties.getReservedResources();
 
             for (int j = 0; j < reservedResources.size(); j++) {
-                String currentContext = String.format("%s.[%d].reservedResources[%d].nodeType", context, i);
+                String currentContext = String.format("%s.[%d].reservedResources[%d].nodeType", context, i, j);
                 ReservedResource reservedResource = reservedResources.get(j);
 
                 BasicValidator.shouldBeOneOf(names, reservedResource.getNodeType(), context);
@@ -84,7 +86,7 @@ public class ConfigurationValidator {
             List<String> nodeNames = jobType.getTuples().stream().map(x -> x.getNodeType()).collect(Collectors.toList());
 
             for (int j = 0; j < nodeNames.size(); j++) {
-                String currentContext = String.format("%s.[%d].tuples[%d].nodeType", context, i);
+                String currentContext = String.format("%s.[%d].tuples[%d].nodeType", context, i, j);
                 String nodeName = nodeNames.get(j);
 
                 BasicValidator.shouldBeOneOf(names, nodeName, currentContext);
@@ -109,7 +111,9 @@ public class ConfigurationValidator {
 
             BasicValidator.shouldBeGreaterThan(0L, userGroup.getAmountOfMembers(), currentContext + "amountOfMembers");
             BasicValidator.shouldBeGreaterThan(new BigDecimal(0L), userGroup.getMinBudget(), currentContext + "minBudget");
-            BasicValidator.shouldBeGreaterThan(userGroup.getMinBudget(), userGroup.getMaxBudget(), currentContext + "maxBudget");
+            BasicValidator.shouldNotBeNull(userGroup.getMaxBudget(), currentContext + "maxBudget");
+            if (userGroup.getMaxBudget().compareTo(userGroup.getMinBudget()) != 0)
+                BasicValidator.shouldBeGreaterThan(userGroup.getMinBudget(), userGroup.getMaxBudget(), currentContext + "maxBudget");
 
             //TODO Should last two fields be implemented? TBD
         }
@@ -140,7 +144,7 @@ public class ConfigurationValidator {
         BasicValidator.shouldContainElements(reservedResources, context);
 
         for (int i = 0; i < reservedResources.size(); i++) {
-            String currentContext = String.format("%s.[%d].", context, i);
+            String currentContext = String.format("%s.[%d]", context, i);
             ReservedResource reservedResource = reservedResources.get(i);
             BasicValidator.shouldNotBeNull(reservedResource.getNodeType(), currentContext + ".nodeType");
             BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, reservedResource.getAmount(), currentContext + ".amount");
@@ -179,27 +183,28 @@ public class ConfigurationValidator {
         String context = "jobTypesConfiguration.jobTypes";
         List<JobType> jobTypes = jobTypesConfiguration.getJobTypes();
         BasicValidator.shouldContainElements(jobTypes, context);
-        BasicValidator.shouldBeUnique(jobTypes.stream().map(x -> x.getName()).collect(Collectors.toList()), "Name of jobs should be unique.");
-        BasicValidator.shouldBeEqual(jobTypes.stream().mapToDouble(x -> x.getProbabilityOfJob()).sum(), 1.0, 0.01, "Probability of all jobs should be equal 1.");
 
         for (int i = 0; i < jobTypes.size(); i++) {
             String currentContext = String.format("%s.[%d].", context, i);
             JobType jobType = jobTypes.get(i);
-            BasicValidator.shouldBeGreaterThan(0L, jobType.getMinExecutionTime(), context + "minExecutionTime");
-            BasicValidator.shouldBeGreaterThan(jobType.getMinExecutionTime(), jobType.getMaxExecutionTime(), context + "maxExecutionTime");
-            BasicValidator.shouldBeGreaterThan(0D, jobType.getProbabilityOfJob(), context + "probabilityOfJob");
+            BasicValidator.shouldBeGreaterThan(0L, jobType.getMinExecutionTime(), currentContext + "minExecutionTime");
+            BasicValidator.shouldNotBeNull(jobType.getMaxExecutionTime(), currentContext + "maxExecutionTime");
+            if (jobType.getMaxExecutionTime().compareTo(jobType.getMinExecutionTime()) != 0)
+                BasicValidator.shouldBeGreaterThan(jobType.getMinExecutionTime(), jobType.getMaxExecutionTime(), currentContext + "maxExecutionTime");
+            BasicValidator.shouldBeGreaterThan(0D, jobType.getProbabilityOfJob(), currentContext + "probabilityOfJob");
 
             List<JobTypeTuple> jobTypeTuples = jobTypes.get(i).getTuples();
             BasicValidator.shouldContainElements(jobTypeTuples, currentContext + "tuples");
             for (int j = 0; j < jobTypeTuples.size(); j++) {
-                String ctx = String.format("%s.jobTypeTuples.[%d].", currentContext, j);
+                String ctx = String.format("%sjobTypeTuples.[%d].", currentContext, j);
                 JobTypeTuple jobTypeTuple = jobTypeTuples.get(j);
                 BasicValidator.shouldNotBeNull(jobTypeTuple.getNodeType(), ctx + "getNodeType");
                 BasicValidator.shouldBeInRange(0.0, 1.0, jobTypeTuple.getProbabilityOfOccurrence(), ctx + "getProbabilityOfOccurrence");
                 BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, jobTypeTuple.getMaximumAmountOfNodes(), ctx + "getMaximumAmountOfNodes");
             }
         }
-
+        BasicValidator.shouldBeUnique(jobTypes.stream().map(x -> x.getName()).collect(Collectors.toList()), "Name of jobs should be unique.");
+        BasicValidator.shouldBeEqual(jobTypes.stream().mapToDouble(x -> x.getProbabilityOfJob()).sum(), 1.0, 0.01, "Probability of all jobs should be equal 1.");
     }
 
     public void validateRNGSeed(Long rngSeed) throws ValidationException {

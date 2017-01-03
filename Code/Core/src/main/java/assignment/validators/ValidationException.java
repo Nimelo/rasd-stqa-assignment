@@ -14,4 +14,9 @@ public class ValidationException extends Throwable {
     public String getContext() {
         return context;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", getMessage(), getContext());
+    }
 }
