@@ -92,6 +92,8 @@ class ConfigurationReaderTest {
     private void assertJobTypesConfiguration(JobTypesConfiguration jobTypesConfiguration) {
         assertEquals(1, jobTypesConfiguration.getJobTypes().size());
         JobType jobType = jobTypesConfiguration.getJobTypes().get(0);
+        assertEquals(new Long(45L), jobType.getMinExecutionTime());
+        assertEquals(new Long(120L), jobType.getMaxExecutionTime());
         assertEquals("SmallJob", jobType.getName());
         assertEquals(new Double(0.5), jobType.getProbabilityOfJob(), 0.01);
         assertEquals(1, jobType.getTuples().size());

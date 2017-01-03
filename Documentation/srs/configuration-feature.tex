@@ -57,7 +57,8 @@
 			\begin{itemize}
 				\item Type of \gls{computing node} (related to type of \ref{fn:configuration-feature:system-resources});
 				\item Probability of occurrence;
-				\item Maximum amount of nodes of this type.
+				\item Maximum amount of nodes of this type;
+				\item Minimum and maximum execution time.
 			\end{itemize}
 			Additionally each of mentioned before tuples should contain a field \emph{Probability}, which for all the job types sum of their probability should exceed $1$.
 		}
@@ -151,7 +152,7 @@
 		\label{fn:configuration-feature:valid-job-types}
 		\term{DESC}
 		{
-			Sum of probability for job types should be equal $1$. Type of \gls{computing node} should match existing types of nodes in a system. Probability of occurrence should positive. Maximum amount of nodes of this type should be positive. At least one type of job should be specified in a system.
+			Sum of probability for job types should be equal $1$. Type of \gls{computing node} should match existing types of nodes in a system. Probability of occurrence should positive. Maximum amount of nodes of this type should be positive. At least one type of job should be specified in a system. Also range of the execution time should be indicated, by two positive values, where upper boundary is greater then lower one.
 		}
 		\term{RAT}{In order to allow repeat simulation.}
 	\end{functional}

@@ -7,10 +7,10 @@ import java.util.Set;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class BasicValidator {
+public final class BasicValidator {
     public static <T extends Number & Comparable<T>> void shouldBeGreaterThan(T limit, T value, String context) throws ValidationException {
         BasicValidator.shouldNotBeNull(value, context);
-        if (limit.compareTo(value) <= 0) {
+        if (limit.compareTo(value) >= 0) {
             throw new ValidationException(String.format("Value should be greater than limit."), context);
         }
     }
@@ -35,14 +35,14 @@ public class BasicValidator {
 
     public static <T extends Number & Comparable<T>> void shouldBeInRange(T min, T max, T value, String context) throws ValidationException {
         BasicValidator.shouldNotBeNull(value, context);
-        if (value.compareTo(min) >= 0 || value.compareTo(max) <= 0) {
+        if (value.compareTo(min) < 0 || value.compareTo(max) > 0) {
             throw new ValidationException(String.format("Should be in range <%d,%d>. Value: %d", min, max, value), context);
         }
     }
 
     public static <T extends Number & Comparable<T>> void shouldBeInRangeBoundryless(T min, T max, T value, String context) throws ValidationException {
         BasicValidator.shouldNotBeNull(value, context);
-        if (value.compareTo(min) > 0 || value.compareTo(max) < 0) {
+        if (value.compareTo(min) <= 0 || value.compareTo(max) >= 0) {
             throw new ValidationException(String.format("Should be in range (%d,%d). Value: %d", min, max, value), context);
         }
     }
@@ -55,7 +55,7 @@ public class BasicValidator {
 
     public static void shouldContainElements(List list, String context) throws ValidationException {
         BasicValidator.shouldNotBeNull(list, context);
-        if (list.size() > 0) {
+        if (list.size() == 0) {
             throw new ValidationException(String.format("List should contain elements."), context);
         }
     }

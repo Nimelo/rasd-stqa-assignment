@@ -6,7 +6,9 @@ import assignment.validators.BasicValidator;
 import assignment.validators.ValidationException;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -23,12 +25,71 @@ public class ConfigurationValidator {
         this.validateUserGroupsConfiguration(configuration.getUserGroupsConfiguration());
         this.validateJobDistribution(configuration.getJobDistribution());
 
-        //TODO: Additional validations
-        /*
-        * JobTypes -> Nodes
-        * Queues -> Nodes
-        * Resources -> Queues
-        * */
+        this.validateNodesInJobTypes(configuration.getJobTypesConfiguration(), configuration.getSystemResources());
+        this.validateNodesInQueues(configuration.getQueuesConfiguration(), configuration.getSystemResources());
+        this.validateReservationInQueues(configuration.getQueuesConfiguration(), configuration.getSystemResources());
+
+    }
+
+    public void validateReservationInQueues(QueuesConfiguration queuesConfiguration, SystemResources systemResources) throws ValidationException {
+        List<QueueProperties> queues = queuesConfiguration.getQueues();
+        List<ReservedResource> reservationList = queues.stream().flatMap(l -> l.getReservedResources().stream()).collect(Collectors.toList());
+        Map<String, List<ReservedResource>> reservationMap = reservationList.stream().collect(Collectors.groupingBy(x -> x.getNodeType()));
+
+        Iterator<Map.Entry<String, List<ReservedResource>>> iterator = reservationMap.entrySet().iterator();
+        while(iterator.hasNext()) {
+            String key = iterator.next().getKey();
+            List<ReservedResource> value = iterator.next().getValue();
+            this.validateSingleNode(key, value.stream().mapToDouble(x -> x.getAmount()).sum(), systemResources.getNodes());
+        };
+    }
+
+    public void validateSingleNode(String name, double amount, List<Node> nodes) throws ValidationException {
+        for (Node node : nodes) {
+            if (node.getName().equals(name)) {
+                if (node.getAmount() < amount) {
+                    throw new ValidationException(
+                            String.format("Not sufficient amount (%d) of node %s in system resources - %d.", amount, name, node.getAmount())
+                            , "Queues requires more resources than system contains.");
+                }
+            }
+        }
+    }
+
+    public void validateNodesInQueues(QueuesConfiguration queuesConfiguration, SystemResources systemResources) throws ValidationException {
+        String context = "queuesConfiguration.queues";
+        List<QueueProperties> queues = queuesConfiguration.getQueues();
+        List<String> names = systemResources.getNodes().stream().map(x -> x.getName()).collect(Collectors.toList());
+
+        for (int i = 0; i < queues.size(); i++) {
+            QueueProperties queueProperties = queues.get(i);
+            List<ReservedResource> reservedResources = queueProperties.getReservedResources();
+
+            for (int j = 0; j < reservedResources.size(); j++) {
+                String currentContext = String.format("%s.[%d].reservedResources[%d].nodeType", context, i);
+                ReservedResource reservedResource = reservedResources.get(j);
+
+                BasicValidator.shouldBeOneOf(names, reservedResource.getNodeType(), context);
+            }
+        }
+    }
+
+    public void validateNodesInJobTypes(JobTypesConfiguration jobTypesConfiguration, SystemResources systemResources) throws ValidationException {
+        String context = "jobTypesConfiguration.jobTypes";
+        List<String> names = systemResources.getNodes().stream().map(x -> x.getName()).collect(Collectors.toList());
+        List<JobType> jobTypes = jobTypesConfiguration.getJobTypes();
+
+        for (int i = 0; i < jobTypes.size(); i++) {
+            JobType jobType = jobTypes.get(i);
+            List<String> nodeNames = jobType.getTuples().stream().map(x -> x.getNodeType()).collect(Collectors.toList());
+
+            for (int j = 0; j < nodeNames.size(); j++) {
+                String currentContext = String.format("%s.[%d].tuples[%d].nodeType", context, i);
+                String nodeName = nodeNames.get(j);
+
+                BasicValidator.shouldBeOneOf(names, nodeName, currentContext);
+            }
+        }
     }
 
     public void validateJobDistribution(Double jobDistribution) throws ValidationException {
@@ -52,7 +113,6 @@ public class ConfigurationValidator {
 
             //TODO Should last two fields be implemented? TBD
         }
-
     }
 
     public void validateQueuesConfiguration(QueuesConfiguration queuesConfiguration) throws ValidationException {
@@ -123,10 +183,14 @@ public class ConfigurationValidator {
         BasicValidator.shouldBeEqual(jobTypes.stream().mapToDouble(x -> x.getProbabilityOfJob()).sum(), 1.0, 0.01, "Probability of all jobs should be equal 1.");
 
         for (int i = 0; i < jobTypes.size(); i++) {
-            List<JobTypeTuple> jobTypeTuples = jobTypes.get(i).getTuples();
             String currentContext = String.format("%s.[%d].", context, i);
-            BasicValidator.shouldContainElements(jobTypeTuples, currentContext);
+            JobType jobType = jobTypes.get(i);
+            BasicValidator.shouldBeGreaterThan(0L, jobType.getMinExecutionTime(), context + "minExecutionTime");
+            BasicValidator.shouldBeGreaterThan(jobType.getMinExecutionTime(), jobType.getMaxExecutionTime(), context + "maxExecutionTime");
+            BasicValidator.shouldBeGreaterThan(0D, jobType.getProbabilityOfJob(), context + "probabilityOfJob");
 
+            List<JobTypeTuple> jobTypeTuples = jobTypes.get(i).getTuples();
+            BasicValidator.shouldContainElements(jobTypeTuples, currentContext + "tuples");
             for (int j = 0; j < jobTypeTuples.size(); j++) {
                 String ctx = String.format("%s.jobTypeTuples.[%d].", currentContext, j);
                 JobTypeTuple jobTypeTuple = jobTypeTuples.get(j);

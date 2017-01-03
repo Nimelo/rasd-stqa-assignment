@@ -6,6 +6,8 @@ import java.util.List;
  * Created by Mateusz Gasior on 02-Jan-17.
  */
 public class JobType {
+    private Long minExecutionTime;
+    private Long maxExecutionTime;
     private String name;
     private Double probabilityOfJob;
     private List<JobTypeTuple> tuples;
@@ -32,5 +34,21 @@ public class JobType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getMinExecutionTime() {
+        return minExecutionTime;
+    }
+
+    public void setMinExecutionTime(Long minExecutionTime) {
+        this.minExecutionTime = minExecutionTime;
+    }
+
+    public Long getMaxExecutionTime() {
+        return maxExecutionTime;
+    }
+
+    public void setMaxExecutionTime(Long maxExecutionTime) {
+        this.maxExecutionTime = maxExecutionTime;
     }
 }
