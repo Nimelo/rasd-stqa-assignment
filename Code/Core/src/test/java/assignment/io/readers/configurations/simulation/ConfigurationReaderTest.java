@@ -3,19 +3,16 @@ package assignment.io.readers.configurations.simulation;
 import assignment.configurations.simulation.*;
 import assignment.configurations.simulation.objects.*;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,9 +76,9 @@ class ConfigurationReaderTest {
         assertEquals(new Long(60), queueProperties.getMaximumExecutionTime());
         assertEquals(new Double(1.0), queueProperties.getPriceFactor(), 0.01);
         assertEquals(1, queueProperties.getReservedResources().size());
-        ReservedResources reservedResources = queueProperties.getReservedResources().get(0);
-        assertEquals("NODE_S", reservedResources.getNodeType());
-        assertEquals(new Long(4), reservedResources.getAmount());
+        ReservedResource reservedResource = queueProperties.getReservedResources().get(0);
+        assertEquals("NODE_S", reservedResource.getNodeType());
+        assertEquals(new Long(4), reservedResource.getAmount());
         assertDayOfWeekTime(DayOfWeek.MONDAY, 7L, 0L, queueProperties.getAvailabilityTime().getBegin());
         assertDayOfWeekTime(DayOfWeek.FRIDAY, 7L, 0L, queueProperties.getAvailabilityTime().getEnd());
     }

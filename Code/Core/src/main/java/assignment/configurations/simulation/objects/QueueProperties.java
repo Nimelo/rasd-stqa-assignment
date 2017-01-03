@@ -1,6 +1,5 @@
 package assignment.configurations.simulation.objects;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ public class QueueProperties{
     private String description;
     private Long maximumExecutionTime;
     private Double priceFactor;
-    private List<ReservedResources> reservedResources;
+    private List<ReservedResource> reservedResources;
     private AvailabilityTime availabilityTime;
 
     public String getName() {
@@ -46,11 +45,11 @@ public class QueueProperties{
         this.priceFactor = priceFactor;
     }
 
-    public List<ReservedResources> getReservedResources() {
+    public List<ReservedResource> getReservedResources() {
         return reservedResources;
     }
 
-    public void setReservedResources(List<ReservedResources> reservedResources) {
+    public void setReservedResources(List<ReservedResource> reservedResources) {
         this.reservedResources = reservedResources;
     }
 

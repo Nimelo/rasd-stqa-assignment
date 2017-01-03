@@ -3,7 +3,7 @@ package assignment.configurations.simulation.objects;
 /**
  * Created by Mateusz Gasior on 02-Jan-17.
  */
-public class ReservedResources {
+public class ReservedResource {
     private String nodeType;
     private Long amount;
 
