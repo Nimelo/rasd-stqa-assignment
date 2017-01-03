@@ -1,5 +1,7 @@
 package assignment.simulator.objects;
 
+import assignment.simulator.objects.time.Timestamp;
+
 import java.math.BigDecimal;
 
 /**
@@ -10,12 +12,14 @@ public class User {
     private BigDecimal budget;
     private Double jobDistributionLambda;
     private Double requestSizeLambda;
+    private Timestamp nextJobSubmission;
 
-    public User(Long id, BigDecimal budget, Double jobDistributionLambda, Double requestSizeLambda) {
+    public User(Long id, BigDecimal budget, Double jobDistributionLambda, Double requestSizeLambda, Timestamp nextJobSubmission) {
         this.id = id;
         this.budget = budget;
         this.jobDistributionLambda = jobDistributionLambda;
         this.requestSizeLambda = requestSizeLambda;
+        this.nextJobSubmission = nextJobSubmission;
     }
 
     public Long getId() {
@@ -32,5 +36,13 @@ public class User {
 
     public Double getRequestSizeLambda() {
         return requestSizeLambda;
+    }
+
+    public Timestamp getNextJobSubmission() {
+        return nextJobSubmission;
+    }
+
+    public void setNextJobSubmission(Timestamp nextJobSubmission) {
+        this.nextJobSubmission = nextJobSubmission;
     }
 }

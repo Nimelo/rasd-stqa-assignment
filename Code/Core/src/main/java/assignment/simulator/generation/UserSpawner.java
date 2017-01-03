@@ -46,7 +46,7 @@ public class UserSpawner {
     public User spawnUser(UserGroup userGroup) {
         Long id = currentId++;
         BigDecimal budget = new BigDecimal(rngMechanism.generateFromRange(userGroup.getMinBudget().doubleValue(), userGroup.getMaxBudget().doubleValue()));
-        User user = new User(id, budget, userGroup.getJobDistributionLambda(), userGroup.getRequestSizeDistributionLambda());
+        User user = new User(id, budget, userGroup.getJobDistributionLambda(), userGroup.getRequestSizeDistributionLambda(), null);
         return user;
     }
 

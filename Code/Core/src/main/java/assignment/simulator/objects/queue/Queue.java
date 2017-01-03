@@ -3,6 +3,7 @@ package assignment.simulator.objects.queue;
 import assignment.simulator.objects.Job;
 import assignment.simulator.objects.queue.areas.JobArea;
 import assignment.simulator.objects.time.Timestamp;
+import assignment.simulator.objects.time.TimestampInterpretator;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,17 +12,22 @@ import java.util.List;
  * Created by Mateusz Gasior on 03-Jan-17.
  */
 public class Queue {
+    private String name;
     private JobArea waitingArea;
     private JobArea executionArea;
     private HardwareResourcesManager hardwareResourcesManager;
+    private TimestampInterpretator timestampInterpretator;
+    //Budgetanalytics xDDDDDD kurwa smieszne
 
-    public Queue(JobArea waitingArea, JobArea executionArea, HardwareResourcesManager hardwareResourcesManager) {
+    public Queue(String name, JobArea waitingArea, JobArea executionArea, HardwareResourcesManager hardwareResourcesManager) {
+        this.name = name;
         this.waitingArea = waitingArea;
         this.executionArea = executionArea;
         this.hardwareResourcesManager = hardwareResourcesManager;
     }
 
     public void iteration(Timestamp timestamp) {
+        if ()
         switchAreas(timestamp);
         swipeExecutedJobs(timestamp);
     }
@@ -58,5 +64,9 @@ public class Queue {
                 iterator.remove();
             }
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }
