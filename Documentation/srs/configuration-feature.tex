@@ -107,6 +107,7 @@
 				\item maximum job execution time;
 				\item working time (availability time);
 				\item price factor;
+				\item constraint on a requested hardware resources (amount nodes with processors of which type);
 				\item amount of reserved hardware resources (nodes of which type).
 			\end{itemize} 
 		}
@@ -132,7 +133,8 @@
 		\label{fn:configuration-feature:job-distribution}
 		\term{DESC}
 		{
-			User should be able to parametrize a exponential probability distribution of a jobs. 
+			User should be able to parametrize a exponential probability distribution of a jobs and size requests.
+			Those parameters should be placed inside user group configuration for each entry. 
 		}
 		\term{RAT}{In order to configure job distribution.}
 	\end{functional}
@@ -190,7 +192,7 @@
 		{
 			Configuration file should contain a valid configuration of a queues. At least one queue should be configured.
 			Type of queue must be unique. Maximum job execution time, price factor and reservation ratio should a positive number.
-			Working time should be a two valued variable specifying time range.
+			Working time should be a two valued variable specifying time range. Constraint of requested should contains a list which should contain a list of nodes with specified positive amount of cores and type of node. In case of reserved nodes each of entry should contain unique name of existing in system node types and positive amount of those nodes.
 		}
 		\term{RAT}{In order to valid queues.}
 	\end{functional}
