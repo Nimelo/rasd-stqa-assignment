@@ -1,9 +1,10 @@
 package assignment.simulator.generation.randomization;
 
+import assignment.simulator.generation.distribution.ExponentialProbabilityDistribution;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Mateusz Gasior on 03-Jan-17.
@@ -17,6 +18,10 @@ public class RNGMechanism {
     public Double generateFromRange(Double min, Double max) {
         double generatedValue = (random.nextDouble() % (max - min + 1)) + min;
         return generatedValue;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 
     public <T> T pickItemByItsProbability (Map<T, Double> itemsProbability) {
@@ -40,5 +45,10 @@ public class RNGMechanism {
     public Long generateFromRange(Long min, Long max) {
         Long generatedValue = ((long)random.nextDouble() % (max - min + 1)) + min;
         return generatedValue;
+    }
+
+    public double getExponentialDistributionRandom(Double jobDistributionLambda, Long jobDistributionFactor) {
+        ExponentialProbabilityDistribution exponentialProbabilityDistribution = new ExponentialProbabilityDistribution(jobDistributionLambda);
+        return exponentialProbabilityDistribution.get(this.random.nextDouble()) * jobDistributionFactor;
     }
 }

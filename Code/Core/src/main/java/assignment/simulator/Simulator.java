@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
  * Created by Mateusz Gasior on 03-Jan-17.
  */
 public class Simulator {
+    private final RNGMechanism rngMechanism;
     private Configuration configuration;
     private List<Queue> queues;
     private List<User> users;
@@ -42,7 +43,8 @@ public class Simulator {
         QueueSpawner queueSpawner = new QueueSpawner(configuration.getQueuesConfiguration().getQueues(), configuration.getSystemResources().getNodes(), this.users);
         this.queues = queueSpawner.spawnQueues();
 
-        jobSpawner = new JobSpawner(configuration.getJobTypesConfiguration().getJobTypes(), new RNGMechanism(configuration.getRngSeed()));
+        rngMechanism = new RNGMechanism(configuration.getRngSeed());
+        jobSpawner = new JobSpawner(configuration.getJobTypesConfiguration().getJobTypes(), rngMechanism);
         jobToQueueMatcher = new JobToQueueMatcher(queues);
         priceCalculator = new PriceCalculator(configuration.getSystemResources().getNodes());
     }
@@ -126,7 +128,8 @@ public class Simulator {
                     job.setCalculatedPrice(price);
                     job.setQueueName(queue.getQueueProperties().getName());
                     queue.submitJob(job, timestamp);
-                    user.setNextJobSubmission(job.getJobTimestamps().getSpawnTime());
+                    Long randomValue = (long)rngMechanism.getExponentialDistributionRandom(user.getJobDistributionLambda(), user.getJobDistributionFactor());
+                    user.setNextJobSubmission(new Timestamp(timestamp.getTick() + randomValue));
                 }
             }
         }
@@ -138,7 +141,7 @@ public class Simulator {
 
     private boolean canSpawnNextJob(User user, Timestamp timestamp) {
         Timestamp nextJobSubmission = user.getNextJobSubmission();
-        if (nextJobSubmission == null || nextJobSubmission.getTick() < timestamp.getTick()) {
+        if (nextJobSubmission.getTick() <= timestamp.getTick()) {
             return true;
         }
         return false;

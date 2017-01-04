@@ -6,19 +6,10 @@ import assignment.simulator.objects.time.Timestamp;
  * Created by Mateusz Gasior on 03-Jan-17.
  */
 public class JobTimestamps {
-    private Timestamp spawnTime;
     private Timestamp waitingAreaEnterTime;
     private Timestamp waitingAreaQuitTime;
     private Timestamp executionAreaEnterTime;
     private Timestamp executionAreaQuitTime;
-
-    public JobTimestamps(Timestamp spawnTime) {
-        this.spawnTime = spawnTime;
-    }
-
-    public Timestamp getSpawnTime() {
-        return spawnTime;
-    }
 
     public Timestamp getWaitingAreaEnterTime() {
         return waitingAreaEnterTime;

@@ -45,12 +45,11 @@ class JobSpawnerTest {
 
     @Test
     void spawnJobForUser() {
-        Job job = spawner.spawnJobForUser(new User(1L, null, 0.5, 0.5, null), new Timestamp(512L));
+        Job job = spawner.spawnJobForUser(new User(1L, null, 0.5, 0.5, null, 1L, 1L), new Timestamp(512L));
 
         assertEquals(new Long(1L), job.getUserId());
         assertEquals(JobStatus.SPAWNED, job.getJobStatus());
         assertEquals(new Long(0L), job.getId());
-        assertEquals(true, new Long(512) < job.getJobTimestamps().getSpawnTime().getTick());
 
         JobType jobType = this.jobTypes.get(0);
         boolean condition = job.getExecutionTime() >= jobType.getMinExecutionTime() && job.getExecutionTime() <= jobType.getMaxExecutionTime();
@@ -69,7 +68,7 @@ class JobSpawnerTest {
 
     @Test
     void generateRequestedResource() {
-        List<RequestedResource> requestedResources = spawner.generateRequestedResource(new User(1L, null, 0.5, 0.5, null), new Timestamp(0L), jobTypes.get(0));
+        List<RequestedResource> requestedResources = spawner.generateRequestedResource(new User(1L, null, 0.5, 0.5, null, 1L, 1L), new Timestamp(0L), jobTypes.get(0));
         for (RequestedResource requestedResource : requestedResources) {
             for (JobTypeTuple jobTypeTuple : jobTypes.get(0).getTuples()) {
                 if(requestedResource.getNodeType().equals(jobTypeTuple.getNodeType())) {

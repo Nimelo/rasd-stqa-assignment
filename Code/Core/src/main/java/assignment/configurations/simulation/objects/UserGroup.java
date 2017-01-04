@@ -10,6 +10,8 @@ public class UserGroup{
     private BigDecimal budget;
     private Double jobDistributionLambda;
     private Double requestSizeDistributionLambda;
+    private Long jobDistributionFactor;
+    private Long requestSizeDistributionFactor;
 
     public Long getAmountOfMembers() {
         return amountOfMembers;
@@ -41,5 +43,21 @@ public class UserGroup{
 
     public void setRequestSizeDistributionLambda(Double requestSizeDistributionLambda) {
         this.requestSizeDistributionLambda = requestSizeDistributionLambda;
+    }
+
+    public Long getJobDistributionFactor() {
+        return jobDistributionFactor;
+    }
+
+    public void setJobDistributionFactor(Long jobDistributionFactor) {
+        this.jobDistributionFactor = jobDistributionFactor;
+    }
+
+    public Long getRequestSizeDistributionFactor() {
+        return requestSizeDistributionFactor;
+    }
+
+    public void setRequestSizeDistributionFactor(Long requestSizeDistributionFactor) {
+        this.requestSizeDistributionFactor = requestSizeDistributionFactor;
     }
 }

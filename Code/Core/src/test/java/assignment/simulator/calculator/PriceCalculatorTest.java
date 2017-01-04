@@ -44,7 +44,7 @@ class PriceCalculatorTest {
     void calculatePrice() {
         Job job = new Job(0L, 0L, 10L, new ArrayList<RequestedResource>() {{
             add(new RequestedResource("NODE", 1L));
-        }}, new Timestamp(0L));
+        }});
 
         BigDecimal price = priceCalculator.calculatePrice(job, 1.0);
 

@@ -1,13 +1,11 @@
 package assignment.simulator.generation;
 
-import assignment.configurations.simulation.UserGroupsConfiguration;
 import assignment.configurations.simulation.objects.UserGroup;
-import assignment.simulator.generation.randomization.RNGMechanism;
 import assignment.simulator.objects.User;
+import assignment.simulator.objects.time.Timestamp;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -45,7 +43,7 @@ public class UserSpawner {
     public User spawnUser(UserGroup userGroup) {
         Long id = currentId++;
         BigDecimal budget = userGroup.getBudget().add(new BigDecimal(0L));
-        User user = new User(id, budget, userGroup.getJobDistributionLambda(), userGroup.getRequestSizeDistributionLambda(), null);
+        User user = new User(id, budget, userGroup.getJobDistributionLambda(), userGroup.getRequestSizeDistributionLambda(), new Timestamp(0L), userGroup.getJobDistributionFactor(), userGroup.getRequestSizeDistributionFactor());
         return user;
     }
 

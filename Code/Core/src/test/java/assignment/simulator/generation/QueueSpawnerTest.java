@@ -68,7 +68,7 @@ class QueueSpawnerTest {
         }};
 
         ArrayList<User> users = new ArrayList<User>() {{
-            add(new User(0L, new BigDecimal(10L), 0.5, 0.5, null));
+            add(new User(0L, new BigDecimal(10L), 0.5, 0.5, null, 1L, 1L));
         }};
 
         spawner = new QueueSpawner(queueProperties, nodes, users);

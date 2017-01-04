@@ -19,10 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class QueueTest {
     private static Queue queue;
+    private QueueProperties queueProperties;
 
     @BeforeEach
     void setUp() {
-        QueueProperties queueProperties = new QueueProperties() {
+        queueProperties = new QueueProperties() {
             {
                 setName("QUEUE");
                 setMaximumExecutionTime(13L);
@@ -55,7 +56,7 @@ class QueueTest {
             }
         };
         ArrayList<User> userList = new ArrayList<User>() {{
-            add(new User(0L, new BigDecimal(10L), 0.5, 0.5, null));
+            add(new User(0L, new BigDecimal(10L), 0.5, 0.5, null, 1L, 1L));
         }};
 
         HardwareResourcesManager hardwareResourcesManager = new HardwareResourcesManager(new HashMap<String, NodeResourceEntry>() {{
@@ -69,11 +70,11 @@ class QueueTest {
     void iteration() {
         Job job = new Job(0L, 0L, 10L, new ArrayList<RequestedResource>() {{
             add(new RequestedResource("NODE_S", 1L));
-        }}, new Timestamp(0L));
+        }});
 
         Job job2 = new Job(0L, 0L, 5L, new ArrayList<RequestedResource>() {{
             add(new RequestedResource("NODE_S", 1L));
-        }}, new Timestamp(0L));
+        }});
 
         job2.setCalculatedPrice(new BigDecimal(0));
 
@@ -92,10 +93,10 @@ class QueueTest {
 
     @Test
     void isCutOffTime() {
-        boolean value = queue.isCutOffTime(new Timestamp((long) (DayOfWeek.FRIDAY.getValue() * 24 * 60 * 60  - 10)));
+        boolean value = queue.isCutOffTime(new Timestamp((long) (DayOfWeek.FRIDAY.getValue() - 1) * 24 * 60 * 60  - 10));
         assertEquals(true, value);
 
-        boolean value2 = queue.isCutOffTime(new Timestamp((long) (DayOfWeek.FRIDAY.getValue() * 24 * 60 * 60  - 13)));
+        boolean value2 = queue.isCutOffTime(new Timestamp((long) (DayOfWeek.FRIDAY.getValue() - 1) * 24 * 60 * 60 - queueProperties.getMaximumExecutionTime()));
         assertEquals(false, value2);
     }
 
@@ -109,7 +110,7 @@ class QueueTest {
     void submitJob() {
         Job job = new Job(0L, 0L, 10L, new ArrayList<RequestedResource>() {{
             add(new RequestedResource("NODE_S", 1L));
-        }}, new Timestamp(0L));
+        }});
 
         queue.submitJob(job, new Timestamp(0L));
 
@@ -121,7 +122,7 @@ class QueueTest {
     void switchAreas() {
         Job job = new Job(0L, 0L, 10L, new ArrayList<RequestedResource>() {{
             add(new RequestedResource("NODE_S", 1L));
-        }}, new Timestamp(0L));
+        }});
 
         queue.submitJob(job, new Timestamp(0L));
         queue.switchAreas(new Timestamp(1L));
@@ -136,7 +137,7 @@ class QueueTest {
     void swipeExecutedJobs() {
         Job job = new Job(0L, 0L, 10L, new ArrayList<RequestedResource>() {{
             add(new RequestedResource("NODE_S", 1L));
-        }}, new Timestamp(0L));
+        }});
 
         job.setCalculatedPrice(new BigDecimal(1L));
         queue.submitJob(job, new Timestamp(0L));

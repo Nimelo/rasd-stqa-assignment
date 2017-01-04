@@ -14,12 +14,17 @@ public class User {
     private Double requestSizeLambda;
     private Timestamp nextJobSubmission;
 
-    public User(Long id, BigDecimal budget, Double jobDistributionLambda, Double requestSizeLambda, Timestamp nextJobSubmission) {
+    private Long jobDistributionFactor;
+    private Long requestSizeFactor;
+
+    public User(Long id, BigDecimal budget, Double jobDistributionLambda, Double requestSizeLambda, Timestamp nextJobSubmission, Long jobDistributionFactor, Long requestSizeFactor) {
         this.id = id;
         this.budget = budget;
         this.jobDistributionLambda = jobDistributionLambda;
         this.requestSizeLambda = requestSizeLambda;
         this.nextJobSubmission = nextJobSubmission;
+        this.jobDistributionFactor = jobDistributionFactor;
+        this.requestSizeFactor = requestSizeFactor;
     }
 
     public void decreaseBudget(BigDecimal amount) {
@@ -52,5 +57,13 @@ public class User {
 
     public void setBudget(BigDecimal budget) {
         this.budget = budget;
+    }
+
+    public Long getJobDistributionFactor() {
+        return jobDistributionFactor;
+    }
+
+    public Long getRequestSizeFactor() {
+        return requestSizeFactor;
     }
 }

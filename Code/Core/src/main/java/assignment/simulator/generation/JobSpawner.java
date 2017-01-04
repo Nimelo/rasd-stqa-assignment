@@ -38,12 +38,7 @@ public class JobSpawner {
 
         List<RequestedResource> requestedResourceList = generateRequestedResource(user, timestamp, jobType);
 
-        ExponentialProbabilityDistribution exponentialProbabilityDistribution = new ExponentialProbabilityDistribution(user.getJobDistributionLambda());
-
-        Double spawnTick = exponentialProbabilityDistribution.get(Double.valueOf(timestamp.getTick()));
-        Timestamp spawnTime = new Timestamp((long)(double)spawnTick);
-
-        Job job = new Job(currentId++, user.getId(), executionTime, requestedResourceList, spawnTime);
+        Job job = new Job(currentId++, user.getId(), executionTime, requestedResourceList);
         return job;
     }
 
@@ -52,7 +47,9 @@ public class JobSpawner {
         ExponentialProbabilityDistribution exponentialProbabilityDistribution = new ExponentialProbabilityDistribution(user.getRequestSizeLambda());
 
         for (JobTypeTuple tuple : jobType.getTuples()) {
-            Long amountOfCores = Math.max(exponentialProbabilityDistribution.get(timestamp.getTick()) % tuple.getMaximumAmountOfCores(), 1L);
+            Double expRandom = exponentialProbabilityDistribution.get(rngMechanism.getRandom().nextDouble()) * user.getRequestSizeFactor();
+            Long cores = (long)(double)expRandom + rngMechanism.getRandom().nextInt((int)(long)tuple.getMaximumAmountOfCores());
+            Long amountOfCores = Math.max(cores % tuple.getMaximumAmountOfCores(), 1L);
             requestedResources.add(new RequestedResource(tuple.getNodeType(), amountOfCores));
         }
 

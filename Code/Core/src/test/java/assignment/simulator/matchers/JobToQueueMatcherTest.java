@@ -62,7 +62,7 @@ class JobToQueueMatcherTest {
             }
         };
         ArrayList<User> userList = new ArrayList<User>() {{
-            add(new User(0L, new BigDecimal(10L), 0.5, 0.5, null));
+            add(new User(0L, new BigDecimal(10L), 0.5, 0.5, null, 1L, 1L));
         }};
 
         HardwareResourcesManager hardwareResourcesManager = new HardwareResourcesManager(new HashMap<String, NodeResourceEntry>() {{
@@ -78,7 +78,7 @@ class JobToQueueMatcherTest {
     void match() throws JobToQueueMatchingException {
         Job job = new Job(0L, 0L, 10L, new ArrayList<RequestedResource>() {{
             add(new RequestedResource("NODE_S", 1L));
-        }}, new Timestamp(0L));
+        }});
 
         Queue q = matcher.match(job);
 

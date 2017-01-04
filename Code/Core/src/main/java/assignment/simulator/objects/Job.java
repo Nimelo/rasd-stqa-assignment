@@ -18,13 +18,13 @@ public class Job {
     private String queueName;
     private BigDecimal calculatedPrice;
 
-    public Job(Long id, Long userId, Long executionTime, List<RequestedResource> requestedResourceList, Timestamp spawnTime) {
+    public Job(Long id, Long userId, Long executionTime, List<RequestedResource> requestedResourceList) {
         this.id = id;
         this.jobStatus = jobStatus;
         this.userId = userId;
         this.executionTime = executionTime;
         this.requestedResourceList = requestedResourceList;
-        this.jobTimestamps = new JobTimestamps(spawnTime);
+        this.jobTimestamps = new JobTimestamps();
         jobStatus = JobStatus.SPAWNED;
     }
 
