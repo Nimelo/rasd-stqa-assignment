@@ -9,7 +9,6 @@ public class Node {
     private String name;
     private Long amount;
     private Long amountOfCores;
-    //TODO: Connect price with time. (Assumption has been made - seconds.)
     private BigDecimal price;
 
     public Long getAmount() {

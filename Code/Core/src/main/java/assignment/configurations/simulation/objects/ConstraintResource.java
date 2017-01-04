@@ -5,7 +5,6 @@ package assignment.configurations.simulation.objects;
  */
 public class ConstraintResource {
     private String nodeType;
-    private Long amount;
     private Long amountOfCores;
 
     public String getNodeType() {
@@ -14,14 +13,6 @@ public class ConstraintResource {
 
     public void setNodeType(String nodeType) {
         this.nodeType = nodeType;
-    }
-
-    public Long getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Long amount) {
-        this.amount = amount;
     }
 
     public Long getAmountOfCores() {

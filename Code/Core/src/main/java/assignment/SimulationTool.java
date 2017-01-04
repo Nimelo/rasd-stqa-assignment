@@ -29,29 +29,6 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class SimulationTool {
     public static void main(String[] args) throws FileNotFoundException, ValidationException, JobToQueueMatchingException {
-        ConfigurationReader configurationReader = new ConfigurationReader();
-        Configuration configuration = configurationReader.readFromPath(args[0]);
-        ConfigurationValidator configurationValidator = new ConfigurationValidator();
-        configurationValidator.validate(configuration);
 
-        RNGMechanism rngMechanism = new RNGMechanism(configuration.getRngSeed());
-        TimestampInterpretator timestampInterpretator = new TimestampInterpretator(configuration.getSimulationTime().getBegin(), configuration.getSimulationTime().getEnd());
-
-        UserSpawner userSpawner = new UserSpawner(0L, configuration.getUserGroupsConfiguration().getUserGroups(), rngMechanism);
-        List<User> users = userSpawner.spawn();
-        BudgetAnalytics budgetAnalytics = new BudgetAnalytics(users, configuration);
-        QueueSpawner queueSpawner = new QueueSpawner(configuration.getQueuesConfiguration(), configuration.getSystemResources(), timestampInterpretator, budgetAnalytics);
-
-        List<Queue> queues  = queueSpawner.spawnQueues();
-
-        List<Job> jobs = new ArrayList<>();
-        JobSpawner jobSpawner = new JobSpawner(0L, configuration.getJobTypesConfiguration().getJobTypes(), rngMechanism);
-        JobToQueueMatcher jobToQueueMatcher = new JobToQueueMatcher(configuration.getQueuesConfiguration());
-        Simulator simulator = new Simulator(queues, users, jobs, jobSpawner, jobToQueueMatcher, budgetAnalytics);
-
-
-        Timestamp from = new Timestamp(timestampInterpretator.getBeginTick());
-        Long tickCount = timestampInterpretator.getAmountOfTicks();
-        simulator.run(from, tickCount);
     }
 }

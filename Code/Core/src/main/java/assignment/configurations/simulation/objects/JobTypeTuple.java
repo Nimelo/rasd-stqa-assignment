@@ -6,7 +6,7 @@ package assignment.configurations.simulation.objects;
 public class JobTypeTuple {
     private String nodeType;
     private Double probabilityOfOccurrence;
-    private Long maximumAmountOfNodes;
+    private Long maximumAmountOfCores;
 
     public String getNodeType() {
         return nodeType;
@@ -24,11 +24,11 @@ public class JobTypeTuple {
         this.probabilityOfOccurrence = probabilityOfOccurrence;
     }
 
-    public Long getMaximumAmountOfNodes() {
-        return maximumAmountOfNodes;
+    public Long getMaximumAmountOfCores() {
+        return maximumAmountOfCores;
     }
 
-    public void setMaximumAmountOfNodes(Long maximumAmountOfNodes) {
-        this.maximumAmountOfNodes = maximumAmountOfNodes;
+    public void setMaximumAmountOfCores(Long maximumAmountOfCores) {
+        this.maximumAmountOfCores = maximumAmountOfCores;
     }
 }

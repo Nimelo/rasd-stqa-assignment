@@ -7,9 +7,9 @@ import java.util.List;
  */
 public class QueueProperties{
     private String name;
-    private String description;
     private Long maximumExecutionTime;
     private Double priceFactor;
+    private Long maxNumberOfConcurrentJobsPerUser;
     private List<ReservedResource> reservedResources;
     private List<ConstraintResource> constraintResources;
     private AvailabilityTime availabilityTime;
@@ -28,14 +28,6 @@ public class QueueProperties{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Long getMaximumExecutionTime() {
@@ -70,4 +62,11 @@ public class QueueProperties{
         this.availabilityTime = availabilityTime;
     }
 
+    public Long getMaxNumberOfConcurrentJobsPerUser() {
+        return maxNumberOfConcurrentJobsPerUser;
+    }
+
+    public void setMaxNumberOfConcurrentJobsPerUser(Long maxNumberOfConcurrentJobsPerUser) {
+        this.maxNumberOfConcurrentJobsPerUser = maxNumberOfConcurrentJobsPerUser;
+    }
 }

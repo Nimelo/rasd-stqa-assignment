@@ -6,23 +6,13 @@ import java.util.Date;
  * Created by Mateusz Gasior on 02-Jan-17.
  */
 public class SimulationTime{
-    private Date begin;
-    private Date end;
+    private Long numberOfWeeks;
 
-    public Date getBegin() {
-        return begin;
+    public Long getNumberOfWeeks() {
+        return numberOfWeeks;
     }
 
-    public void setBegin(Date begin) {
-        this.begin = begin;
+    public void setNumberOfWeeks(Long numberOfWeeks) {
+        this.numberOfWeeks = numberOfWeeks;
     }
-
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
 }

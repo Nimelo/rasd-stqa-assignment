@@ -53,7 +53,6 @@ class ConfigurationValidatorTest {
             setQueues(new ArrayList<QueueProperties>() {{
                 add(new QueueProperties() {{
                     setName("QUEUE");
-                    setDescription("");
                     setMaximumExecutionTime(13L);
                     setPriceFactor(0.5D);
                     setReservedResources(new ArrayList<ReservedResource>() {{
@@ -65,7 +64,6 @@ class ConfigurationValidatorTest {
                     setConstraintResources(new ArrayList<ConstraintResource>() {{
                         add(new ConstraintResource() {{
                             setNodeType("NODE_S");
-                            setAmount(1L);
                             setAmountOfCores(1L);
                         }});
                     }});
@@ -164,8 +162,9 @@ class ConfigurationValidatorTest {
            setUserGroups(new ArrayList<UserGroup>() {{
                add(new UserGroup() {{
                    setAmountOfMembers(10L);
-                   setMinBudget(new BigDecimal(10));
-                   setMaxBudget(new BigDecimal(10));
+                   setBudget(new BigDecimal(10));
+                   setJobDistributionLambda(new Double(0));
+                   setRequestSizeDistributionLambda(new Double(0));
                }});
            }});
         }};
@@ -179,8 +178,8 @@ class ConfigurationValidatorTest {
             setQueues(new ArrayList<QueueProperties>() {{
                 add(new QueueProperties() {{
                     setName("QUEUE");
-                    setDescription("");
                     setMaximumExecutionTime(13L);
+                    setMaxNumberOfConcurrentJobsPerUser(2L);
                     setPriceFactor(0.5D);
                     setReservedResources(new ArrayList<ReservedResource>() {{
                         add(new ReservedResource() {{
@@ -191,7 +190,6 @@ class ConfigurationValidatorTest {
                     setConstraintResources(new ArrayList<ConstraintResource>() {{
                         add(new ConstraintResource() {{
                             setNodeType("NODE_S");
-                            setAmount(0L);
                             setAmountOfCores(0L);
                         }});
                     }});
@@ -252,8 +250,7 @@ class ConfigurationValidatorTest {
         instance.add(Calendar.MONTH, 1);
         Date end = instance.getTime();
         SimulationTime simulationTime = new SimulationTime() {{
-            setBegin(begin);
-            setEnd(end);
+            setNumberOfWeeks(1L);
         }};
 
         configurationValidator.validateSimulationTime(simulationTime);
@@ -271,7 +268,7 @@ class ConfigurationValidatorTest {
                         add(new JobTypeTuple() {{
                             setNodeType("NODE_S");
                             setProbabilityOfOccurrence(0.1D);
-                            setMaximumAmountOfNodes(10L);
+                            setMaximumAmountOfCores(10L);
                         }});
                     }});
                 }});

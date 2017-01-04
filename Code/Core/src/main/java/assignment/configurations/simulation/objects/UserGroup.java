@@ -7,12 +7,25 @@ import java.math.BigDecimal;
  */
 public class UserGroup{
     private Long amountOfMembers;
-    private BigDecimal minBudget;
-    private BigDecimal maxBudget;
-    private Long maxNumberOfConcurrentJobsPerUser;
-    private Long maxUtilizedCoresPerUser;
+    private BigDecimal budget;
     private Double jobDistributionLambda;
     private Double requestSizeDistributionLambda;
+
+    public Long getAmountOfMembers() {
+        return amountOfMembers;
+    }
+
+    public void setAmountOfMembers(Long amountOfMembers) {
+        this.amountOfMembers = amountOfMembers;
+    }
+
+    public BigDecimal getBudget() {
+        return budget;
+    }
+
+    public void setBudget(BigDecimal budget) {
+        this.budget = budget;
+    }
 
     public Double getJobDistributionLambda() {
         return jobDistributionLambda;
@@ -28,45 +41,5 @@ public class UserGroup{
 
     public void setRequestSizeDistributionLambda(Double requestSizeDistributionLambda) {
         this.requestSizeDistributionLambda = requestSizeDistributionLambda;
-    }
-
-    public Long getAmountOfMembers() {
-        return amountOfMembers;
-    }
-
-    public void setAmountOfMembers(Long amountOfMembers) {
-        this.amountOfMembers = amountOfMembers;
-    }
-
-    public BigDecimal getMinBudget() {
-        return minBudget;
-    }
-
-    public void setMinBudget(BigDecimal minBudget) {
-        this.minBudget = minBudget;
-    }
-
-    public BigDecimal getMaxBudget() {
-        return maxBudget;
-    }
-
-    public void setMaxBudget(BigDecimal maxBudget) {
-        this.maxBudget = maxBudget;
-    }
-
-    public Long getMaxNumberOfConcurrentJobsPerUser() {
-        return maxNumberOfConcurrentJobsPerUser;
-    }
-
-    public void setMaxNumberOfConcurrentJobsPerUser(Long maxNumberOfConcurrentJobsPerUser) {
-        this.maxNumberOfConcurrentJobsPerUser = maxNumberOfConcurrentJobsPerUser;
-    }
-
-    public Long getMaxUtilizedCoresPerUser() {
-        return maxUtilizedCoresPerUser;
-    }
-
-    public void setMaxUtilizedCoresPerUser(Long maxUtilizedCoresPerUser) {
-        this.maxUtilizedCoresPerUser = maxUtilizedCoresPerUser;
     }
 }

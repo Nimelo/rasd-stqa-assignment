@@ -2,7 +2,8 @@
   "rngSeed" : 1,
   "machineOperationalCost" : 400.01,
   "simulationTime" : {
-    "numberOfWeeks" : 1
+    "begin" : "2016-11-17",
+    "end" : "2016-11-30"
   },
   "systemResources" : {
     "nodes" : [
@@ -18,14 +19,14 @@
     "jobTypes" : [
       {
         "name" : "SmallJob",
-        "minExecutionTime" : 45,
-        "maxExecutionTime" : 120,
+        "minExecutionTime" : 3600,
+        "maxExecutionTime" : 3600,
         "probabilityOfJob" : 1.0,
         "tuples" : [
           {
             "nodeType" : "NODE_S",
             "probabilityOfOccurrence" : 0.7,
-            "maximumAmountOfCores" : 3
+            "maximumAmountOfNodes" : 1
           }
         ]
       }
@@ -35,8 +36,8 @@
     "queues" : [
       {
         "name" : "FastQueue",
-        "maxNumberOfConcurrentJobsPerUser" : 2,
-        "maximumExecutionTime" : 60,
+        "description" : "Queue for very fast jobs.",
+        "maximumExecutionTime" : 4000,
         "priceFactor" : 1.0,
         "reservedResources" : [
           {
@@ -47,6 +48,7 @@
         "constraintResources" : [
           {
             "nodeType" : "NODE_S",
+            "amount" : 1,
             "amountOfCores" : 4
           }
         ],
@@ -68,8 +70,11 @@
   "userGroupsConfiguration" : {
     "userGroups" : [
       {
-        "amountOfMembers" : 10,
-        "budget" : 3.14,
+        "amountOfMembers" : 1,
+        "minBudget" : 100.0,
+        "maxBudget" : 100.0,
+        "maxNumberOfConcurrentJobsPerUser" : 2,
+        "maxUtilizedCoresPerUser" : 10,
         "jobDistributionLambda" : 0.5,
         "requestSizeDistributionLambda" : 0.5
       }

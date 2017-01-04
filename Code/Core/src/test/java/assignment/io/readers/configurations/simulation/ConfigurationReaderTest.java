@@ -51,8 +51,7 @@ class ConfigurationReaderTest {
     private void validateConfiguration(Configuration configuration){
         assertEquals(new Long(1L), configuration.getRngSeed());
         assertEquals(new BigDecimal(400.01).doubleValue(), configuration.getMachineOperationalCost().doubleValue(), 0.01);
-        assertDate(2016, 11, 17, configuration.getSimulationTime().getBegin());
-        assertDate(2016, 11, 30, configuration.getSimulationTime().getEnd());
+        assertEquals(new Long(1L), configuration.getSimulationTime().getNumberOfWeeks());
         assertSystemResources(configuration.getSystemResources());
         assertJobTypesConfiguration(configuration.getJobTypesConfiguration());
         assertQueuesConfiguration(configuration.getQueuesConfiguration());
@@ -63,10 +62,7 @@ class ConfigurationReaderTest {
         assertEquals(1, userGroupsConfiguration.getUserGroups().size());
         UserGroup userGroup = userGroupsConfiguration.getUserGroups().get(0);
         assertEquals(new Long(10), userGroup.getAmountOfMembers());
-        assertEquals(new BigDecimal(3.14).doubleValue(), userGroup.getMinBudget().doubleValue(), 0.01);
-        assertEquals(new BigDecimal(754.43).doubleValue(), userGroup.getMaxBudget().doubleValue(), 0.01);
-        assertEquals(new Long(2), userGroup.getMaxNumberOfConcurrentJobsPerUser());
-        assertEquals(new Long(10), userGroup.getMaxUtilizedCoresPerUser());
+        assertEquals(new BigDecimal(3.14).doubleValue(), userGroup.getBudget().doubleValue(), 0.01);
         assertEquals(new Double(0.5), userGroup.getJobDistributionLambda());
         assertEquals(new Double(0.5), userGroup.getRequestSizeDistributionLambda());
     }
@@ -87,7 +83,6 @@ class ConfigurationReaderTest {
         ConstraintResource constraintResources = queueProperties.getConstraintResources().get(0);
 
         assertEquals("NODE_S", constraintResources.getNodeType());
-        assertEquals(new Long(1L), constraintResources.getAmount());
         assertEquals(new Long(4L), constraintResources.getAmountOfCores());
     }
 
@@ -103,12 +98,12 @@ class ConfigurationReaderTest {
         assertEquals(new Long(45L), jobType.getMinExecutionTime());
         assertEquals(new Long(120L), jobType.getMaxExecutionTime());
         assertEquals("SmallJob", jobType.getName());
-        assertEquals(new Double(0.5), jobType.getProbabilityOfJob(), 0.01);
+        assertEquals(new Double(1), jobType.getProbabilityOfJob(), 0.01);
         assertEquals(1, jobType.getTuples().size());
         JobTypeTuple jobTypeTuple = jobType.getTuples().get(0);
         assertEquals("NODE_S", jobTypeTuple.getNodeType());
         assertEquals(new Double(0.7), jobTypeTuple.getProbabilityOfOccurrence(), 0.01);
-        assertEquals(new Long(3), jobTypeTuple.getMaximumAmountOfNodes());
+        assertEquals(new Long(3), jobTypeTuple.getMaximumAmountOfCores());
     }
 
     private void assertSystemResources(SystemResources systemResources) {

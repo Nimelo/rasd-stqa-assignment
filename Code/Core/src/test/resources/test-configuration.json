@@ -2,8 +2,7 @@
   "rngSeed" : 1,
   "machineOperationalCost" : 400.01,
   "simulationTime" : {
-    "begin" : "2016-11-17",
-    "end" : "2016-11-30"
+    "numberOfWeeks" : 1
   },
   "systemResources" : {
     "nodes" : [
@@ -26,7 +25,7 @@
           {
             "nodeType" : "NODE_S",
             "probabilityOfOccurrence" : 0.7,
-            "maximumAmountOfNodes" : 3
+            "maximumAmountOfCores" : 3
           }
         ]
       }
@@ -36,7 +35,7 @@
     "queues" : [
       {
         "name" : "FastQueue",
-        "description" : "Queue for very fast jobs.",
+        "maxNumberOfConcurrentJobsPerUser" : 2,
         "maximumExecutionTime" : 60,
         "priceFactor" : 1.0,
         "reservedResources" : [
@@ -48,7 +47,6 @@
         "constraintResources" : [
           {
             "nodeType" : "NODE_S",
-            "amount" : 1,
             "amountOfCores" : 4
           }
         ],
@@ -71,10 +69,7 @@
     "userGroups" : [
       {
         "amountOfMembers" : 10,
-        "minBudget" : 3.14,
-        "maxBudget" : 754.43,
-        "maxNumberOfConcurrentJobsPerUser" : 2,
-        "maxUtilizedCoresPerUser" : 10,
+        "budget" : 3.14,
         "jobDistributionLambda" : 0.5,
         "requestSizeDistributionLambda" : 0.5
       }

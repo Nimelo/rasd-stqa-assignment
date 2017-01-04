@@ -117,12 +117,9 @@ public class ConfigurationValidator {
             UserGroup userGroup = userGroups.get(i);
 
             BasicValidator.shouldBeGreaterThan(0L, userGroup.getAmountOfMembers(), currentContext + "amountOfMembers");
-            BasicValidator.shouldBeGreaterThan(new BigDecimal(0L), userGroup.getMinBudget(), currentContext + "minBudget");
-            BasicValidator.shouldNotBeNull(userGroup.getMaxBudget(), currentContext + "maxBudget");
-            if (userGroup.getMaxBudget().compareTo(userGroup.getMinBudget()) != 0)
-                BasicValidator.shouldBeGreaterThan(userGroup.getMinBudget(), userGroup.getMaxBudget(), currentContext + "maxBudget");
-
-            //TODO Should last two fields be implemented? TBD
+            BasicValidator.shouldBeGreaterThan(new BigDecimal(0L), userGroup.getBudget(), currentContext + "budget");
+            BasicValidator.shouldNotBeNull(userGroup.getJobDistributionLambda(), currentContext + "jobDistributionLambda");
+            BasicValidator.shouldNotBeNull(userGroup.getRequestSizeDistributionLambda(), currentContext + "requestSizeDistribution");
         }
     }
 
@@ -140,11 +137,11 @@ public class ConfigurationValidator {
             BasicValidator.shouldBeGreaterThan(0D, queueProperties.getPriceFactor(), currentContext + "priceFactor");
             this.validateReservedResources(queueProperties.getReservedResources(), currentContext + "reservedResources");
             this.validateConstraintResources(queueProperties.getConstraintResources(), currentContext + "constraintResources");
-
-            BasicValidator.shouldBeInRange(1L, 24L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.begin.hours");
-            BasicValidator.shouldBeInRange(0L, 60L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.begin.minutes");
-            BasicValidator.shouldBeInRange(1L, 24L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.end.hours");
-            BasicValidator.shouldBeInRange(0L, 60L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.end.minutes");
+            BasicValidator.shouldBeGreaterThan(0L, queueProperties.getMaxNumberOfConcurrentJobsPerUser(), currentContext + "maxNumberOfConcurrentJobsPerUser");
+            BasicValidator.shouldBeInRange(0L, 23L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.begin.hours");
+            BasicValidator.shouldBeInRange(0L, 59L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.begin.minutes");
+            BasicValidator.shouldBeInRange(0L, 23L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.end.hours");
+            BasicValidator.shouldBeInRange(0L, 59L, queueProperties.getAvailabilityTime().getBegin().getHours(), currentContext + "availabilityTime.end.minutes");
         }
     }
 
@@ -155,7 +152,6 @@ public class ConfigurationValidator {
             String currentContext = String.format("%s.[%d]", context, i);
             ConstraintResource constraintResource = constraintResources.get(i);
             BasicValidator.shouldNotBeNull(constraintResource.getNodeType(), currentContext + ".nodeType");
-            BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, constraintResource.getAmount(), currentContext + ".amount");
             BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, constraintResource.getAmountOfCores(), currentContext + ".amountOfCores");
         }
     }
@@ -194,9 +190,7 @@ public class ConfigurationValidator {
 
     public void validateSimulationTime(SimulationTime simulationTime) throws ValidationException {
         String context = "simulationTime.";
-        BasicValidator.shouldNotBeNull(simulationTime.getBegin(), context + "begin");
-        BasicValidator.shouldNotBeNull(simulationTime.getEnd(), context + "end");
-        BasicValidator.shouldBeTrue(simulationTime.getEnd().after(simulationTime.getBegin()), "End of simulation should be after beginning.");
+        BasicValidator.shouldBeGreaterThan(0L, simulationTime.getNumberOfWeeks(), context + "numberOfWeeks");
     }
 
     public void validateJobTypesConfiguration(JobTypesConfiguration jobTypesConfiguration) throws ValidationException {
@@ -220,7 +214,7 @@ public class ConfigurationValidator {
                 JobTypeTuple jobTypeTuple = jobTypeTuples.get(j);
                 BasicValidator.shouldNotBeNull(jobTypeTuple.getNodeType(), ctx + "getNodeType");
                 BasicValidator.shouldBeInRange(0.0, 1.0, jobTypeTuple.getProbabilityOfOccurrence(), ctx + "getProbabilityOfOccurrence");
-                BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, jobTypeTuple.getMaximumAmountOfNodes(), ctx + "getMaximumAmountOfNodes");
+                BasicValidator.shouldBeInRange(0L, Long.MAX_VALUE, jobTypeTuple.getMaximumAmountOfCores(), ctx + "getMaximumAmountOfCores");
             }
         }
         BasicValidator.shouldBeUnique(jobTypes.stream().map(x -> x.getName()).collect(Collectors.toList()), "Name of jobs should be unique.");
