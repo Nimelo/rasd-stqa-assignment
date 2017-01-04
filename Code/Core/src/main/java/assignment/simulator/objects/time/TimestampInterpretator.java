@@ -1,5 +1,7 @@
 package assignment.simulator.objects.time;
 
+import assignment.configurations.simulation.objects.ShiftTime;
+
 import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +33,18 @@ public class TimestampInterpretator {
         this.beginDayOfWeek = getDayOfWeekFromDate(begin);
     }
 
+    public Long getAmountOfTicks() {
+        return totalEndSeconds - totalBeginSeconds;
+    }
+
+    public Long getBeginTick() {
+        ShiftTime shiftTime = new ShiftTime();
+        shiftTime.setDayOfWeek(getDayOfWeekFromDate(begin));
+        shiftTime.setMinutes(0L);
+        shiftTime.setHours(0L);
+        return getTickByShiftTime(shiftTime);
+    }
+
     public static DayOfWeek getDayOfWeekFromDate(Date date) {
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
@@ -59,4 +73,11 @@ public class TimestampInterpretator {
         return ((weekTick - dayOfWeek * DAY) - hours * HOUR) / MINUTE;
     }
 
+    public Long getTickByShiftTime(ShiftTime time) {
+        DayOfWeek dayOfWeek = time.getDayOfWeek();
+        Long hours = time.getHours();
+        Long minutes = time.getMinutes();
+
+        return dayOfWeek.getValue() * DAY + hours * HOUR + minutes * MINUTE;
+    }
 }

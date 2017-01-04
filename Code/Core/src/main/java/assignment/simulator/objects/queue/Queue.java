@@ -16,21 +16,37 @@ public class Queue {
     private JobArea waitingArea;
     private JobArea executionArea;
     private HardwareResourcesManager hardwareResourcesManager;
-    private TimestampInterpretator timestampInterpretator;
+
+    private Long beginWorkTick;
+    private Long endWorkTick;
+
     //Budgetanalytics xDDDDDD kurwa smieszne
 
-    public Queue(String name, JobArea waitingArea, JobArea executionArea, HardwareResourcesManager hardwareResourcesManager) {
+    public Queue(String name, JobArea waitingArea, JobArea executionArea, HardwareResourcesManager hardwareResourcesManager, Long beginWorkTick, Long endWorkTick) {
         this.name = name;
         this.waitingArea = waitingArea;
         this.executionArea = executionArea;
         this.hardwareResourcesManager = hardwareResourcesManager;
+        this.beginWorkTick = beginWorkTick;
+        this.endWorkTick = endWorkTick;
     }
 
     public void iteration(Timestamp timestamp) {
-        if ()
-        switchAreas(timestamp);
-        swipeExecutedJobs(timestamp);
+        if (isInWorkingTime(timestamp)) {
+            switchAreas(timestamp);
+            swipeExecutedJobs(timestamp);
+        }
+        //TODO: should i remove jo bs from execution area?
     }
+
+    private boolean isInWorkingTime(Timestamp timestamp) {
+        Long tick = timestamp.getTick();
+        if(tick >= beginWorkTick && tick <= endWorkTick) {
+            return true;
+        }
+        return false;
+    }
+
     public void submitJob(Job job, Timestamp timestamp) {
         job.getJobTimestamps().setWaitingAreaEnterTime(timestamp);
         waitingArea.getJobs().add(job);

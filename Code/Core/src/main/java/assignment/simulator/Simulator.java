@@ -31,10 +31,12 @@ public class Simulator {
         this.jobToQueueMatcher = jobToQueueMatcher;
     }
 
-    public void run(Timestamp from, Timestamp to) throws JobToQueueMatchingException {
-        Long currentTick = 0L;
-        while(currentTick < to.getTick()) {
+    public void run(Timestamp from, Long tickCount) throws JobToQueueMatchingException {
+        Long currentTick = from.getTick();
+        Long amountOfTicks = 0L;
+        while(amountOfTicks < tickCount) {
             doIteration(new Timestamp(currentTick++));
+            amountOfTicks++;
         }
     }
 
