@@ -5,12 +5,16 @@ import assignment.simulator.generation.JobSpawner;
 import assignment.simulator.matchers.JobToQueueMatcher;
 import assignment.simulator.matchers.exceptions.JobToQueueMatchingException;
 import assignment.simulator.objects.Job;
+import assignment.simulator.objects.JobTimestamps;
 import assignment.simulator.objects.User;
 import assignment.simulator.objects.queue.Queue;
 import assignment.simulator.objects.time.Timestamp;
+import assignment.simulator.reporting.Report;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mateusz Gasior on 03-Jan-17.
@@ -34,13 +38,45 @@ public class Simulator {
         this.budgetAnalytics = budgetAnalytics;
     }
 
-    public void run(Timestamp from, Long tickCount) throws JobToQueueMatchingException {
+    public Report run(Timestamp from, Long tickCount) throws JobToQueueMatchingException {
         Long currentTick = from.getTick();
         Long amountOfTicks = 0L;
         while(amountOfTicks < tickCount) {
             doIteration(new Timestamp(currentTick++));
             amountOfTicks++;
         }
+
+        return doReport(tickCount);
+    }
+
+    private Report doReport(Long tickCount) {
+        Report report = new Report();
+        Map<String, Long> throughput = queues.stream().collect(Collectors.toMap(Queue::getName, Queue::getJobExecuted));
+        report.setThroughput(throughput);
+
+        long sum = jobs.stream().mapToLong(x -> {
+            JobTimestamps jobTimestamps = x.getJobTimestamps();
+            long l = jobTimestamps.getExecutionAreaQuitTime().getTick() - jobTimestamps.getSpawnTime().getTick();
+            return l;
+        }).sum();
+        report.setActualNumberOfMachineHoursConsumedBYUserJobs(sum);
+
+        BigDecimal all = new BigDecimal(0);
+        for (Job job : jobs) {
+            all = all.add(budgetAnalytics.calculatePrice(job, job.getQueueName()));
+        }
+        report.setResultingPricePaidByUsers(all);
+
+        double turnAround = jobs.stream().mapToLong(x -> {
+            JobTimestamps jobTimestamps = x.getJobTimestamps();
+            long placeCompletion = jobTimestamps.getExecutionAreaQuitTime().getTick() - jobTimestamps.getWaitingAreaEnterTime().getTick();
+            long runtime = jobTimestamps.getExecutionAreaQuitTime().getTick() - jobTimestamps.getExecutionAreaEnterTime().getTick();
+
+            return placeCompletion / runtime;
+        }).average().getAsDouble();
+        report.setTurnAround((long) turnAround);
+
+        return report;
     }
 
     private void doIteration(Timestamp timestamp) throws JobToQueueMatchingException {
@@ -52,6 +88,7 @@ public class Simulator {
                 BigDecimal price = budgetAnalytics.calculatePrice(job, queueName);
 
                 if (user.getBudget().subtract(price).compareTo(new BigDecimal(0)) >= 0) {
+                    job.setQueueName(queueName);
                     jobs.add(job);
                     submitToQueue(queueName, job, timestamp);
                 }

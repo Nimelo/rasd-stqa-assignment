@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Queue {
     private String name;
+    private Long jobExecuted;
     private JobArea waitingArea;
     private JobArea executionArea;
     private HardwareResourcesManager hardwareResourcesManager;
@@ -33,6 +34,7 @@ public class Queue {
         this.endWorkTick = endWorkTick;
         this.maxExecutionTime = maxExecutionTime;
         this.budgetAnalytics = budgetAnalytics;
+        this.jobExecuted = 0L;
     }
 
     public void iteration(Timestamp timestamp) {
@@ -55,7 +57,7 @@ public class Queue {
 
     private boolean isInWorkingTime(Timestamp timestamp) {
         Long tick = timestamp.getTick() % TimestampInterpretator.WEEK;
-        if(tick >= beginWorkTick && tick <= endWorkTick) {
+        if (tick >= beginWorkTick && tick <= endWorkTick) {
             return true;
         }
         return false;
@@ -72,7 +74,7 @@ public class Queue {
         while (iterator.hasNext()) {
             Job job = iterator.next();
             if (hardwareResourcesManager.tryAllocateResources(job.getRequestedResourceList())) {
-                job.getJobTimestamps().setExecutionAreaQuitTime(timestamp);
+                job.getJobTimestamps().setWaitingAreaQuitTime(timestamp);
                 job.getJobTimestamps().setExecutionAreaEnterTime(timestamp);
                 iterator.remove();
                 executionArea.getJobs().add(job);
@@ -85,7 +87,7 @@ public class Queue {
 
     public void swipeExecutedJobs(Timestamp timestamp) {
         Iterator<Job> iterator = executionArea.getJobs().iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Job job = iterator.next();
             Long expectedEndTimeTick = job.getJobTimestamps().getExecutionAreaEnterTime().getTick() + job.getExecutionTime();
             if (timestamp.getTick() >= expectedEndTimeTick) {
@@ -93,11 +95,16 @@ public class Queue {
                 job.getJobTimestamps().setExecutionAreaQuitTime(timestamp);
                 iterator.remove();
                 budgetAnalytics.decreseBudget(job, this.name);
+                jobExecuted++;
             }
         }
     }
 
     public String getName() {
         return name;
+    }
+
+    public Long getJobExecuted() {
+        return jobExecuted;
     }
 }

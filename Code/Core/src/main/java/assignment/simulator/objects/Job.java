@@ -11,6 +11,7 @@ public class Job {
     private Long executionTime;
     private List<RequestedResource> requestedResourceList;
     private JobTimestamps jobTimestamps;
+    private String queueName;
 
     public Job(Long id, Long userId, Long executionTime, List<RequestedResource> requestedResourceList, JobTimestamps jobTimestamps) {
         this.id = id;
@@ -38,5 +39,13 @@ public class Job {
 
     public JobTimestamps getJobTimestamps() {
         return jobTimestamps;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
+    public String getQueueName() {
+        return queueName;
     }
 }

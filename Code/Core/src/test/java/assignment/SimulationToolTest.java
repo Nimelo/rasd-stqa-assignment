@@ -15,6 +15,7 @@ import assignment.simulator.objects.User;
 import assignment.simulator.objects.queue.Queue;
 import assignment.simulator.objects.time.Timestamp;
 import assignment.simulator.objects.time.TimestampInterpretator;
+import assignment.simulator.reporting.Report;
 import assignment.validators.ValidationException;
 import assignment.validators.configurations.simulation.ConfigurationValidator;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created by Mateusz Gasior on 04-Jan-17.
  */
 class SimulationToolTest {
-    private final String TEST_CONFIGURATION_NAME = "test-configuration.json";
+    private final String TEST_CONFIGURATION_NAME = "test-simulation.json";
     private static ConfigurationReader configurationReader;
 
     @BeforeAll
@@ -68,7 +69,7 @@ class SimulationToolTest {
 
         Timestamp from = new Timestamp(timestampInterpretator.getBeginTick());
         Long tickCount = timestampInterpretator.getAmountOfTicks();
-        simulator.run(from, tickCount);
+        Report report = simulator.run(from, tickCount);
 
     }
 }
