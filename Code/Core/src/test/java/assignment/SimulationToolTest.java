@@ -17,20 +17,36 @@ import assignment.simulator.objects.time.Timestamp;
 import assignment.simulator.objects.time.TimestampInterpretator;
 import assignment.validators.ValidationException;
 import assignment.validators.configurations.simulation.ConfigurationValidator;
-import com.google.gson.Gson;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Created by Mateusz Gasior on 02-Jan-17.
+ * Created by Mateusz Gasior on 04-Jan-17.
  */
-public class SimulationTool {
-    public static void main(String[] args) throws FileNotFoundException, ValidationException, JobToQueueMatchingException {
-        ConfigurationReader configurationReader = new ConfigurationReader();
-        Configuration configuration = configurationReader.readFromPath(args[0]);
+class SimulationToolTest {
+    private final String TEST_CONFIGURATION_NAME = "test-configuration.json";
+    private static ConfigurationReader configurationReader;
+
+    @BeforeAll
+    static void setUp() {
+        configurationReader = new ConfigurationReader();
+    }
+    @Test
+    void fullTest() throws ValidationException, JobToQueueMatchingException, IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        String testConfigurationFilePath = classLoader.getResource(TEST_CONFIGURATION_NAME).getPath();
+
+        String json = new String(Files.readAllBytes(Paths.get(testConfigurationFilePath.substring(1))));
+
+        Configuration configuration = configurationReader.readFromJson(json);
         ConfigurationValidator configurationValidator = new ConfigurationValidator();
         configurationValidator.validate(configuration);
 
@@ -53,5 +69,6 @@ public class SimulationTool {
         Timestamp from = new Timestamp(timestampInterpretator.getBeginTick());
         Long tickCount = timestampInterpretator.getAmountOfTicks();
         simulator.run(from, tickCount);
+
     }
 }

@@ -1,8 +1,7 @@
 package assignment.simulator;
 
+import assignment.simulator.budget.BudgetAnalytics;
 import assignment.simulator.generation.JobSpawner;
-import assignment.simulator.generation.UserSpawner;
-import assignment.simulator.generation.randomization.RNGMechanism;
 import assignment.simulator.matchers.JobToQueueMatcher;
 import assignment.simulator.matchers.exceptions.JobToQueueMatchingException;
 import assignment.simulator.objects.Job;
@@ -10,6 +9,7 @@ import assignment.simulator.objects.User;
 import assignment.simulator.objects.queue.Queue;
 import assignment.simulator.objects.time.Timestamp;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,12 +23,15 @@ public class Simulator {
     private JobSpawner jobSpawner;
     private JobToQueueMatcher jobToQueueMatcher;
 
-    public Simulator(List<Queue> queues, List<User> users, List<Job> jobs, JobSpawner jobSpawner, JobToQueueMatcher jobToQueueMatcher) {
+    private BudgetAnalytics budgetAnalytics;
+
+    public Simulator(List<Queue> queues, List<User> users, List<Job> jobs, JobSpawner jobSpawner, JobToQueueMatcher jobToQueueMatcher, BudgetAnalytics budgetAnalytics) {
         this.queues = queues;
         this.users = users;
         this.jobs = jobs;
         this.jobSpawner = jobSpawner;
         this.jobToQueueMatcher = jobToQueueMatcher;
+        this.budgetAnalytics = budgetAnalytics;
     }
 
     public void run(Timestamp from, Long tickCount) throws JobToQueueMatchingException {
@@ -42,11 +45,16 @@ public class Simulator {
 
     private void doIteration(Timestamp timestamp) throws JobToQueueMatchingException {
         for (User user : users) {
-            if(canSpawnJob(user, timestamp)) {
+            if(canSpawnNextJob(user, timestamp)) {
                 Job job = jobSpawner.spawnJobForUser(user, timestamp);
-                jobs.add(job);
                 String queueName = jobToQueueMatcher.match(job);
-                submitToQueue(queueName, job, timestamp);
+
+                BigDecimal price = budgetAnalytics.calculatePrice(job, queueName);
+
+                if (user.getBudget().subtract(price).compareTo(new BigDecimal(0)) >= 0) {
+                    jobs.add(job);
+                    submitToQueue(queueName, job, timestamp);
+                }
             }
         }
 
@@ -64,7 +72,7 @@ public class Simulator {
 
     }
 
-    private boolean canSpawnJob(User user, Timestamp timestamp) {
+    private boolean canSpawnNextJob(User user, Timestamp timestamp) {
         Timestamp nextJobSubmission = user.getNextJobSubmission();
         if (nextJobSubmission == null || nextJobSubmission.getTick() < timestamp.getTick()) {
             return true;

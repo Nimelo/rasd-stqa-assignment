@@ -9,19 +9,20 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by Mateusz Gasior on 03-Jan-17.
  */
 public class RNGMechanism {
+    private Random random;
     public RNGMechanism(Long seed) {
-        ThreadLocalRandom.current().setSeed(seed);
+        random = new Random(seed);
     }
 
     public Double generateFromRange(Double min, Double max) {
-        double generatedValue = ThreadLocalRandom.current().nextDouble(min, max);
+        double generatedValue = (random.nextDouble() % (max - min + 1)) + min;
         return generatedValue;
     }
 
     public <T> T pickItemByItsProbability (Map<T, Double> itemsProbability) {
         Iterator<Map.Entry<T, Double>> iterator = itemsProbability.entrySet().iterator();
 
-        double randomValue = ThreadLocalRandom.current().nextDouble();
+        double randomValue = random.nextDouble();
         double cumulativeProbability = 0.0;
 
         while(iterator.hasNext()) {
@@ -37,7 +38,7 @@ public class RNGMechanism {
     }
 
     public Long generateFromRange(Long min, Long max) {
-        Long generatedValue = ThreadLocalRandom.current().nextLong(min, max);
+        Long generatedValue = (random.nextLong() % (max - min + 1)) + min;
         return generatedValue;
     }
 }

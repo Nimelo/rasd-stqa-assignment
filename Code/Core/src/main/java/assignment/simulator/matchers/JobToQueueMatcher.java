@@ -46,7 +46,7 @@ public class JobToQueueMatcher {
     private boolean checkSingleResourceConstraint(RequestedResource requestedResource, List<ConstraintResource> constraintResources) {
         for (ConstraintResource constraintResource : constraintResources) {
             if (requestedResource.getNodeType().equals(constraintResource.getNodeType())) {
-                return constraintResource.getAmountOfCores() <= requestedResource.getAmountOfCores();
+                return requestedResource.getAmountOfCores() <= constraintResource.getAmountOfCores();
             }
         }
         return false;
