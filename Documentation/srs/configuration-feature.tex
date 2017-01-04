@@ -53,23 +53,31 @@
 		\label{fn:configuration-feature:job-types}
 		\term{DESC}
 		{
-			User should be able to configure job types in a system, which are related to the resources. Each job type should contain list of tuples with following parameters:
+			User should be able to configure job types in a system, which are related to the resources. Single job entry should contains:
 			\begin{itemize}
-				\item Type of \gls{computing node} (related to type of \ref{fn:configuration-feature:system-resources});
-				\item Probability of occurrence;
-				\item Maximum amount of nodes of this type;
-				\item Minimum and maximum execution time.
+				\item name of job type;
+				\item min and max execution time (in seconds);
+				\item probability of a job type;
+				\item
+				{
+					list of tuples:
+					\begin{itemize}
+						\item type of node;
+						\item probability of occurrence;
+						\item maximum amount of cores.
+					\end{itemize}
+				}
 			\end{itemize}
-			Additionally each of mentioned before tuples should contain a field \emph{Probability}, which for all the job types sum of their probability should exceed $1$.
+			Sum of all probabilities of job types should be equal to $1.0$;
 		}
-		\term{RAT}{In order to allow repeat simulation.}
+		\term{RAT}{In order to specify job types in simulation.}
 	\end{functional}
 
 	\begin{functional}{Simulation Time}{High}{None}
 		\label{fn:configuration-feature:simulation-time}
 		\term{DESC}
 		{
-			Application should provide functionality to specify the simulation time (beginning and end). 
+			Application should provide functionality to specify the simulation time. Simulation time is a positive number representing weeks. 
 		}
 		\term{RAT}{In order to configure simulation time for simulation.}
 	\end{functional}
@@ -80,9 +88,10 @@
 		{
 			User should be able to specify the amount of a particular \gls{computing node} in a system with following parameters:
 			\begin{itemize}
-				\item Type of node;
-				\item Amount of cores;
-				\item Pricing of node in time units.
+				\item type of node;
+				\item amount of nodes;
+				\item amount of cores;
+				\item pricing for use of a single core through one second.
 			\end{itemize}
 		}
 		\term{RAT}{In order to configure nodes in a simulation.}
@@ -92,7 +101,7 @@
 		\label{fn:configuration-feature:machine-opertional-cost-per-unit-time}
 		\term{DESC}
 		{
-			Application should provide functionality to specify the \gls{MOC}. 
+			Application should provide functionality to specify the \gls{MOC}. This time is for an hour of simulation.
 		}
 		\term{RAT}{In order to configure \gls{MOC} for simulation.}
 	\end{functional}
@@ -103,12 +112,35 @@
 		{
 			Application should provide functionality to manage properties of a queue in a system:
 			\begin{itemize}
-				\item type and description;
-				\item maximum job execution time;
-				\item working time (availability time);
-				\item price factor;
-				\item constraint on a requested hardware resources (amount nodes with processors of which type);
-				\item amount of reserved hardware resources (nodes of which type).
+				\item name;
+				\item maximum number of concurrent jobs per user;
+				\item maximum execution time;
+				\item price factor for queue;
+				\item
+				{
+					list of reserved resources:
+					\begin{itemize}
+						\item node type;
+						\item amount of nodes
+					\end{itemize}
+				}
+				\item
+				{
+					list of constraints:
+					\begin{itemize}
+						\item node type;
+						\item amount of cores
+					\end{itemize}
+				}
+				\item 
+				{
+					availability time of beginning and end:
+					\begin{itemize}
+						\item day of week;
+						\item hours;
+						\item minutes
+					\end{itemize}
+				}
 			\end{itemize} 
 		}
 		\term{RAT}{In order to configure queues for simulation.}
@@ -121,22 +153,14 @@
 			User should be able to manage properties of a user groups in a system:
 			\begin{itemize}
 				\item amount of members;
-				\item budget range;
-				\item maximum number of concurrent jobs per user;
-				\item maximum total number of cores simultaneously utilized by user.
+				\item budget;
+				\item lambda for job exponential probability distribution;
+				\item lambda for request size exponential probability distribution;
+				\item job distribution factor;
+				\item request size distribution factor
 			\end{itemize} 
 		}
 		\term{RAT}{In order to configure user groups for simulation.}
-	\end{functional}
-
-	\begin{functional}{Job Distribution}{Medium}{None}
-		\label{fn:configuration-feature:job-distribution}
-		\term{DESC}
-		{
-			User should be able to parametrize a exponential probability distribution of a jobs and size requests.
-			Those parameters should be placed inside user group configuration for each entry. 
-		}
-		\term{RAT}{In order to configure job distribution.}
 	\end{functional}
 
 	% Validation
@@ -145,7 +169,7 @@
 		\label{fn:configuration-feature:valid-rng-seed}
 		\term{DESC}
 		{
-			Configuration file should contain valid \gls{RNG} seed.
+			Configuration file should contain \gls{RNG} seed.
 		}
 		\term{RAT}{In order to valid \gls{RNG} seed.}
 	\end{functional}
@@ -154,7 +178,7 @@
 		\label{fn:configuration-feature:valid-job-types}
 		\term{DESC}
 		{
-			Sum of probability for job types should be equal $1$. Type of \gls{computing node} should match existing types of nodes in a system. Probability of occurrence should positive. Maximum amount of nodes of this type should be positive. At least one type of job should be specified in a system. Also range of the execution time should be indicated, by two positive values, where upper boundary is greater then lower one.
+			Sum of probability for job types should be equal to $1$. Type of \gls{computing node} should match existing types of nodes in a system. Probability of occurrence should be positive. Maximum amount of nodes of this type should be positive. At least one type of job should be specified in a system. Also range of the execution time should be indicated, by two positive values, where upper boundary is greater then lower one.
 		}
 		\term{RAT}{In order to allow repeat simulation.}
 	\end{functional}
@@ -163,7 +187,7 @@
 		\label{fn:configuration-feature:validate-simulation-time}
 		\term{DESC}
 		{
-			The simulation time (beginning and end) should be a positive value related to the dates. 
+			The simulation time -- number of weeks should be a positive value.
 		}
 		\term{RAT}{In order to validate simulation time for simulation.}
 	\end{functional}
@@ -172,7 +196,7 @@
 		\label{fn:configuration-feature:valid-nodes}
 		\term{DESC}
 		{
-			Configuration file should contain a valid resource configuration with distinguished \gls{computing node}s. At least once node should be provided. Type of node should be unique, amount of cores integer greater than zero and pricing ratio should greater than zero.  
+			Configuration file should contain a valid resource configuration with distinguished \gls{computing node}s. At least once node should be provided. Type of node should be unique, amount of cores -- integer greater than zero and pricing ratio should greater than zero, amount of nodes also should be specified as positive integer.  
 		}
 		\term{RAT}{In order to valid system resources.}
 	\end{functional}
@@ -191,8 +215,7 @@
 		\term{DESC}
 		{
 			Configuration file should contain a valid configuration of a queues. At least one queue should be configured.
-			Type of queue must be unique. Maximum job execution time, price factor and reservation ratio should a positive number.
-			Working time should be a two valued variable specifying time range. Constraint of requested should contains a list which should contain a list of nodes with specified positive amount of cores and type of node. In case of reserved nodes each of entry should contain unique name of existing in system node types and positive amount of those nodes.
+			Type of queue must be unique. Maximum job execution time and price factor should be positive, respectively as integer and double variable. All type of nodes should match existing nodes in a system. Amount of reserved nodes and amount of constrained cores should be positive integer values. Availability time should contain two fields begin and end, everyone of them should contain day of a week, which should be written as a string with capital letters. Hours should be specified as numbers from $0$ to $23$. Minutes similarly with $0$ and $59$.
 		}
 		\term{RAT}{In order to valid queues.}
 	\end{functional}
@@ -201,23 +224,13 @@
 		\label{fn:configuration-feature:valid-user-groups}
 		\term{DESC}
 		{
-			Configuration file should contain a valid configuration of user groups. At least one user group should be configured. Amount of members, values of budget range, maximum number of concurrent jobs, maximum resources and maximum total number of utilized cores should be positive value.
+			Configuration file should contain a valid configuration of user groups. At least one user group should be configured. Amount of members, value of budget should be positive values. Lambda parameter for job distribution and request size distribution should exist as well as factors of job distribution and request size. 
 		}
 		\term{RAT}{In order to valid user groups.}
 	\end{functional}
 
-	\begin{functional}{Validate Job Distribution}{Very High}{\ref{fn:configuration-feature:job-distribution}}
-		\label{fn:configuration-feature:valid-job-distribution}
-		\term{DESC}
-		{
-			Configuration file should contain a valid parameters of exponential probability distribution.	
-		}
-		\term{RAT}{In order to valid exponential probability distribution.}
-	\end{functional}
-
 	\begin{functional}{Valid Configuration}{Very High}
 		{
-			\ref{fn:configuration-feature:valid-job-distribution},
 			\ref{fn:configuration-feature:valid-moc},
 			\ref{fn:configuration-feature:valid-nodes},
 			\ref{fn:configuration-feature:valid-queues},
