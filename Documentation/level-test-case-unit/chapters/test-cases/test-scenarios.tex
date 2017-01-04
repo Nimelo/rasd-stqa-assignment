@@ -1,18 +1,423 @@
 \chapter{Test Scenarios} \label{chp:test-scenarios}
-	\begin{testcase}{Passing Configuration Path Test}{Very High}{None}
-		{
-			\textbf{FN-1.1}
-		}
-		\term{Objective}{To check if configuration file will load using given path.}
-		\term{Inputs}{Configuration file.}
-		\term{Steps}
-		{
-			\begin{enumerate}
-				\item Create configuration file
-				\item Load configuration file using \emph{-configuration} parameter with the path
-				\item Run simulation tool.
-			\end{enumerate}
-		}
-		\term{Output}{Program should notice configuration within given path.}
-	\end{testcase}
+\begin{testcase}{\emph{ShiftTime} week tick test}{High}{None}
+	{
+		\textbf{FN-2.6}, \textbf{FN-3.3}
+	}
+	\term{Objective}{Transform \emph{ShiftTime} date to ticks.}
+	\term{Inputs}{Arbitrary \emph{ShiftTime}}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up \emph{ShiftTime}
+			\item Check if week tick method returned expected value calculated using $DayOfWeek * seconds\_in\_day + Hours * seconds\_in\_hour + Minutes * seconds\_in\_minute$.
+		\end{enumerate}
+	}
+	\term{Output}{Class should return correct value of ticks.}
+\end{testcase}
+
+\begin{testcase}{\emph{ConfigurationReader} read from \emph{JSON}}{Very High}{None}
+	{
+		\textbf{FN-1.1}, \emph{Configuration Feature}
+	}
+	\term{Objective}{To check if configuration will load correctly from \emph{JSON}.}
+	\term{Inputs}{Configuration in form of \emph{JSON}.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Setup input \emph{JSON}
+			\item Read input with reader
+			\item Validate each  in outputted \emph{Configuration} if matches the input
+		\end{enumerate}
+	}
+	\term{Output}{Program should read all the fields correctly.}
+\end{testcase}
 	
+\begin{testcase}{\emph{ConfigurationReader} read from file}{Very High}{None}
+	{
+		\textbf{FN-1.1}, \emph{Configuration Feature}
+	}
+	\term{Objective}{To check if configuration will load correctly from file.}
+	\term{Inputs}{Configuration in form of file.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Setup input \emph{JSON}
+			\item Read input with reader
+			\item Validate each  in outputted \emph{Configuration} if matches the input
+		\end{enumerate}
+	}
+	\term{Output}{Program should read all the fields correctly.}
+\end{testcase}
+	
+\begin{testcase}{\emph{PriceCalculator} price for resource}{High}{None}
+	{
+		\emph{Simulation Feature}
+	}
+	\term{Objective}{To calculate price for single resources.}
+	\term{Inputs}{List of nodes in a system.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Prepare resources to consumption (valid in terms of nodes in a system)
+			\item Calculate price using \emph{PriceCalculator}
+			\item Check if calculated price is equal to $price * amountOfCores * amountOfTime$
+		\end{enumerate}
+	}
+	\term{Output}{\emph{PriceCalculator} should calculate price correctly.}
+\end{testcase}
+
+\begin{testcase}{\emph{PriceCalculator} price for job}{High}{None}
+	{
+		\emph{Simulation Feature}
+	}
+	\term{Objective}{To calculate price for a job.}
+	\term{Inputs}{List of nodes in a system.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Prepare job to consumption (valid in terms of nodes in a system)
+			\item Calculate price using \emph{PriceCalculator}
+			\item Check if calculated price is equal to sum of $price * amountOfCores * amountOfTime$ per single resource for all resources in a job
+		\end{enumerate}
+	}
+	\term{Output}{\emph{PriceCalculator} should calculate price correctly.}
+\end{testcase}
+
+
+\begin{testcase}{\emph{ExponentialProbabilityDistribution} get random value}{Medium}{None}
+	{
+		\textbf{FN-3.4}
+	}
+	\term{Objective}{To generate random values with exponential probability distribution.}
+	\term{Inputs}{$\lambda$ parameter.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set $\lambda$
+			\item Get next random value based on given $x$
+			\item Check if the random value is equal to the predicted (calculated) one
+		\end{enumerate}
+	}
+	\term{Output}{Values should be the same.}
+\end{testcase}
+
+\begin{testcase}{\emph{JobSpawner} spawn job for user}{High}{None}
+	{
+		\textbf{FN-2.2}
+	}
+	\term{Objective}{To spawn a job for a user}
+	\term{Inputs}{List of job types.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Create a user with given values
+			\item Spawn a job for a user
+			\item Check if all the fields of a job match the criteria of job types.
+		\end{enumerate}
+	}
+	\term{Output}{Job with met job types criteria.}
+\end{testcase}
+
+\begin{testcase}{\emph{JobSpawner} generate requested resources}{High}{None}
+	{
+		\textbf{FN-2.2}
+	}
+	\term{Objective}{To generate requested resources}
+	\term{Inputs}{Job type and user.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up job type and user
+			\item Spawn requested resources based on given job type and user
+			\item Check if all the fields of a requested resources match the criteria of job types.
+		\end{enumerate}
+	}
+	\term{Output}{Requested resources.}
+\end{testcase}
+
+\begin{testcase}{\emph{QueueSpawner} spawn queues}{Very High}{None}
+	{
+		\emph{Simulation Feature}
+	}
+	\term{Objective}{To spawn queues.}
+	\term{Inputs}{List of users, nodes and configuration of queues.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up list of users, nodes and configuration of queues
+			\item Spawn queues
+			\item Check if spawned queues match the configuration of queues
+		\end{enumerate}
+	}
+	\term{Output}{Queues configured by given configuration.}
+\end{testcase}
+
+\begin{testcase}{\emph{QueueSpawner} create hardware resource manager}{High}{None}
+	{
+		\emph{Simulation}
+	}
+	\term{Objective}{To create correct hardware resource manager for queue.}
+	\term{Inputs}{List of reserved resources and nodes in a system.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up list of reserved resources and nodes in a system
+			\item Create hardware resource manager
+			\item Check if spawned object contain proper resources and if resources are not in use.
+		\end{enumerate}
+	}
+	\term{Output}{Configured hardware resource manager.}
+\end{testcase}
+
+\begin{testcase}{\emph{RNGMechanism} generateFromRange}{High}{None}
+	{
+		\emph{Simulation Feature}
+	}
+	\term{Objective}{To get random value within range.}
+	\term{Inputs}{Min and max boundaries.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up boundaries and mechanism with a seed
+			\item Generate random value within range
+			\item Check if random value is within range.
+		\end{enumerate}
+	}
+	\term{Output}{Generated random value, which is within given range.}
+\end{testcase}
+
+\begin{testcase}{\emph{UserSpawner} spawn user}{High}{None}
+	{
+		\emph{Simulation}
+	}
+	\term{Objective}{To spawn user.}
+	\term{Inputs}{User group.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up user group
+			\item Spawn user
+			\item Check if user match with parameters in given user group
+		\end{enumerate}
+	}
+	\term{Output}{User belonging to a group.}
+\end{testcase}
+
+\begin{testcase}{\emph{UserSpawner} spawn users}{High}{None}
+	{
+		\emph{Simulation}
+	}
+	\term{Objective}{To spawn user.}
+	\term{Inputs}{User group.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up user group
+			\item Spawn users
+			\item Check if each user match with parameters in given user group
+		\end{enumerate}
+	}
+	\term{Output}{List of users belonging to a group.}
+\end{testcase}
+
+
+\begin{testcase}{\emph{JobToQueueMatcher} match}{Very High}{None}
+	{
+		\textbf{FN-3.1}
+	}
+	\term{Objective}{To match given job with queues.}
+	\term{Inputs}{List of queues, given job.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up queues and job
+			\item Match job
+			\item Check if matched queue can meet the requirements of a job
+		\end{enumerate}
+	}
+	\term{Output}{Queue that was chosen for a given job.}
+\end{testcase}
+
+
+\begin{testcase}{\emph{JobToQueueMatcher} check single resource constraint}{Very High}{None}
+	{
+		\textbf{FN-3.1}, \textbf{FN-3.2}
+	}
+	\term{Objective}{To check if requested resources meets queues constraints.}
+	\term{Inputs}{List of requested resources, list of queue constraints.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up requested resources and queue's constraints
+			\item Check 
+			\item Check whether condition should be met within given parameters
+		\end{enumerate}
+	}
+	\term{Output}{True or false depending on given parameters.}
+\end{testcase}
+
+
+\begin{testcase}{\emph{HardwareResourceManager} perform generic allocation action}{Very High}{None}
+	{
+		\textbf{FN-3.2}
+	}
+	\term{Objective}{To perform action related to allocation and deallocation of resources.}
+	\term{Inputs}{Hardware resource manager with available resources, list of requested resources.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up hardware resource manager and requested resources.
+			\item
+			{
+				Perform one of the following actions: 
+				\begin{itemize}
+					\item tryAllocate -- allocates resources only if can should return true if can otherwise false;
+					\item allocateResource -- should allocate resource;
+					\item deallocateResource -- should deallocate resource;
+					\item allocateResources -- should allocate list of resources;
+					\item deallocateResources -- should deallocate resources;
+					\item checkIfCanAllocate -- return true if it is possible to allocate resources; otherwise false
+				\end{itemize}
+			} 
+			\item Check whether condition should be met within given parameters
+		\end{enumerate}
+	}
+	\term{Output}{Depends on action.}
+\end{testcase}
+
+\begin{testcase}{\emph{Queue} iteration}{Very High}{None}
+	{
+		\textbf{FN-3.3}, \textbf{FN-3.5}
+	}
+	\term{Objective}{To check if single iteration of queue correctly implements algorithms.}
+	\term{Inputs}{Queue and jobs.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up queue and jobs
+			\item Perform iteration for given time stamp
+			\item Check if jobs were correctly moved between areas and lists inside queue.
+		\end{enumerate}
+	}
+	\term{Output}{Jobs should change their status and timestamps.}
+\end{testcase}
+
+\begin{testcase}{\emph{Queue} switch area}{Very High}{None}
+	{
+		\textbf{FN-3.3}, \textbf{FN-3.5}
+	}
+	\term{Objective}{To check if jobs can start their execution and if constraints are managed.}
+	\term{Inputs}{Queue and jobs.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up queue and jobs
+			\item Perform switch area with given time stamp
+			\item Check if jobs were correctly moved to execution area.
+		\end{enumerate}
+	}
+	\term{Output}{Jobs should change their status and timestamps. Some of them should start their execution.}
+\end{testcase}
+
+
+\begin{testcase}{\emph{Queue} swap executed jobs}{Very High}{None}
+	{
+		\textbf{FN-3.3}, \textbf{FN-3.5}
+	}
+	\term{Objective}{To remove executed jobs from execution area.}
+	\term{Inputs}{Queue and jobs in execution area.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set up queue and jobs
+			\item Perform swiping of executed jobs with given time stamp
+			\item Check if jobs were correctly moved from execution area.
+		\end{enumerate}
+	}
+	\term{Output}{Jobs should change their status and timestamps.}
+\end{testcase}
+
+
+\begin{testcase}{\emph{Simulator} run}{Very High}{None}
+	{
+		\emph{Overall Features}
+	}
+	\term{Objective}{To check if flow of data in simulation does not cause exceptions.}
+	\term{Inputs}{Simulation configured by correct configuration file.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set simulator
+			\item Start simulation
+			\item Observe any anomalies and threw exceptions
+		\end{enumerate}
+	}
+	\term{Output}{Simulator should perform well producing report without any anomalies.}
+\end{testcase}
+
+\begin{testcase}{\emph{BasicValidator} validate generic action}{Very High}{None}
+	{
+		\emph{Configuration Feature}
+	}
+	\term{Objective}{To check if object are valid.}
+	\term{Inputs}{Objects to be tested.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set objects
+			\item
+			{
+				Execute one of following actions, which self-explains your selfs:
+				\begin{itemize}
+					\item shouldBeTrue;
+					\item shouldBeEqual;
+					\item shouldBeNotNull;
+					\item shouldBeInRange;
+					\item shouldBeUnique;
+					\item shouldBeOneOf;
+					\item shouldBeGreaterThan;
+					\item ShouldBeInRangeBoundaryless;
+					\item shouldContainElements
+				\end{itemize}
+			}
+			\item If any of criteria are not met than exception should be thrown. 
+		\end{enumerate}
+	}
+	\term{Output}{Exception with messenger and context should be thrown if validator detected incorrect values.}
+\end{testcase}
+
+\begin{testcase}{\emph{ConfigurationValidator} validate generic action}{Very High}{None}
+	{
+		\textbf{FN-2.15}, \emph{Configuration Feature}
+	}
+	\term{Objective}{To perform validation on \emph{Configuration}.}
+	\term{Inputs}{Configuration to validation.}
+	\term{Steps}
+	{
+		\begin{enumerate}
+			\item Set configuration
+			\item
+			{
+				Execute one of following validation actions specified with following requirements: \textbf{FN-2.12}, \textbf{FN-2.11}, \textbf{FN-2.13}, \textbf{FN-2.14}, \textbf{FN-2.10}, \textbf{FN-2.9}, \textbf{FN-2.8}.
+				\begin{itemize}
+					\item validate;
+					\item validateRNGSeed;
+					\item validateuserGroupsConfiguration;
+					\item validateSystemResources;
+					\item validateJobDistribution;
+					\item validateNodesInJobTypes;
+					\item validateReservedResources;
+					\item validateSimulationTime;
+					\item validateMachineOperationalCost;
+					\item validateReservationInQueues;
+					\item validateSingleNode;
+					\item validateNodesInQueue;
+					\item validateQueuesConfiguration;
+					\item validateJobTypesConfiguration
+				\end{itemize}
+			}
+			\item If any of criteria are not met than exception should be thrown. 
+		\end{enumerate}
+	}
+	\term{Output}{Exception with messenger and context should be thrown if validator detected incorrect values.}
+\end{testcase}
