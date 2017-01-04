@@ -17,7 +17,7 @@ class ShiftTimeTest {
         shiftTime.setMinutes(0L);
         shiftTime.setDayOfWeek(DayOfWeek.FRIDAY);
 
-        assertEquals(new Long(5 * 24 * 60 * 60 + 1 * 60 * 60), shiftTime.toWeekTick());
+        assertEquals(new Long(4 * 24 * 60 * 60 + 1 * 60 * 60), shiftTime.toWeekTick());
     }
 
 }

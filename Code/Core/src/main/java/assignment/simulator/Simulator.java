@@ -126,6 +126,7 @@ public class Simulator {
                     job.setCalculatedPrice(price);
                     job.setQueueName(queue.getQueueProperties().getName());
                     queue.submitJob(job, timestamp);
+                    user.setNextJobSubmission(job.getJobTimestamps().getSpawnTime());
                 }
             }
         }
