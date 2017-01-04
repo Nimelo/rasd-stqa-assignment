@@ -6,6 +6,7 @@ import assignment.configurations.simulation.objects.QueueProperties;
 import assignment.simulator.matchers.exceptions.JobToQueueMatchingException;
 import assignment.simulator.objects.Job;
 import assignment.simulator.objects.RequestedResource;
+import assignment.simulator.objects.queue.Queue;
 
 import java.util.List;
 
@@ -13,20 +14,21 @@ import java.util.List;
  * Created by Mateusz Gasior on 03-Jan-17.
  */
 public class JobToQueueMatcher {
-    private QueuesConfiguration queuesConfiguration;
+    private List<Queue> queues;
 
-    public JobToQueueMatcher(QueuesConfiguration queuesConfiguration) {
-        this.queuesConfiguration = queuesConfiguration;
+    public JobToQueueMatcher(List<Queue> queues) {
+        this.queues = queues;
     }
 
-    public String match(Job job) throws JobToQueueMatchingException {
+    public Queue match(Job job) throws JobToQueueMatchingException {
         Long executionTime = job.getExecutionTime();
         List<RequestedResource> requestedResourceList = job.getRequestedResourceList();
 
-        for (QueueProperties queueProperties : queuesConfiguration.getQueues()) {
+        for (Queue queue : queues) {
+            QueueProperties queueProperties = queue.getQueueProperties();
             if (executionTime <= queueProperties.getMaximumExecutionTime()) {
                 if (checkResourcesListConstraints(requestedResourceList, queueProperties.getConstraintResources())) {
-                    return queueProperties.getName();
+                    return queue;
                 }
             }
         }
@@ -43,7 +45,7 @@ public class JobToQueueMatcher {
         return true;
     }
 
-    private boolean checkSingleResourceConstraint(RequestedResource requestedResource, List<ConstraintResource> constraintResources) {
+    public boolean checkSingleResourceConstraint(RequestedResource requestedResource, List<ConstraintResource> constraintResources) {
         for (ConstraintResource constraintResource : constraintResources) {
             if (requestedResource.getNodeType().equals(constraintResource.getNodeType())) {
                 return requestedResource.getAmountOfCores() <= constraintResource.getAmountOfCores();

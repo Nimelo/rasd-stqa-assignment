@@ -34,4 +34,7 @@ public class ShiftTime{
         this.minutes = minutes;
     }
 
+    public Long toWeekTick() {
+        return dayOfWeek.getValue() * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60;
+    }
 }

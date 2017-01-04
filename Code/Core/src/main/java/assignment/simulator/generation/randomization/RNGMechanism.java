@@ -38,7 +38,7 @@ public class RNGMechanism {
     }
 
     public Long generateFromRange(Long min, Long max) {
-        Long generatedValue = (random.nextLong() % (max - min + 1)) + min;
+        Long generatedValue = ((long)random.nextDouble() % (max - min + 1)) + min;
         return generatedValue;
     }
 }

@@ -23,15 +23,6 @@ public class BudgetAnalytics {
         this.configuration = configuration;
     }
 
-    public void decreseBudget(Job job, String queueName) {
-        BigDecimal price = calculatePrice(job, queueName);
-        User user = users.stream()
-                .filter(x -> x.getId().equals(job.getUserId()))
-                .findFirst()
-                .get();
-        user.setBudget(user.getBudget().subtract(price));
-    }
-
     public BigDecimal calculatePrice(Job job, String queueName) {
         BigDecimal price = new BigDecimal(0);
         List<RequestedResource> requestedResourceList = job.getRequestedResourceList();

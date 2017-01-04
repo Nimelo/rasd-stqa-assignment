@@ -23,15 +23,10 @@ public class JobSpawner {
     private List<JobType> jobTypes;
     private RNGMechanism rngMechanism;
 
-    public JobSpawner(Long currentId, List<JobType> jobTypes, RNGMechanism rngMechanism) {
-        this.currentId = currentId;
-        this.jobTypes = jobTypes;
-        this.rngMechanism = rngMechanism;
-    }
-
     public JobSpawner(List<JobType> jobTypes, RNGMechanism rngMechanism) {
         this.jobTypes = jobTypes;
         this.rngMechanism = rngMechanism;
+        currentId = 0L;
     }
 
     public Job spawnJobForUser(User user, Timestamp timestamp) {
@@ -48,7 +43,7 @@ public class JobSpawner {
         Double spawnTick = exponentialProbabilityDistribution.get(Double.valueOf(timestamp.getTick()));
         Timestamp spawnTime = new Timestamp((long)(double)spawnTick);
 
-        Job job = new Job(currentId++, user.getId(), executionTime, requestedResourceList, new JobTimestamps(spawnTime));
+        Job job = new Job(currentId++, user.getId(), executionTime, requestedResourceList, spawnTime);
         return job;
     }
 
@@ -57,9 +52,8 @@ public class JobSpawner {
         ExponentialProbabilityDistribution exponentialProbabilityDistribution = new ExponentialProbabilityDistribution(user.getRequestSizeLambda());
 
         for (JobTypeTuple tuple : jobType.getTuples()) {
-            Long amountOfNodes = Math.max(exponentialProbabilityDistribution.get(timestamp.getTick()) % tuple.getMaximumAmountOfCores(), 1L);
             Long amountOfCores = Math.max(exponentialProbabilityDistribution.get(timestamp.getTick()) % tuple.getMaximumAmountOfCores(), 1L);
-            requestedResources.add(new RequestedResource(tuple.getNodeType(), amountOfNodes, amountOfCores));
+            requestedResources.add(new RequestedResource(tuple.getNodeType(), amountOfCores));
         }
 
         return requestedResources;

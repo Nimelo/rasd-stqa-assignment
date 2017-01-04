@@ -1,5 +1,6 @@
 package assignment.simulator.generation;
 
+import assignment.configurations.simulation.UserGroupsConfiguration;
 import assignment.configurations.simulation.objects.UserGroup;
 import assignment.simulator.generation.randomization.RNGMechanism;
 import assignment.simulator.objects.User;
@@ -15,12 +16,10 @@ import java.util.List;
 public class UserSpawner {
     private Long currentId;
     private List<UserGroup> userGroups;
-    private RNGMechanism rngMechanism;
 
-    public UserSpawner(Long currentId, List<UserGroup> userGroups, RNGMechanism rngMechanism) {
-        this.currentId = currentId;
+    public UserSpawner(List<UserGroup> userGroups) {
         this.userGroups = userGroups;
-        this.rngMechanism = rngMechanism;
+        currentId = 0L;
     }
 
     public List<User> spawn() {
@@ -33,7 +32,7 @@ public class UserSpawner {
         return users;
     }
 
-    public Collection<? extends User> spawnUsersForGroup(UserGroup userGroup) {
+    public List<User> spawnUsersForGroup(UserGroup userGroup) {
         List<User> users = new ArrayList<>();
 
         for (int i = 0; i < userGroup.getAmountOfMembers(); i++) {
@@ -45,8 +44,8 @@ public class UserSpawner {
 
     public User spawnUser(UserGroup userGroup) {
         Long id = currentId++;
-        //BigDecimal budget = new BigDecimal(rngMechanism.generateFromRange(userGroup.getMinBudget().doubleValue(), userGroup.getMaxBudget().doubleValue()));
-        User user = new User(id, null, userGroup.getJobDistributionLambda(), userGroup.getRequestSizeDistributionLambda(), null);
+        BigDecimal budget = userGroup.getBudget().add(new BigDecimal(0L));
+        User user = new User(id, budget, userGroup.getJobDistributionLambda(), userGroup.getRequestSizeDistributionLambda(), null);
         return user;
     }
 

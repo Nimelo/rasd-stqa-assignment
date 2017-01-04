@@ -5,21 +5,15 @@ package assignment.simulator.objects;
  */
 public class RequestedResource {
     private String nodeType;
-    private Long amountOfNodes;
     private Long amountOfCores;
 
-    public RequestedResource(String nodeType, Long amountOfNodes, Long amountOfCores) {
+    public RequestedResource(String nodeType, Long amountOfCores) {
         this.nodeType = nodeType;
-        this.amountOfNodes = amountOfNodes;
         this.amountOfCores = amountOfCores;
     }
 
     public String getNodeType() {
         return nodeType;
-    }
-
-    public Long getAmountOfNodes() {
-        return amountOfNodes;
     }
 
     public Long getAmountOfCores() {

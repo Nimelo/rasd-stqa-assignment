@@ -1,17 +1,12 @@
 package assignment.simulator.generation;
 
-import assignment.configurations.simulation.QueuesConfiguration;
-import assignment.configurations.simulation.SystemResources;
 import assignment.configurations.simulation.objects.Node;
 import assignment.configurations.simulation.objects.QueueProperties;
 import assignment.configurations.simulation.objects.ReservedResource;
-import assignment.simulator.budget.BudgetAnalytics;
-import assignment.simulator.objects.Job;
 import assignment.simulator.objects.NodeResourceEntry;
+import assignment.simulator.objects.User;
 import assignment.simulator.objects.queue.HardwareResourcesManager;
 import assignment.simulator.objects.queue.Queue;
-import assignment.simulator.objects.queue.areas.JobArea;
-import assignment.simulator.objects.time.TimestampInterpretator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,30 +17,23 @@ import java.util.Map;
  * Created by Mateusz Gasior on 03-Jan-17.
  */
 public class QueueSpawner {
-    private QueuesConfiguration queuesConfiguration;
-    private SystemResources systemResources;
-    private TimestampInterpretator timestampInterpretator;
-    private BudgetAnalytics budgetAnalytics;
+    private List<QueueProperties> queueProperties;
+    private List<Node> nodes;
+    private List<User> users;
 
-    public QueueSpawner(QueuesConfiguration queuesConfiguration, SystemResources systemResources, TimestampInterpretator timestampInterpretator, BudgetAnalytics budgetAnalytics) {
-        this.queuesConfiguration = queuesConfiguration;
-        this.systemResources = systemResources;
-        this.timestampInterpretator = timestampInterpretator;
-        this.budgetAnalytics = budgetAnalytics;
+    public QueueSpawner(List<QueueProperties> queueProperties, List<Node> nodes, List<User> users) {
+        this.queueProperties = queueProperties;
+        this.nodes = nodes;
+        this.users = users;
     }
 
     public List<Queue> spawnQueues() {
         List<Queue> queues = new ArrayList<>();
 
-        for (QueueProperties queueProperties : queuesConfiguration.getQueues()) {
+        for (QueueProperties queueProperties : queueProperties) {
             String name = queueProperties.getName();
-            JobArea waitingArea = new JobArea(new ArrayList<Job>());
-            JobArea executionArea = new JobArea(new ArrayList<Job>());
             HardwareResourcesManager hardwareResourcesManager = createHardwareResourceManagerBasedOn(queueProperties.getReservedResources());
-            Long beginTick = timestampInterpretator.getTickByShiftTime(queueProperties.getAvailabilityTime().getBegin());
-            Long endTick = timestampInterpretator.getTickByShiftTime(queueProperties.getAvailabilityTime().getEnd());
-
-            queues.add(new Queue(name, waitingArea, executionArea, hardwareResourcesManager, beginTick, endTick, queueProperties.getMaximumExecutionTime(), budgetAnalytics));
+            queues.add(new Queue(queueProperties, users, hardwareResourcesManager));
         }
 
         return queues;
@@ -68,6 +56,6 @@ public class QueueSpawner {
     }
 
     public Long findCoresPerNode(String name) {
-        return systemResources.getNodes().stream().filter(x -> x.getName().equals(name)).map(x -> x.getAmountOfCores()).findFirst().get();
+        return nodes.stream().filter(x -> x.getName().equals(name)).map(x -> x.getAmountOfCores()).findFirst().get();
     }
 }

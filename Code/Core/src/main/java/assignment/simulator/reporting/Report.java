@@ -8,11 +8,11 @@ import java.util.Map;
  */
 public class Report {
     private Map<String, Long> throughput;
-    private Long actualNumberOfMachineHoursConsumedBYUserJobs;
+    private Long actualNumberOfMachineHoursConsumedByUserJobs;
     private BigDecimal resultingPricePaidByUsers;
     private Map<String, Long> averageWaitTimeInEachQueue;
-    private Long turnAround;
-    private Long economicBalance;
+    private Long turnAroundTimeRatio;
+    private BigDecimal economicBalanceOfTheCentre;
 
     public Map<String, Long> getThroughput() {
         return throughput;
@@ -22,12 +22,12 @@ public class Report {
         this.throughput = throughput;
     }
 
-    public Long getActualNumberOfMachineHoursConsumedBYUserJobs() {
-        return actualNumberOfMachineHoursConsumedBYUserJobs;
+    public Long getActualNumberOfMachineHoursConsumedByUserJobs() {
+        return actualNumberOfMachineHoursConsumedByUserJobs;
     }
 
-    public void setActualNumberOfMachineHoursConsumedBYUserJobs(Long actualNumberOfMachineHoursConsumedBYUserJobs) {
-        this.actualNumberOfMachineHoursConsumedBYUserJobs = actualNumberOfMachineHoursConsumedBYUserJobs;
+    public void setActualNumberOfMachineHoursConsumedByUserJobs(Long actualNumberOfMachineHoursConsumedByUserJobs) {
+        this.actualNumberOfMachineHoursConsumedByUserJobs = actualNumberOfMachineHoursConsumedByUserJobs;
     }
 
     public BigDecimal getResultingPricePaidByUsers() {
@@ -46,19 +46,19 @@ public class Report {
         this.averageWaitTimeInEachQueue = averageWaitTimeInEachQueue;
     }
 
-    public Long getTurnAround() {
-        return turnAround;
+    public Long getTurnAroundTimeRatio() {
+        return turnAroundTimeRatio;
     }
 
-    public void setTurnAround(Long turnAround) {
-        this.turnAround = turnAround;
+    public void setTurnAroundTimeRatio(Long turnAroundTimeRatio) {
+        this.turnAroundTimeRatio = turnAroundTimeRatio;
     }
 
-    public Long getEconomicBalance() {
-        return economicBalance;
+    public BigDecimal getEconomicBalanceOfTheCentre() {
+        return economicBalanceOfTheCentre;
     }
 
-    public void setEconomicBalance(Long economicBalance) {
-        this.economicBalance = economicBalance;
+    public void setEconomicBalanceOfTheCentre(BigDecimal economicBalanceOfTheCentre) {
+        this.economicBalanceOfTheCentre = economicBalanceOfTheCentre;
     }
 }

@@ -1,5 +1,8 @@
 package assignment.simulator.objects;
 
+import assignment.simulator.objects.time.Timestamp;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -7,22 +10,42 @@ import java.util.List;
  */
 public class Job {
     private Long id;
+    private JobStatus jobStatus;
     private Long userId;
     private Long executionTime;
     private List<RequestedResource> requestedResourceList;
     private JobTimestamps jobTimestamps;
     private String queueName;
+    private BigDecimal calculatedPrice;
 
-    public Job(Long id, Long userId, Long executionTime, List<RequestedResource> requestedResourceList, JobTimestamps jobTimestamps) {
+    public Job(Long id, Long userId, Long executionTime, List<RequestedResource> requestedResourceList, Timestamp spawnTime) {
         this.id = id;
+        this.jobStatus = jobStatus;
         this.userId = userId;
         this.executionTime = executionTime;
         this.requestedResourceList = requestedResourceList;
-        this.jobTimestamps = jobTimestamps;
+        this.jobTimestamps = new JobTimestamps(spawnTime);
+        jobStatus = JobStatus.SPAWNED;
+    }
+
+    public void setJobStatus(JobStatus jobStatus) {
+        this.jobStatus = jobStatus;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
+    public void setCalculatedPrice(BigDecimal calculatedPrice) {
+        this.calculatedPrice = calculatedPrice;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public JobStatus getJobStatus() {
+        return jobStatus;
     }
 
     public Long getUserId() {
@@ -41,11 +64,11 @@ public class Job {
         return jobTimestamps;
     }
 
-    public void setQueueName(String queueName) {
-        this.queueName = queueName;
-    }
-
     public String getQueueName() {
         return queueName;
+    }
+
+    public BigDecimal getCalculatedPrice() {
+        return calculatedPrice;
     }
 }

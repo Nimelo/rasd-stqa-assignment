@@ -1,40 +1,48 @@
 package assignment.simulator.objects.queue;
 
-import assignment.simulator.budget.BudgetAnalytics;
+import assignment.configurations.simulation.objects.QueueProperties;
 import assignment.simulator.objects.Job;
-import assignment.simulator.objects.queue.areas.JobArea;
+import assignment.simulator.objects.JobStatus;
+import assignment.simulator.objects.User;
 import assignment.simulator.objects.time.Timestamp;
 import assignment.simulator.objects.time.TimestampInterpretator;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Mateusz Gasior on 03-Jan-17.
  */
 public class Queue {
-    private String name;
-    private Long jobExecuted;
-    private JobArea waitingArea;
-    private JobArea executionArea;
-    private HardwareResourcesManager hardwareResourcesManager;
+    private QueueProperties queueProperties;
+    private List<Job> waitingArea;
+    private List<Job> executionArea;
+    private List<Job> executedJobs;
+    private Map<Long, UserJob> userJobAmountMap;
 
     private Long beginWorkTick;
     private Long endWorkTick;
-    private Long maxExecutionTime;
 
-    private BudgetAnalytics budgetAnalytics;
+    private HardwareResourcesManager hardwareResourcesManager;
 
-    public Queue(String name, JobArea waitingArea, JobArea executionArea, HardwareResourcesManager hardwareResourcesManager, Long beginWorkTick, Long endWorkTick, Long maxExecutionTime, BudgetAnalytics budgetAnalytics) {
-        this.name = name;
-        this.waitingArea = waitingArea;
-        this.executionArea = executionArea;
+    public Queue(QueueProperties queueProperties, List<User> users, HardwareResourcesManager hardwareResourcesManager) {
+        this.queueProperties = queueProperties;
+        this.waitingArea = new ArrayList<>();
+        this.executionArea = new ArrayList<>();
+        this.executedJobs = new ArrayList<>();
+        this.userJobAmountMap = new HashMap<>();
+
+        for (User user : users) {
+            userJobAmountMap.put(user.getId(), new UserJob(user, 0L));
+        }
+
+        this.beginWorkTick = this.queueProperties.getAvailabilityTime().getBegin().toWeekTick();
+        this.endWorkTick = this.queueProperties.getAvailabilityTime().getEnd().toWeekTick();
+
         this.hardwareResourcesManager = hardwareResourcesManager;
-        this.beginWorkTick = beginWorkTick;
-        this.endWorkTick = endWorkTick;
-        this.maxExecutionTime = maxExecutionTime;
-        this.budgetAnalytics = budgetAnalytics;
-        this.jobExecuted = 0L;
+    }
+
+    public QueueProperties getQueueProperties() {
+        return queueProperties;
     }
 
     public void iteration(Timestamp timestamp) {
@@ -44,18 +52,17 @@ public class Queue {
             }
             swipeExecutedJobs(timestamp);
         }
-        //TODO: should i remove jo bs from execution area?
     }
 
-    private boolean isCutOffTime(Timestamp timestamp) {
+    public boolean isCutOffTime(Timestamp timestamp) {
         Long tick = timestamp.getTick() % TimestampInterpretator.WEEK;
-        if (tick + maxExecutionTime > beginWorkTick) {
+        if (tick + queueProperties.getMaximumExecutionTime() > endWorkTick) {
             return true;
         }
         return false;
     }
 
-    private boolean isInWorkingTime(Timestamp timestamp) {
+    public boolean isInWorkingTime(Timestamp timestamp) {
         Long tick = timestamp.getTick() % TimestampInterpretator.WEEK;
         if (tick >= beginWorkTick && tick <= endWorkTick) {
             return true;
@@ -65,46 +72,61 @@ public class Queue {
 
     public void submitJob(Job job, Timestamp timestamp) {
         job.getJobTimestamps().setWaitingAreaEnterTime(timestamp);
-        waitingArea.getJobs().add(job);
+        job.setJobStatus(JobStatus.WAITING);
+        waitingArea.add(job);
     }
 
     public void switchAreas(Timestamp timestamp) {
-        List<Job> jobs = waitingArea.getJobs();
-        Iterator<Job> iterator = jobs.iterator();
+        Iterator<Job> iterator = waitingArea.iterator();
         while (iterator.hasNext()) {
             Job job = iterator.next();
-            if (hardwareResourcesManager.tryAllocateResources(job.getRequestedResourceList())) {
-                job.getJobTimestamps().setWaitingAreaQuitTime(timestamp);
-                job.getJobTimestamps().setExecutionAreaEnterTime(timestamp);
-                iterator.remove();
-                executionArea.getJobs().add(job);
-            } else {
-                //TODO: Put strategy here
-                break;
+            if (userJobAmountMap.get(job.getUserId()).getAmountOfExecutingJobs() < queueProperties.getMaxNumberOfConcurrentJobsPerUser()) {
+                if (hardwareResourcesManager.tryAllocateResources(job.getRequestedResourceList())) {
+                    job.getJobTimestamps().setWaitingAreaQuitTime(timestamp);
+                    job.setJobStatus(JobStatus.EXECUTING);
+                    job.getJobTimestamps().setExecutionAreaEnterTime(timestamp);
+                    iterator.remove();
+                    executionArea.add(job);
+                    this.userJobAmountMap.get(job.getUserId()).increaseAmountOfExecutingJobs();
+                } else {
+                    //TODO: Put strategy here
+                    break;
+                }
             }
         }
     }
 
+    public Map<Long, UserJob> getUserJobAmountMap() {
+        return userJobAmountMap;
+    }
+
     public void swipeExecutedJobs(Timestamp timestamp) {
-        Iterator<Job> iterator = executionArea.getJobs().iterator();
+        Iterator<Job> iterator = executionArea.iterator();
         while (iterator.hasNext()) {
             Job job = iterator.next();
             Long expectedEndTimeTick = job.getJobTimestamps().getExecutionAreaEnterTime().getTick() + job.getExecutionTime();
             if (timestamp.getTick() >= expectedEndTimeTick) {
                 hardwareResourcesManager.deallocateResources(job.getRequestedResourceList());
                 job.getJobTimestamps().setExecutionAreaQuitTime(timestamp);
+                job.setJobStatus(JobStatus.EXECUTED);
                 iterator.remove();
-                budgetAnalytics.decreseBudget(job, this.name);
-                jobExecuted++;
+                UserJob userJob = userJobAmountMap.get(job.getUserId());
+                userJob.decreaseAmountOfExecutingJobs();
+                userJob.getUser().decreaseBudget(job.getCalculatedPrice());
+                executedJobs.add(job);
             }
         }
     }
 
-    public String getName() {
-        return name;
+    public List<Job> getWaitingArea() {
+        return waitingArea;
     }
 
-    public Long getJobExecuted() {
-        return jobExecuted;
+    public List<Job> getExecutionArea() {
+        return executionArea;
+    }
+
+    public List<Job> getExecutedJobs() {
+        return executedJobs;
     }
 }

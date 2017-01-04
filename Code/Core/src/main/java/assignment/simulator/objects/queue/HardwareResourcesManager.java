@@ -18,7 +18,7 @@ public class HardwareResourcesManager {
 
     public boolean tryAllocateResources(List<RequestedResource> requestedResourceList) {
         for (RequestedResource requestedResource : requestedResourceList) {
-            if (checkIfCanAllocate(requestedResource)) {
+            if (!checkIfCanAllocate(requestedResource)) {
                 return false;
             }
         }

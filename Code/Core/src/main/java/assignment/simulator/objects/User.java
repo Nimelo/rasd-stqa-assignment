@@ -22,6 +22,10 @@ public class User {
         this.nextJobSubmission = nextJobSubmission;
     }
 
+    public void decreaseBudget(BigDecimal amount) {
+        this.budget = this.budget.subtract(amount);
+    }
+
     public Long getId() {
         return id;
     }
