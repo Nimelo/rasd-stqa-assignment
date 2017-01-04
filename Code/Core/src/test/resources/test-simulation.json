@@ -2,8 +2,7 @@
   "rngSeed" : 1,
   "machineOperationalCost" : 400.01,
   "simulationTime" : {
-    "begin" : "2016-11-17",
-    "end" : "2016-11-30"
+    "numberOfWeeks" : 1
   },
   "systemResources" : {
     "nodes" : [
@@ -11,7 +10,7 @@
         "name" : "NODE_S",
         "amount" : 8,
         "amountOfCores" : 32,
-        "price" : 12.4
+        "price" : 0.01
       }
     ]
   },
@@ -19,14 +18,14 @@
     "jobTypes" : [
       {
         "name" : "SmallJob",
-        "minExecutionTime" : 3600,
+        "minExecutionTime" : 1,
         "maxExecutionTime" : 3600,
         "probabilityOfJob" : 1.0,
         "tuples" : [
           {
             "nodeType" : "NODE_S",
             "probabilityOfOccurrence" : 0.7,
-            "maximumAmountOfNodes" : 1
+            "maximumAmountOfCores" : 2
           }
         ]
       }
@@ -36,32 +35,31 @@
     "queues" : [
       {
         "name" : "FastQueue",
-        "description" : "Queue for very fast jobs.",
-        "maximumExecutionTime" : 4000,
+        "maxNumberOfConcurrentJobsPerUser" : 2,
+        "maximumExecutionTime" : 7200,
         "priceFactor" : 1.0,
         "reservedResources" : [
           {
             "nodeType" : "NODE_S",
-            "amount" : 4
+            "amount" : 8
           }
         ],
         "constraintResources" : [
           {
             "nodeType" : "NODE_S",
-            "amount" : 1,
             "amountOfCores" : 4
           }
         ],
         "availabilityTime" : {
           "begin" : {
             "dayOfWeek" : "MONDAY",
-            "hours" : 7,
+            "hours" : 0,
             "minutes" : 0
           },
           "end" : {
-            "dayOfWeek" : "FRIDAY",
-            "hours" : 7,
-            "minutes" : 0
+            "dayOfWeek" : "SUNDAY",
+            "hours" : 23,
+            "minutes" : 59
           }
         }
       }
@@ -70,13 +68,12 @@
   "userGroupsConfiguration" : {
     "userGroups" : [
       {
-        "amountOfMembers" : 1,
-        "minBudget" : 100.0,
-        "maxBudget" : 100.0,
-        "maxNumberOfConcurrentJobsPerUser" : 2,
-        "maxUtilizedCoresPerUser" : 10,
+        "amountOfMembers" : 6,
+        "budget" : 100000000,
         "jobDistributionLambda" : 0.5,
-        "requestSizeDistributionLambda" : 0.5
+        "requestSizeDistributionLambda" : 0.5,
+        "jobDistributionFactor" : 1000000,
+        "requestSizeDistributionFactor" :  2
       }
     ]
   }

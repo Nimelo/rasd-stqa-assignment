@@ -5,7 +5,7 @@ import assignment.simulator.objects.Job;
 import assignment.simulator.objects.JobStatus;
 import assignment.simulator.objects.User;
 import assignment.simulator.objects.time.Timestamp;
-import assignment.simulator.objects.time.TimestampInterpretator;
+import assignment.simulator.objects.time.Time;
 
 import java.util.*;
 
@@ -55,7 +55,7 @@ public class Queue {
     }
 
     public boolean isCutOffTime(Timestamp timestamp) {
-        Long tick = timestamp.getTick() % TimestampInterpretator.WEEK;
+        Long tick = timestamp.getTick() % Time.WEEK;
         if (tick + queueProperties.getMaximumExecutionTime() > endWorkTick) {
             return true;
         }
@@ -63,7 +63,7 @@ public class Queue {
     }
 
     public boolean isInWorkingTime(Timestamp timestamp) {
-        Long tick = timestamp.getTick() % TimestampInterpretator.WEEK;
+        Long tick = timestamp.getTick() % Time.WEEK;
         if (tick >= beginWorkTick && tick <= endWorkTick) {
             return true;
         }
