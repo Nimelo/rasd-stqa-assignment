@@ -5,6 +5,7 @@ import assignment.configurations.simulation.SystemResources;
 import assignment.configurations.simulation.objects.Node;
 import assignment.configurations.simulation.objects.QueueProperties;
 import assignment.configurations.simulation.objects.ReservedResource;
+import assignment.simulator.budget.BudgetAnalytics;
 import assignment.simulator.objects.Job;
 import assignment.simulator.objects.NodeResourceEntry;
 import assignment.simulator.objects.queue.HardwareResourcesManager;
@@ -24,11 +25,13 @@ public class QueueSpawner {
     private QueuesConfiguration queuesConfiguration;
     private SystemResources systemResources;
     private TimestampInterpretator timestampInterpretator;
+    private BudgetAnalytics budgetAnalytics;
 
-    public QueueSpawner(QueuesConfiguration queuesConfiguration, SystemResources systemResources, TimestampInterpretator timestampInterpretator) {
+    public QueueSpawner(QueuesConfiguration queuesConfiguration, SystemResources systemResources, TimestampInterpretator timestampInterpretator, BudgetAnalytics budgetAnalytics) {
         this.queuesConfiguration = queuesConfiguration;
         this.systemResources = systemResources;
         this.timestampInterpretator = timestampInterpretator;
+        this.budgetAnalytics = budgetAnalytics;
     }
 
     public List<Queue> spawnQueues() {
@@ -42,7 +45,7 @@ public class QueueSpawner {
             Long beginTick = timestampInterpretator.getTickByShiftTime(queueProperties.getAvailabilityTime().getBegin());
             Long endTick = timestampInterpretator.getTickByShiftTime(queueProperties.getAvailabilityTime().getEnd());
 
-            queues.add(new Queue(name, waitingArea, executionArea, hardwareResourcesManager, beginTick, endTick));
+            queues.add(new Queue(name, waitingArea, executionArea, hardwareResourcesManager, beginTick, endTick, queueProperties.getMaximumExecutionTime(), budgetAnalytics));
         }
 
         return queues;

@@ -1,5 +1,6 @@
 package assignment.simulator.objects.queue;
 
+import assignment.simulator.budget.BudgetAnalytics;
 import assignment.simulator.objects.Job;
 import assignment.simulator.objects.queue.areas.JobArea;
 import assignment.simulator.objects.time.Timestamp;
@@ -19,28 +20,41 @@ public class Queue {
 
     private Long beginWorkTick;
     private Long endWorkTick;
+    private Long maxExecutionTime;
 
-    //Budgetanalytics xDDDDDD kurwa smieszne
+    private BudgetAnalytics budgetAnalytics;
 
-    public Queue(String name, JobArea waitingArea, JobArea executionArea, HardwareResourcesManager hardwareResourcesManager, Long beginWorkTick, Long endWorkTick) {
+    public Queue(String name, JobArea waitingArea, JobArea executionArea, HardwareResourcesManager hardwareResourcesManager, Long beginWorkTick, Long endWorkTick, Long maxExecutionTime, BudgetAnalytics budgetAnalytics) {
         this.name = name;
         this.waitingArea = waitingArea;
         this.executionArea = executionArea;
         this.hardwareResourcesManager = hardwareResourcesManager;
         this.beginWorkTick = beginWorkTick;
         this.endWorkTick = endWorkTick;
+        this.maxExecutionTime = maxExecutionTime;
+        this.budgetAnalytics = budgetAnalytics;
     }
 
     public void iteration(Timestamp timestamp) {
         if (isInWorkingTime(timestamp)) {
-            switchAreas(timestamp);
+            if (!isCutOffTime(timestamp)) {
+                switchAreas(timestamp);
+            }
             swipeExecutedJobs(timestamp);
         }
         //TODO: should i remove jo bs from execution area?
     }
 
+    private boolean isCutOffTime(Timestamp timestamp) {
+        Long tick = timestamp.getTick() % TimestampInterpretator.WEEK;
+        if (tick + maxExecutionTime > beginWorkTick) {
+            return true;
+        }
+        return false;
+    }
+
     private boolean isInWorkingTime(Timestamp timestamp) {
-        Long tick = timestamp.getTick();
+        Long tick = timestamp.getTick() % TimestampInterpretator.WEEK;
         if(tick >= beginWorkTick && tick <= endWorkTick) {
             return true;
         }
@@ -78,6 +92,7 @@ public class Queue {
                 hardwareResourcesManager.deallocateResources(job.getRequestedResourceList());
                 job.getJobTimestamps().setExecutionAreaQuitTime(timestamp);
                 iterator.remove();
+                budgetAnalytics.decreseBudget(job, this.name);
             }
         }
     }

@@ -3,6 +3,7 @@ package assignment;
 import assignment.configurations.simulation.Configuration;
 import assignment.io.readers.configurations.simulation.ConfigurationReader;
 import assignment.simulator.Simulator;
+import assignment.simulator.budget.BudgetAnalytics;
 import assignment.simulator.generation.JobSpawner;
 import assignment.simulator.generation.QueueSpawner;
 import assignment.simulator.generation.UserSpawner;
@@ -35,11 +36,14 @@ public class SimulationTool {
 
         RNGMechanism rngMechanism = new RNGMechanism(configuration.getRngSeed());
         TimestampInterpretator timestampInterpretator = new TimestampInterpretator(configuration.getSimulationTime().getBegin(), configuration.getSimulationTime().getEnd());
-        QueueSpawner queueSpawner = new QueueSpawner(configuration.getQueuesConfiguration(), configuration.getSystemResources(), timestampInterpretator);
-        UserSpawner userSpawner = new UserSpawner(0L, configuration.getUserGroupsConfiguration().getUserGroups(), rngMechanism);
 
-        List<Queue> queues  = queueSpawner.spawnQueues();
+        UserSpawner userSpawner = new UserSpawner(0L, configuration.getUserGroupsConfiguration().getUserGroups(), rngMechanism);
         List<User> users = userSpawner.spawn();
+        BudgetAnalytics budgetAnalytics = new BudgetAnalytics(users, configuration);
+        QueueSpawner queueSpawner = new QueueSpawner(configuration.getQueuesConfiguration(), configuration.getSystemResources(), timestampInterpretator, budgetAnalytics);
+        
+        List<Queue> queues  = queueSpawner.spawnQueues();
+
         List<Job> jobs = new ArrayList<>();
         JobSpawner jobSpawner = new JobSpawner(0L, configuration.getJobTypesConfiguration().getJobTypes(), rngMechanism);
         JobToQueueMatcher jobToQueueMatcher = new JobToQueueMatcher(configuration.getQueuesConfiguration());

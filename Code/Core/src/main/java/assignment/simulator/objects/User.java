@@ -45,4 +45,8 @@ public class User {
     public void setNextJobSubmission(Timestamp nextJobSubmission) {
         this.nextJobSubmission = nextJobSubmission;
     }
+
+    public void setBudget(BigDecimal budget) {
+        this.budget = budget;
+    }
 }
