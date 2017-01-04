@@ -1,0 +1,80 @@
+{
+  "rngSeed" : 1,
+  "machineOperationalCost" : 400.01,
+  "simulationTime" : {
+    "numberOfWeeks" : 1
+  },
+  "systemResources" : {
+    "nodes" : [
+      {
+        "name" : "NODE_S",
+        "amount" : 8,
+        "amountOfCores" : 32,
+        "price" : 0.01
+      }
+    ]
+  },
+  "jobTypesConfiguration" : {
+    "jobTypes" : [
+      {
+        "name" : "SmallJob",
+        "minExecutionTime" : 1,
+        "maxExecutionTime" : 3600,
+        "probabilityOfJob" : 1.0,
+        "tuples" : [
+          {
+            "nodeType" : "NODE_S",
+            "probabilityOfOccurrence" : 0.7,
+            "maximumAmountOfCores" : 2
+          }
+        ]
+      }
+    ]
+  },
+  "queuesConfiguration" : {
+    "queues" : [
+      {
+        "name" : "FastQueue",
+        "maxNumberOfConcurrentJobsPerUser" : 2,
+        "maximumExecutionTime" : 7200,
+        "priceFactor" : 1.0,
+        "reservedResources" : [
+          {
+            "nodeType" : "NODE_S",
+            "amount" : 8
+          }
+        ],
+        "constraintResources" : [
+          {
+            "nodeType" : "NODE_S",
+            "amountOfCores" : 4
+          }
+        ],
+        "availabilityTime" : {
+          "begin" : {
+            "dayOfWeek" : "MONDAY",
+            "hours" : 0,
+            "minutes" : 0
+          },
+          "end" : {
+            "dayOfWeek" : "SUNDAY",
+            "hours" : 23,
+            "minutes" : 59
+          }
+        }
+      }
+    ]
+  },
+  "userGroupsConfiguration" : {
+    "userGroups" : [
+      {
+        "amountOfMembers" : 6,
+        "budget" : 100000000,
+        "jobDistributionLambda" : 0.5,
+        "requestSizeDistributionLambda" : 0.5,
+        "jobDistributionFactor" : 1000000,
+        "requestSizeDistributionFactor" :  2
+      }
+    ]
+  }
+}

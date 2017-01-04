@@ -1,7 +1,6 @@
 package assignment.simulator;
 
 import assignment.configurations.simulation.Configuration;
-import assignment.simulator.budget.BudgetAnalytics;
 import assignment.simulator.calculator.PriceCalculator;
 import assignment.simulator.generation.JobSpawner;
 import assignment.simulator.generation.QueueSpawner;
@@ -19,7 +18,6 @@ import assignment.simulator.reporting.Report;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
