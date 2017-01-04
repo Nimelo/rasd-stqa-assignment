@@ -1,1 +1,480 @@
 \chapter{Test Suits} \label{chp:test-suits}
+	\taskdescription{TS--ST}{ShiftTime test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{ShiftTime} class is responsible for storing information about day of a week, hours and minutes. On of the most important functionality is to return tick value (amount of seconds) from the beginning of the week up to the stored date.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen \emph{ShiftTime} date.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Fields of \emph{ShiftTime} class or related calculated value.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unexpected results may occur when tests will not pass. 
+		}
+	}
+
+	\taskdescription{TS--CR}{ConfigurationReader test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{ConfigurationReader} class is responsible for reading configuration from the file or chain of characters in \emph{JSON} format.
+		}
+		\taskdescfield{Method}
+		{
+			Try multiple configuration files to read and check if loaded fields are as expected.
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen configuration file.   
+		}
+		\taskdescfield{Outputs}
+		{
+			\emph{Configuration} class fulfilled with objects from configuration file.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			Set of configuration files.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unloaded values from configuration may be a cause of many unexpected results.
+		}
+	}
+
+	\taskdescription{TS--PC}{PriceCalculator test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{PriceCalculator} class is responsible calculating the cost of usage of supercomputer based on a requested resources and price factors.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen configuration of \gls{computing node}.
+		}
+		\taskdescfield{Outputs}
+		{
+			Price calculated base on the system configuration and given job.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Wrong calculations will affect budget and overall simulation process.
+		}
+	}
+
+	\taskdescription{TS--EPD}{ExponentialProbabilityDistribution test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{ExponentialProbabilityDistribution} class is responsible for generating random values based on exponential probability distribution.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			$\lambda$ parameter, which is a rate parameter.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Random generated values with exponential probability distribution.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unexpected results may occur when tests will not pass. 
+		}
+	}
+	
+	\taskdescription{TS--RNG--M}{RNGMechanism test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{RNGMechanism} class is responsible generating random values based on given \emph{seed}.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Seed for random number generator.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Random values generated based on given seed. Picked value from the set of objects based of its probabilities.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			If applying seed into random number generator won't produce repeatable results then all simulation for the same parameters will not be possible to repeat. 
+		}
+	}
+
+	\taskdescription{TS--JS}{JobSpawnerTest test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{JobSpawnerTest} class is responsible for generating jobs based on given job types and user.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen user and list of job types in a system.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Generated job based on input parameters. 
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Incorrectly spawned jobs will reflect the idea of job type.
+		}
+	}
+
+	\taskdescription{TS--QS}{QueueSpawner test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{QueueSpawner} class is responsible for generating queues based on given users, queues and system configurations.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen list of system resources, configuration of queues and list of users.
+		}
+		\taskdescfield{Outputs}
+		{
+			Queue, which should be generated based on inputs.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unexpected results may occur when tests will not pass. 
+		}
+	}
+
+	\taskdescription{TS--US}{UserSpawner test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{UserSpawner} class is responsible for generating queues based on given configuration of user groups.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen configuration of users.  
+		}
+		\taskdescfield{Outputs}
+		{
+			List of users.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Wrong amount of users or their properties may highly affect result of simulation.
+		}
+	}
+
+	\taskdescription{TS--JQM}{JobToQueueMatcher test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{JobToQueueMatcher} class is responsible for matching requested jobs with queues.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen and valid list of queues.  
+		}
+		\taskdescfield{Outputs}
+		{
+			Queue which matches the job requested resources in the best way. 
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Matching job to incorrect queue wastes a lot of system resources.
+		}
+	}
+
+	\taskdescription{TS--HRM}{HardwareResourcesManager test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{HardwareResourcesManager} class is responsible for storing information and managing resources inside queue. Allocation and deallocation are main duties of this class.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen list of nodes reflecting resources in the system.  
+		}
+		\taskdescfield{Outputs}
+		{
+			Resources should not be returned from \emph{HardwareResourcesManager}.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Incorrect managing of hardware may immobilize operation of queues.
+		}
+	}
+
+	\taskdescription{TS--QU}{Queue test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{Queue} class is responsible for performing multiple actions inside simulation. Each iteration of time moves jobs from waiting area to execution area and next remove them and mark as executed. Duties of mentioned class are also scheduling and taking care of working and cutoff time.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen queue configuration, list of users and hardware resource manager.  
+		}
+		\taskdescfield{Outputs}
+		{
+			Correctly performed actions and executed algorithms in each phase.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Queues are the most important part of simulation. Any bugs and errors related to them have critical impact on correctness of simulation.
+		}
+	}
+
+	\taskdescription{TS--CV}{ConfigurationValidator test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{ConfigurationValidator} class is responsible for validating all fields and relations between them in \emph{Configuration}.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen list of nodes that reflect resources in the system.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Validator should throw an exception whenever incorrectness occur in the configuration.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			Validator requires set of different configuration files.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unexpected results may occur when tests will not pass. 
+		}
+	}
+
+	\taskdescription{TS--ST}{ShiftTime test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{ShiftTime} class is responsible for storing information about day of a week, hours and minutes. On of the most important functionality is to return tick value (amount of seconds) from the beginning of the week up to the stored date.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen \emph{ShiftTime} date.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Fields of \emph{ShiftTime} class or related calculated value.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unexpected results may occur when test will not pass. 
+		}
+	}
+
+	\taskdescription{TS--ST}{ShiftTime test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{ShiftTime} class is responsible for storing information about day of a week, hours and minutes. On of the most important functionality is to return tick value (amount of seconds) from the beginning of the week up to the stored date.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen \emph{ShiftTime} date.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Fields of \emph{ShiftTime} class or related calculated value.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unexpected results may occur when test will not pass. 
+		}
+	}
+
+	\taskdescription{TS--ST}{ShiftTime test class}
+	{
+		\taskdescfield{Description}
+		{
+			\emph{ShiftTime} class is responsible for storing information about day of a week, hours and minutes. On of the most important functionality is to return tick value (amount of seconds) from the beginning of the week up to the stored date.
+		}
+		\taskdescfield{Method}
+		{
+			Perform set of tests related to this class. 
+		}
+		\taskdescfield{Inputs}
+		{
+			Arbitrary chosen \emph{ShiftTime} date.   
+		}
+		\taskdescfield{Outputs}
+		{
+			Fields of \emph{ShiftTime} class or related calculated value.
+		}
+		\taskdescfield{Schedule}
+		{
+			This task should be performed quickly after implementation of this class.
+		}
+		\taskdescfield{Resources}
+		{
+			No additional resources needed.
+		}
+		\taskdescfield{Risk(s) and assumptions}
+		{
+			Unexpected results may occur when test will not pass. 
+		}
+	}

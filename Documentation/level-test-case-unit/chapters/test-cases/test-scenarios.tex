@@ -1,15 +1,18 @@
 \chapter{Test Scenarios} \label{chp:test-scenarios}
-	\begin{testcase}{}{Medium}{None}
+	\begin{testcase}{Passing Configuration Path Test}{Very High}{None}
 		{
-			\textbf{}
+			\textbf{FN-1.1}
 		}
-		\term{Objective}{}
-		\term{Inputs}{None}
+		\term{Objective}{To check if configuration file will load using given path.}
+		\term{Inputs}{Configuration file.}
 		\term{Steps}
 		{
 			\begin{enumerate}
-				\item 
+				\item Create configuration file
+				\item Load configuration file using \emph{-configuration} parameter with the path
+				\item Run simulation tool.
 			\end{enumerate}
 		}
-		\term{Output}{}
+		\term{Output}{Program should notice configuration within given path.}
 	\end{testcase}
+	
