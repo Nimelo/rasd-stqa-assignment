@@ -108,7 +108,8 @@ public class Simulator {
                 }).average().getAsDouble();
         report.setTurnAroundTimeRatio((long)turnAroundTimeRatio);
 
-        BigDecimal economicBalanceOfCentre = new BigDecimal(configuration.getSimulationTime().getNumberOfWeeks() * 7 * 24).multiply(configuration.getMachineOperationalCost()).subtract(resultingPricePaidByTheUsers);
+        BigDecimal economicBalanceOfCentre = new BigDecimal(configuration.getSimulationTime().getNumberOfWeeks() * 7 * 24).multiply(configuration.getMachineOperationalCost());
+        economicBalanceOfCentre = resultingPricePaidByTheUsers.subtract(economicBalanceOfCentre);
         report.setEconomicBalanceOfTheCentre(economicBalanceOfCentre);
 
         return report;
