@@ -1,8 +1,50 @@
-\input{chapters/abstract.tex}	
-\input{chapters/introduction.tex}
-\input{chapters/documents.tex}
+\includepdf[pages=-]{pdf/srs.pdf}
+\includepdf[pages=-]{pdf/master-test-plan.pdf}
+\includepdf[pages=-]{pdf/level-test-design-system.pdf}
+\includepdf[pages=-]{pdf/level-test-design-unit.pdf}
+\includepdf[pages=-]{pdf/level-test-case-system.pdf}
+\includepdf[pages=-]{pdf/level-test-case-unit.pdf}
 
-%\bibliographystyle{plain}
-%\bibliography{bibliography.bib}
-%\nocite{*}
-%\input{chapters/appendices.tex}
+\appendix
+
+\chapter{Configuration File}
+	\lstinputlisting[caption=Example configuration file for simulator.]{others/test-simulation.json}
+\chapter{Test Results}
+	\lstinputlisting[caption=Result of test run.]{others/testResults.xml}
+\chapter{Test Coverage}
+	
+	\begin{table}[!htp]
+		\caption{Overall Coverage Summary}
+		\centering
+		\begin{tabular}{|l|l|l|l|}
+			\hline	
+			\textbf{Package}	&\textbf{Class, \%}	&\textbf{Method, \%}	&\textbf{Line, \%} \\ \hline
+			all classes	&95.1\% (39/ 41)	&93.1\% (244/ 262)&	91.3\% (738/ 808) \\ \hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[!htp]
+		\caption{Coverage Breakdown}
+		\centering
+		\begin{tabular}{|l|l|l|l|}
+			\hline	
+			\textbf{Package}	&\textbf{Class, \%}	&\textbf{Method, \%}	&\textbf{Line, \%} \\ \hline
+			assignment&	0\% (0/ 1)	&0\% (0/ 3)	&0\% (0/ 44) \\ \hline
+			assignment.configurations.simulation&	100\% (5/ 5)	&100\% (20/ 20)	&100\% (24/ 24) \\ \hline
+			assignment.configurations.simulation.objects	&100\% (10/ 10)	&97.5\% (79/ 81)	&96.6\% (112/ 116) \\ \hline
+			assignment.io.readers.configurations.simulation	&100\% (1/ 1)	&100\% (3/ 3)	&100\% (6/ 6) \\ \hline
+			assignment.simulator	&100\% (1/ 1)	&100\% (9/ 9)	&100\% (81/ 81) \\ \hline
+			assignment.simulator.calculator	&100\% (1/ 1)	&100\% (3/ 3)	&100\% (18/ 18) \\ \hline
+			assignment.simulator.generation	&100\% (3/ 3)	&100\% (11/ 11)	&100\% (61/ 61) \\ \hline
+			assignment.simulator.generation.distribution	&100\% (1/ 1)	&100\% (3/ 3)	&100\% (5/ 5) \\ \hline
+			assignment.simulator.generation.randomization	&100\% (1/ 1)	&100\% (6/ 6)	&90\% (18/ 20) \\ \hline
+			assignment.simulator.matchers	&100\% (1/ 1)	&100\% (4/ 4)	&81.8\% (18/ 22) \\ \hline
+			assignment.simulator.matchers.exceptions	&0\% (0/ 1)	&0\% (0/ 1)	&0\% (0/ 1) \\ \hline
+			assignment.simulator.objects	&100\% (6/ 6)	&93.3\% (42/ 45)	&95.2\% (80/ 84) \\ \hline
+			assignment.simulator.objects.queue	&100\% (3/ 3)	&96.2\% (25/ 26)	&98.1\% (102/ 104) \\ \hline
+			assignment.simulator.objects.time	&100\% (2/ 2)	&75\% (3/ 4)	&90.9\% (10/ 11) \\ \hline
+			assignment.simulator.reporting	&100\% (1/ 1)	&53.8\% (7/ 13)	&68.4\% (13/ 19) \\ \hline
+			assignment.validators	&100\% (2/ 2)	&92.9\% (13/ 14)	&95.7\% (45/ 47) \\ \hline
+			assignment.validators.configurations.simulation	&100\% (1/ 1)&	100\% (16/ 16)&	100\% (145/ 145) \\ \hline
+		\end{tabular}
+	\end{table}
