@@ -16,13 +16,13 @@ The policy constraints are:
 The machine can be assumed to have a constant operational cost per hour. Users are modeled as producers of requests, with each user having a certain budget; each user will make requests up to his available budget. The distribution of user requests should provide examples of jobs in all categories. The number of users can be varied from one simulation run to the next, as well as their budget; there can be mixes of classes of small, medium, and big users. Each user will produce requests; the time between any two successive job requests and the size of the request (within the user class) shall be modeled by an exponential probability distribution, with parameters dependent on the class of user.
 
 The output from the simulation should include
-• The number of jobs processed in each queue (throughput) per week;
-• The actual number of machine-hours consumed by user jobs;
-• The resulting price paid by the users;
-• The average wait time in each queue;
-• The average turnaround time ratio, i.e. the time from placing the job request to completion of the job divided by the actual runtime of the job;
-• The economic balance of the centre, calculated by subtracting from the actual price the operating costs.
+- The number of jobs processed in each queue (throughput) per week;
+- The actual number of machine-hours consumed by user jobs;
+- The resulting price paid by the users;
+- The average wait time in each queue;
+- The average turnaround time ratio, i.e. the time from placing the job request to completion of the job divided by the actual runtime of the job;
+- The economic balance of the centre, calculated by subtracting from the actual price the operating costs.
 
 ### Who do I talk to? ###
 
-Mateusz Gasior [mateusz.p.gasior@cranfield.ac.uk](mateusz.p.gasior@cranfield.ac.uk)
+Mateusz Gasior mr.nimelo@gmail.com
